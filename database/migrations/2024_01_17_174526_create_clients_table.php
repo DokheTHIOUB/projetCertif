@@ -14,7 +14,8 @@ return new class extends Migration
     {
         Schema::create('clients', function (Blueprint $table) {
             $table->string('password');
-            $table->timestamps();
+            $table->timestamps(); 
+            $table->unsignedBigInteger('utilisateur_id');
         });
     }
 

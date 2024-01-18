@@ -13,36 +13,37 @@ class UtilisateurController extends Controller
 {
 
 
-    // public function registerDocteur( StoreUtilisateurRequest $request)
-    // {
-    //     try{
-    //         $user = new Docteur();
-    //         $user->nom = $request->nom;
-    //         $user->telephone = $request->telephone;
-    //         $user->nombre_annee_experience = $request->nombre_annee_experience;
-    //         $user->email = $request->email;
-    //         $user->articles_id = $request->articles_id;
-    //         $user->password = Hash::make($request->password);
+    public function registerDocteur( StoreUtilisateurRequest $request)
+    {
+        try{
+            $user = new Docteur();
+            $user->nom = $request->nom; 
+            $user->prenom = $request->prenom; 
+            $user->telephone = $request->telephone;
+            $user->nombre_annee_experience = $request->nombre_annee_experience;
+            $user->email = $request->email;
+            $user->articles_id = $request->articles_id;
+            $user->password = Hash::make($request->password);
 
-    //         if ($request->hasFile('photo_profil')) {
-    //             $file = $request->file('photo_profil');
-    //             $filename = time() . '_' . $file->getClientOriginalName();
-    //             $path = $file->storeAs('profil', $filename, 'public');
-    //             $user->photo_profil = $path;
-    //         }
+            if ($request->hasFile('photo_profil')) {
+                $file = $request->file('photo_profil');
+                $filename = time() . '_' . $file->getClientOriginalName();
+                $path = $file->storeAs('profil', $filename, 'public');
+                $user->photo_profil = $path;
+            }
             
-    //         $user->save();
-    //         return response()->json([
-    //             'status_code'=>200,
-    //             'status_message'=>'utilisateur ajouté avec succes',
-    //             'status_body'=>$user
-    //         ]);
+            $user->save();
+            return response()->json([
+                'status_code'=>200,
+                'status_message'=>'utilisateur ajouté avec succes',
+                'status_body'=>$user
+            ]);
     
-    //         }
-    //         catch(Exception $e){
-    //             return response()->json([$e]);
-    //         }
-    // }
+            }
+            catch(Exception $e){
+                return response()->json([$e]);
+            }
+    }
     /**
      * Display a listing of the resource.
      */

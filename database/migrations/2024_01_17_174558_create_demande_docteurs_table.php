@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id(); 
             $table->string('demande');
             $table->enum('etat_demande',['accepter','decliner']);
+            $table->unsignedBigInteger('docteur_id');
+            $table->unsignedBigInteger('client_id');
             $table->timestamps();
         });
     }

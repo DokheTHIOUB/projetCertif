@@ -13,7 +13,9 @@ return new class extends Migration
     {
         Schema::create('evaluations', function (Blueprint $table) {
             $table->id(); 
-            $table->integer('note'); 
+            $table->integer('note');  
+            $table->unsignedBigInteger('docteur_id');
+            $table->unsignedBigInteger('client_id');
             $table->timestamps();
         });
     }

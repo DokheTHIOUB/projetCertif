@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('telephone');
             $table->enum('role',['client','admin','docteur'])->default('client');
             $table->string('email')->unique(); 
+            $table->string('password');
             $table->string('adresse');
             $table->string('photo_profil')->nullable();
             $table->timestamp('email_verified_at')->nullable();
