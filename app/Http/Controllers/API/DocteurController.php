@@ -45,6 +45,9 @@ class DocteurController extends Controller
         ]);
             
             }
+
+
+            
     public function index()
     {
         //

@@ -19,29 +19,26 @@ use App\Http\Controllers\API\UtilisateurController;
 */
 
 Route::post('/login', [UtilisateurController::class, 'login']);
+//ROute d'inscription, connexion et de deconnexion des Clients 
+Route::post('/logoutClient', [ClientController::class, 'logout']);
+Route::post('/registerclient', [ClientController::class, 'registerClient']); 
+Route::post('/logoutClient', [UtilisateurController::class, 'logout']); 
 
 
 //Route d'inscription et de connexion pour les Docteurs 
 Route::middleware(['auth:api','admin'])->group(function (){
     Route::post('/registerdocteur', [DocteurController::class, 'registerDocteur']);
-   
-    
+    Route::post('/logoutAdmin', [UtilisateurController::class, 'logout']); 
+     
 }); 
 
-Route::post('/loginDocteur', [DocteurController::class, 'loginDocteur']);
-// Route::middleware(['auth:api','docteur'])->group(function(){ 
-    Route::post('/logoutDocteur', [DocteurController::class, 'logoutDocteur']);
+
+Route::middleware(['auth:api','docteur'])->group(function(){ 
+    Route::post('/logoutDocteur', [UtilisateurController::class, 'logout']); 
   
-   
-// });
+});
 
 
-//ROute d'inscription, connexion et de deconnexion des Clients 
-
-    Route::post('/logoutClient', [ClientController::class, 'logoutClient']);
-    Route::post('/loginClient', [ClientController::class, 'loginClient']);
-    Route::post('/registerclient', [ClientController::class, 'registerClient']); 
-    
 
 
 

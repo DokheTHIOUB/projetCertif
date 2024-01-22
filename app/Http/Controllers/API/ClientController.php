@@ -32,7 +32,9 @@ class ClientController extends Controller
             'message' => ' Bonjour client ',
             'user' => $client
         ]);
-     }
+     } 
+
+     
     public function index()
     {
         //
