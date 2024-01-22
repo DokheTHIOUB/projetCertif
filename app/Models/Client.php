@@ -8,11 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Client extends Model
 {
     protected $fillable = [
-        'password',
-        'utilisateur_id',
+        'utilisateur_id'
     ];
 
-    public function client(){
+    public function utilisateur(){
 
             return $this->belongsTo(Utilisateur::class);} 
 

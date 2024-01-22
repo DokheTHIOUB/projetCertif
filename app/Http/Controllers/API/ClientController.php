@@ -1,17 +1,38 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
 use App\Models\Client;
+use App\Models\Utilisateur;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\StoreClientRequest;
 use App\Http\Requests\UpdateClientRequest;
 
 class ClientController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    public function registerClient( StoreClientRequest $request)
+    {
+
+        $user =Utilisateur::create([
+            'nom' => $request->nom,
+            'prenom' => $request->prenom,
+            'sexe' => $request->sexe, 
+            'age' => $request->age, 
+            'telephone' => $request->telephone, 
+            'role' => 'client',
+            'email' => $request->email, 
+            'adresse' => $request->adresse, 
+            'photo_profil' => $request->photo_profil, 
+            'password' => Hash::make($request->password),
+           
+        ]); 
+        $client = $user->client()->create();
+        return response()->json([
+            'message' => ' Bonjour client ',
+            'user' => $client
+        ]);
+     }
     public function index()
     {
         //

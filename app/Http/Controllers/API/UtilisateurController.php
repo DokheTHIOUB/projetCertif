@@ -2,48 +2,86 @@
 
 namespace App\Http\Controllers\API;
 
-use Exception;
-use App\Models\Docteur;
+
 use App\Models\Utilisateur;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\StoreUtilisateurRequest;
+use App\Http\Requests\UpdateUtilisateurRequest;
+use Illuminate\Http\Request;
 
 class UtilisateurController extends Controller
 {
 
-
-    public function registerDocteur( StoreUtilisateurRequest $request)
+    public function __construct()
     {
-        try{
-            $user = new Docteur();
-            $user->nom = $request->nom; 
-            $user->prenom = $request->prenom; 
-            $user->telephone = $request->telephone;
-            $user->nombre_annee_experience = $request->nombre_annee_experience;
-            $user->email = $request->email;
-            $user->articles_id = $request->articles_id;
-            $user->password = Hash::make($request->password);
+        $this->middleware('auth:api', ['except' => ['login', 'register']]);
+    }
 
-            if ($request->hasFile('photo_profil')) {
-                $file = $request->file('photo_profil');
-                $filename = time() . '_' . $file->getClientOriginalName();
-                $path = $file->storeAs('profil', $filename, 'public');
-                $user->photo_profil = $path;
-            }
-            
-            $user->save();
-            return response()->json([
-                'status_code'=>200,
-                'status_message'=>'utilisateur ajouté avec succes',
-                'status_body'=>$user
+        public function login(Request $req)  {
+       
+            $req->validate([
+                'email' => 'required|string|email',
+                'password' => 'required|string',
             ]);
     
+            $credentials = $req->only('email','password');
+            $token = Auth::attempt($credentials);
+            // dd($token);
+            if (!$token){
+                return response()->json([
+                    'status' => 'erreur',
+                    'message' => ' La connexion a échoué '
+                ]);
             }
-            catch(Exception $e){
-                return response()->json([$e]);
-            }
-    }
+    
+        $user=Auth::user();
+        if($user->role==='admin'){
+    
+            return response()->json([
+                  'user'=>$user,
+                  'authorization'=>[
+                    'token'=> $token,
+                    'type'=> 'bearer',
+                    'status' => 'success',
+                    'message' => 'connexion réussie',
+                  ]
+            ]);
+        }
+    
+        if($user->role==='docteur'){
+    
+            return response()->json([
+                  'user'=>$user,
+                  'authorization'=>[
+                    'token'=> $token,
+                    'type'=> 'bearer',
+                    'status' => 'success',
+                    'message' => 'connexion réussie',
+                  ]
+            ]);
+        }
+
+        else{
+            
+            return response()->json([
+                'user'=>$user,
+                'authorization'=>[
+                  'token'=> $token,
+                  'type'=> 'bearer',
+                  'status' => 'success',
+                'message' => 'connexion réussie',
+                ]
+          ]);
+        }
+        }
+
+       
+    
+
+
+    
     /**
      * Display a listing of the resource.
      */
