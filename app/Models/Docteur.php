@@ -13,7 +13,6 @@ class Docteur extends Model
         'specialite',
         'numero_licence',
         'annee_experience',
-        'hopitaux_frequente',
         'statut', 
         'utilisateur_id',
     ];

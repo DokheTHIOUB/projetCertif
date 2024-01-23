@@ -12,6 +12,7 @@ use App\Http\Requests\UpdateDocteurRequest;
 
 class DocteurController extends Controller
 {
+   
     public function registerDocteur( RegisterDocteur $request)
     {
     //    dd('ok');
@@ -21,7 +22,7 @@ class DocteurController extends Controller
             'sexe' => $request->sexe, 
             'age' => $request->age, 
             'telephone' => $request->telephone, 
-            'role' => 'client',
+            'role' => 'docteur',
             'email' => $request->email, 
             'adresse' => $request->adresse, 
             'photo_profil' => $request->photo_profil, 
@@ -36,7 +37,7 @@ class DocteurController extends Controller
                     'numero_licence' =>  $request->numero_licence,
                     'annee_experience' => $request->annee_experience ,
                     'hopitaux_frequente' => $request->hopitaux_frequente,
-                    'statut' =>$request->statut,
+                    
                 ]
         );
         return response()->json([

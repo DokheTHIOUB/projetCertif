@@ -17,7 +17,6 @@ return new class extends Migration
             $table->string('specialite');
             $table->string('numero_licence');
             $table->string('annee_experience');
-            $table->string('hopitaux_frequente');
             $table->enum('statut',['disponible','indisponible'])->default('disponible'); 
             $table->unsignedBigInteger('utilisateur_id');
             $table->timestamps();

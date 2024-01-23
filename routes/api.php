@@ -20,9 +20,11 @@ use App\Http\Controllers\API\UtilisateurController;
 
 Route::post('/login', [UtilisateurController::class, 'login']);
 //ROute d'inscription, connexion et de deconnexion des Clients 
-Route::post('/logoutClient', [ClientController::class, 'logout']);
-Route::post('/registerclient', [ClientController::class, 'registerClient']); 
-Route::post('/logoutClient', [UtilisateurController::class, 'logout']); 
+// Route::middleware(['auth:api','Client'])->group(function (){
+    Route::post('/registerclient', [ClientController::class, 'registerClient']); 
+    Route::post('/logoutClient', [UtilisateurController::class, 'logout']); 
+
+// });
 
 
 //Route d'inscription et de connexion pour les Docteurs 

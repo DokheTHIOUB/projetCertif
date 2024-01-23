@@ -13,7 +13,9 @@ class ClientController extends Controller
 {
     public function registerClient( StoreClientRequest $request)
     {
+// dd($request->validated());
 
+// $user =Utilisateur::create($request->validated());
         $user =Utilisateur::create([
             'nom' => $request->nom,
             'prenom' => $request->prenom,

@@ -15,7 +15,7 @@ class Docteur
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (auth()->check() && auth()->user()->role=('docteur')) {
+        if (auth()->check() && auth()->user()->role==='docteur') {
             return $next($request);
         }
 
