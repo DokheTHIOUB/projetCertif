@@ -36,14 +36,14 @@ class StoreClientRequest extends FormRequest
             'password' => 'required|string|min:8'
         ];
     } 
-    // failedValidation: Cette méthode est appelée automatiquement lorsque la validation échoue.
-    //  Vous la surchargez pour définir votre propre logique de gestion des erreurs.
-//     $validator: Il s'agit de l'instance du validateur qui a échoué. Vous l'utilisez pour obtenir les détails des erreurs de validation.
+ //failedValidation: Cette méthode est appelée automatiquement lorsque la validation échoue.
+ //Vous la surchargez pour définir votre propre logique de gestion des erreurs.
+// $validator: Il s'agit de l'instance du validateur qui a échoué. Vous l'utilisez pour obtenir les détails des erreurs de validation.
 // throw new HttpResponseException(...): Cela lance une exception HTTP, interrompant le processus de la requête normale. 
 // L'exception est ensuite capturée par Laravel et utilisée pour générer une réponse HTTP.
 // response()->json([...]): Vous créez une réponse JSON avec les détails de l'erreur de validation.
-//  Les éléments de la réponse incluent le succès, le code d'état, un indicateur d'erreur, un message d'erreur personnalisé et 
-//  la liste des erreurs retournée par le validateur.
+// Les éléments de la réponse incluent le succès, le code d'état, un indicateur d'erreur, un message d'erreur personnalisé et 
+// la liste des erreurs retournée par le validateur.
 
     public function failedValidation(Validator $validator ){
         throw new HttpResponseException(response()->json([
