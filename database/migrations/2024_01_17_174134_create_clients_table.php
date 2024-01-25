@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Utilisateur;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -11,12 +12,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('evaluations', function (Blueprint $table) {
+        Schema::create('clients', function (Blueprint $table) {
             $table->id(); 
-            $table->integer('note');  
-            $table->unsignedBigInteger('docteur_id');
-            $table->unsignedBigInteger('client_id');
-            $table->timestamps();
+            $table->timestamps(); 
+            $table->foreignId('utilisateurs_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
+
         });
     }
 
@@ -25,6 +25,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('evaluations');
-    }
+        Schema::dropIfExists('clients');
+    }   
+
+   
 };

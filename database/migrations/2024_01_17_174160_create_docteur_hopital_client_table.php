@@ -11,12 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('demande_docteurs', function (Blueprint $table) {
-            $table->id(); 
-            $table->string('demande');
-            $table->enum('etat_demande',['accepter','decliner']);
-            $table->unsignedBigInteger('docteur_id');
-            $table->unsignedBigInteger('client_id');
+        Schema::create('docteur_hopital_client', function (Blueprint $table) {
+            $table->id();
             $table->timestamps();
         });
     }
@@ -26,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('demande_docteurs');
+        Schema::dropIfExists('docteur_hopital_client');
     }
 };

@@ -19,6 +19,7 @@ class Utilisateur extends Authenticatable implements JWTSubject
      * @var array<int, string>
      */
     protected $fillable = [
+        'utilisateur_id',
         'nom',
         'prenom',
         'sexe',
@@ -38,6 +39,10 @@ class Utilisateur extends Authenticatable implements JWTSubject
     public function client(){
         return $this->hasOne(Client::class);
     }  
+
+    public function roles() {
+        return $this->hasOne(Role::class);
+    }
     /**
      * The attributes that should be hidden for serialization.
      *

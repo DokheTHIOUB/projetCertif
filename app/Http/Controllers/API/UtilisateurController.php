@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 
 use App\Models\Utilisateur;
+use App\Models\Role;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -37,7 +38,7 @@ class UtilisateurController extends Controller
             }
     
         $user=Auth::user();
-        if($user->role==='admin'){
+        if($user->role_id==1){
     
             return response()->json([
                   'user'=>$user,
@@ -50,7 +51,7 @@ class UtilisateurController extends Controller
             ]);
         }
     
-        if($user->role==='docteur'){
+        elseif($user->role_id==2){
     
             return response()->json([
                   'user'=>$user,

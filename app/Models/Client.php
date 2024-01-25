@@ -15,7 +15,7 @@ class Client extends Model
 
             return $this->belongsTo(Utilisateur::class);} 
 
-    public function commentaire(){
-       
-        return $this->belongsTo(Commentaire::class); }
+     public function Avis(){
+                $this->hasMany(Avis::class);
+            }
 }

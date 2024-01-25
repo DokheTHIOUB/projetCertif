@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('messages', function (Blueprint $table) {
-            $table->id();
-            $table->string('message'); 
-            $table->unsignedBigInteger('docteur_id');
-            $table->unsignedBigInteger('client_id');
+        Schema::create('localites', function (Blueprint $table) {
+            $table->id(); 
+            $table->string('nom_localite');
+            $table->string('code_postal');  
+            $table->foreignId('region_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('messages');
+        Schema::dropIfExists('localites');
     }
 };

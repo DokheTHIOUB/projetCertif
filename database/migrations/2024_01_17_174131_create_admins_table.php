@@ -11,12 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('commentaires', function (Blueprint $table) {
-            $table->id(); 
-            $table->string('commentaire'); 
-            $table->unsignedBigInteger('client_id');
-            $table->timestamps();
-        });
+        Schema::create('admins', function (Blueprint $table) {
+            $table->id();
+            $table->timestamps(); 
+            $table->foreignId('utilisateurs_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
+
+        });  
+
     }
 
     /**
@@ -24,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('commentaires');
+        Schema::dropIfExists('admins');
     }
 };

@@ -11,10 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('localites', function (Blueprint $table) {
-            $table->id(); 
-            $table->string('nom_localite');
-            $table->string('code_postal'); 
+        Schema::create('specialites', function (Blueprint $table) {
+            $table->id();  
+            $table->string('nom_specialite');  
             $table->timestamps();
         });
     }
@@ -24,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('localites');
+        Schema::dropIfExists('specialite');
     }
 };

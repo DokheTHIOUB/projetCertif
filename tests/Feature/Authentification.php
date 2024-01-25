@@ -51,7 +51,7 @@ class Authentification extends TestCase
         $user = Docteur::factory()->create();
         $credentials = ['email' => $user->email, 'password' => $user->password];
         $response = $this->post('api/login', $credentials);
-        $response->assertStatus(200);
+        $response->assertStatus(200); 
     }
 
     public function testLoginAdmin(): void

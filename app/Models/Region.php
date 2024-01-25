@@ -5,19 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Localite extends Model
+class Region extends Model
 {
     protected $fillable = [
-        'localite_id',
-        'nom_localite',
-        'code_postal', 
         'region_id',
-
+        'nom_region',
+        'code_postal',
     ]; 
 
     public function hopitaux(){
         $this->belongsTo(hopitaux::class);
     } 
-
-
 }

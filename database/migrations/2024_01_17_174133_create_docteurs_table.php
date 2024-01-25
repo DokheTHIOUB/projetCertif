@@ -18,7 +18,8 @@ return new class extends Migration
             $table->string('numero_licence');
             $table->string('annee_experience');
             $table->enum('statut',['disponible','indisponible'])->default('disponible'); 
-            $table->unsignedBigInteger('utilisateur_id');
+            $table->foreignId('utilisateurs_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
+
             $table->timestamps();
         });
     }

@@ -17,6 +17,12 @@ class Docteur extends Model
         'utilisateur_id',
     ];
 
+    // public function hopitaux(){
+    //     $this->hasMany(Hopitaux::class);
+    // } 
+
+
+
     public function utilisateur(){
             return $this->belongsTo(Utilisateur::class);
         } 

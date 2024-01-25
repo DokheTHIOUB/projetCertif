@@ -19,11 +19,11 @@ return new class extends Migration
             $table->enum('sexe', ['homme', 'femme'])->nullable(); 
             $table->string('age');
             $table->string('telephone')->nullable();
-            $table->string('role');
             $table->string('email')->unique(); 
             $table->string('password');
             $table->string('adresse');
-            $table->string('photo_profil')->nullable();
+            $table->string('photo_profil')->nullable(); 
+            $table->foreignId('role_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
