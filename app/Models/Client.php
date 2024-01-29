@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Client extends Model
 {
-    protected $fillable = [
-        'utilisateur_id'
+    protected $guarded = [
+    
     ];
 
     public function utilisateur(){

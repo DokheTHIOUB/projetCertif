@@ -28,6 +28,8 @@ class UtilisateurController extends Controller
             ]);
     
             $credentials = $req->only('email','password');
+            // dd($credentials);
+
             $token = Auth::attempt($credentials);
             // dd($token);
             if (!$token){
@@ -79,6 +81,7 @@ class UtilisateurController extends Controller
         }
 
         public function logout(){
+            // dd('ok');
             Auth::logout();
             return response()->json([
                 'message' => 'Déconnexion réussie'

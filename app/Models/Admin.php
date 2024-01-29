@@ -8,8 +8,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Admin extends Model
 {
-    protected $fillable = [
-        'utilisateur_id'
+    protected $guarded = [
+    
     ];
 
     public function utilisateur(){

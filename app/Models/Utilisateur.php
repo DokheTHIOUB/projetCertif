@@ -18,19 +18,9 @@ class Utilisateur extends Authenticatable implements JWTSubject
      *
      * @var array<int, string>
      */
-    protected $fillable = [
-        'utilisateur_id',
-        'nom',
-        'prenom',
-        'sexe',
-        'age',
-        'telephone',
-        'role',
-        'email', 
-        'adresse',
-        'photo_profil', 
-        'password',
-    ]; 
+    protected $guarded = [
+    
+    ];
 
     public function docteur(){
         return $this->hasOne(Docteur::class);

@@ -21,7 +21,7 @@ class Admin extends Seeder
                 "sexe" => "femme",
                 "age" => "20",
                 "telephone" => 776748180,
-                "email" => "docteur@gmail.com", 
+                "email" => "admin@gmail.com", 
                 "adresse" => "medina",
                 "photo_profil" => "fghj,k;lm",
                 "password" => Hash::make('admin123'),

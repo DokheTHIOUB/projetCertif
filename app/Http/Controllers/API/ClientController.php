@@ -8,26 +8,26 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\StoreClientRequest;
 use App\Http\Requests\UpdateClientRequest;
+use App\Models\Role;
 
 class ClientController extends Controller
 {
     public function registerClient( StoreClientRequest $request)
     {
-// dd($request->validated());
-
-// $user =Utilisateur::create($request->validated());
+        
+    $roleclient = Role::where('nom_role','client')->first();
+    // $user =Utilisateur::create($request->validated());
         $user =Utilisateur::create([
             'nom' => $request->nom,
             'prenom' => $request->prenom,
             'sexe' => $request->sexe, 
             'age' => $request->age, 
             'telephone' => $request->telephone, 
-            'role' => 'client',
             'email' => $request->email, 
             'adresse' => $request->adresse, 
             'photo_profil' => $request->photo_profil, 
             'password' => Hash::make($request->password),
-           
+            'role_id' => $request->role_id, 
         ]); 
         $client = $user->client()->create();
         return response()->json([

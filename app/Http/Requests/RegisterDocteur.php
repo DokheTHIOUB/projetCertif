@@ -36,10 +36,11 @@ class RegisterDocteur extends FormRequest
                 'adresse' => 'required|string|max:255',
                 'photo_profil' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2000', 
                 'password'=> ['required', 'regex:/^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[@#$%^&+=!])(.{8,})$/'],
-                'diplome' => 'nullable|file|max:255',
-                'specialite' => 'required|string|max:200',
+                'diplome' => 'nullable|file|',
                 'numero_licence' => 'required|string|max:80',
                 'annee_experience' => 'required|integer|min:3|max:80',
+                'specialite_id' => 'required|exists:specialite,id',
+                'role_id' => 'required|exists:roles,id',
                 
             ];
         }
@@ -61,11 +62,12 @@ class RegisterDocteur extends FormRequest
         return [
             'nom.required' => 'Le champ nom est obligatoire.',
             'nom.string' => 'Le champ nom doit être une chaîne de caractères.',
-            'nom.max' => 'Le champ nom ne doit pas dépasser 50 caractères.',            
+            'nom.max' => 'Le champ nom ne doit pas dépasser 50 caractères.', 
+
             'prenom.required' => 'Le champ prénom est obligatoire.',
             'prenom.string' => 'Le champ prénom doit être une chaîne de caractères.',
             'prenom.max' => 'Le champ prénom ne doit pas dépasser 50 caractères.',
-            
+
             'sexe.required' => 'Le champ sexe est obligatoire.',
             'sexe.string' => 'Le champ sexe doit être une chaîne de caractères.',
             'sexe.in' => 'Le champ sexe doit être soit homme, soit femme.',
@@ -96,11 +98,6 @@ class RegisterDocteur extends FormRequest
             
             'diplome.required' => 'Le champ diplôme est obligatoire.',
             'diplome.string' => 'Le champ diplôme doit être une chaîne de caractères.',
-            'diplome.max' => 'Le champ diplôme ne doit pas dépasser 255 caractères.',
-            
-            'specialite.required' => 'Le champ spécialité est obligatoire.',
-            'specialite.string' => 'Le champ spécialité doit être une chaîne de caractères.',
-            'specialite.max' => 'Le champ spécialité ne doit pas dépasser 200 caractères.',
             
             'numero_licence.required' => 'Le champ numéro de licence est obligatoire.',
             'numero_licence.string' => 'Le champ numéro de licence doit être une chaîne de caractères.',
@@ -110,10 +107,7 @@ class RegisterDocteur extends FormRequest
             'annee_experience.integer' => 'Le champ année d\'expérience doit être un nombre entier.',
             'annee_experience.min' => 'Le champ année d\'expérience doit être d\'au moins 3 ans.',
             'annee_experience.max' => 'Le champ année d\'expérience ne doit pas dépasser 80 ans.',
-            
-            'statut.required' => 'Le champ statut est obligatoire.',
-            'statut.string' => 'Le champ statut doit être une chaîne de caractères.',
-            'statut.in' => 'Le champ statut doit être soit disponible, soit indisponible.',
+          
         ];
     }
     

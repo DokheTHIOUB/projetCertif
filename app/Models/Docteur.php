@@ -8,13 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Docteur extends Model
 {
  
-    protected $fillable = [
-        'diplome',
-        'specialite',
-        'numero_licence',
-        'annee_experience',
-        'statut', 
-        'utilisateur_id',
+    protected $guarded = [
+    
     ];
 
     // public function hopitaux(){
@@ -25,6 +20,10 @@ class Docteur extends Model
 
     public function utilisateur(){
             return $this->belongsTo(Utilisateur::class);
+        } 
+
+        public function specialite(){
+            return $this->belongsTo(Specialite::class);
         } 
 
 }

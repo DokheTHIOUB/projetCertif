@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('lattitude');
             $table->string('longitude'); 
             $table->string('horaire'); 
+            $table->string('image'); 
             $table->foreignId('localite_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });

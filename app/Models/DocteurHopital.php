@@ -7,11 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class DocteurHopital extends Model
 {
-    protected $fillable = [
-        'docteurHopital_id', 
-        'docteur_id',
-        'hopital_id',
-    ]; 
+    protected $guarded = [
+    
+    ];
 
     public function docteur(){
         $this->belongsTo(Docteur::class);
@@ -20,9 +18,6 @@ class DocteurHopital extends Model
     public function hopitaux(){
         $this->belongsTo(hopitaux::class);
     } 
-    
-    public function specialite(){
-        $this->belongsTo(specialite::class);
-    } 
+
     
 }

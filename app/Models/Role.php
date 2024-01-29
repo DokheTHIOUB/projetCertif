@@ -7,11 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Role extends Model
 {
-   protected $fillable = [
-    'role_id',
-    'nom_role',
-   ]; 
-
+    protected $guarded = [
+    
+    ];
    public function Utilisateur(){
     $this->hasMany(Utilisateur::class);
 } 

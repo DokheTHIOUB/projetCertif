@@ -8,14 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Avis extends Model
 {
    
-    protected $fillable = [
-        'avis_id',
-        'description', 
-        'client_id',
-        'hopital_id',
-
+    protected $guarded = [
     
-    ]; 
+    ];
 
     public function client(){
         $this->belongsTo(client::class);

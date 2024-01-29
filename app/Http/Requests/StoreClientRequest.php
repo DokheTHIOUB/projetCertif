@@ -33,7 +33,9 @@ class StoreClientRequest extends FormRequest
             'email' => 'required|email|unique:utilisateurs,email',
             'adresse' => 'required|string|max:100',
             'photo_profil' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2000',
-            'password' => 'required|string|min:8'
+            'password' => 'required|string|min:8',
+            'role_id' =>  'required|exists:roles,id',
+
         ];
     } 
  //failedValidation: Cette méthode est appelée automatiquement lorsque la validation échoue.

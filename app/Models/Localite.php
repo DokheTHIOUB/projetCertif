@@ -7,14 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Localite extends Model
 {
-    protected $fillable = [
-        'localite_id',
-        'nom_localite',
-        'code_postal', 
-        'region_id',
-
-    ]; 
-
+    protected $guarded = [
+    
+    ];
     public function hopitaux(){
         $this->belongsTo(hopitaux::class);
     } 

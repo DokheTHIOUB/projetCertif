@@ -7,16 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class hopitaux extends Model
 {
-    protected $fillable = [
-        'hopitaux_id',
-        'nom_hopital',
-        'description',
-        'lattitude',
-        'longitude',
-        'horaire', 
-        'localite_id',
-
-    ]; 
+    protected $guarded = [
+    
+    ];
 
     public function docteur(){
         $this->hasMany(Docteur::class);

@@ -7,11 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class DocteurHopitalClient extends Model
 {
-    protected $fillable = [
-        'docteurHopitalClient_id', 
-        'docteurHopital_id', 
-        'client_id', 
-
+    protected $guarded = [
+    
     ]; 
 
     public function docteurHopital(){
