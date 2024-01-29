@@ -7,9 +7,12 @@ use App\Http\Requests\StoreClientRequest;
 use App\Http\Controllers\API\ClientController;
 use App\Http\Controllers\API\RegionController;
 use App\Http\Controllers\API\DocteurController;
+use App\Http\Controllers\API\HopitalController;
 use App\Http\Controllers\API\LocaliteController;
 use App\Http\Controllers\API\SpecialiteController;
 use App\Http\Controllers\API\UtilisateurController;
+use App\Http\Middleware\Docteur;
+use FFI\CData;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,9 +25,9 @@ use App\Http\Controllers\API\UtilisateurController;
 |
 */
 
+
 Route::post('/login', [UtilisateurController::class, 'login']);
 //ROute d'inscription, connexion et de deconnexion des Clients 
-
 
 Route::get('/specialite', [SpecialiteController::class, 'index']);
 Route::post('/specialite/create', [SpecialiteController::class, 'store']);
@@ -68,6 +71,31 @@ Route::middleware(['auth:api','docteur'])->group(function(){
     Route::post('/logoutDocteur', [UtilisateurController::class, 'logout']); 
   
 });
+
+Route::get('docteur', [DocteurController::class, 'index']); 
+Route::put('docteur/disponible/{docteur}', [DocteurController::class, 'disponibilite']); 
+Route::get('docteur/show', [DocteurController::class, 'show']); 
+Route::get('docteur/indisponible', [DocteurController::class, 'DocteurIndisponible']); 
+Route::put('docteur/disponible/', [DocteurController::class, 'Docteurdisponible']); 
+Route::get('totaldocteur',[DocteurController::class,'Totaldocteur']); 
+Route::put('mentor/archive/{mentor}', [DocteurController::class, 'archive']); 
+
+Route::get('Hopital', [HopitalController::class, 'index']); 
+Route::post('Hopital/edit/{docteur}', [HopitalController::class, 'update']); 
+Route::post('Hopital/create', [HopitalController::class, 'store']); 
+Route::get('Hopital/totalHopitaux', [HopitalController::class, 'TotalHopitaux']); 
+Route::get('Hopital/', [HopitalController::class, 'filterHopitauxparLocalite']); 
+
+Route::get('client', [ClientController::class, 'index']); 
+Route::get('client/Totalclient', [clientController::class, 'Totalclient']); 
+
+
+
+
+
+
+
+
 
 
 

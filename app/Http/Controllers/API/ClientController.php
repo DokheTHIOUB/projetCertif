@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\API;
 
+use Exception;
+use App\Models\Role;
 use App\Models\Client;
 use App\Models\Utilisateur;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\StoreClientRequest;
 use App\Http\Requests\UpdateClientRequest;
-use App\Models\Role;
 
 class ClientController extends Controller
 {
@@ -37,10 +38,37 @@ class ClientController extends Controller
      } 
 
      
-    public function index()
-    {
-        //
-    }
+     public function index(Client $docteur)
+     {
+         try {
+             return response()->json([
+                 'status_code' => 200,
+                 'status_message' => 'Voici la liste de tout les clients',
+                 'liste docteur' => Client::all(),
+             ]);
+         } catch (Exception $e) {
+             return response()->json($e);
+         }
+     } 
+
+     public function Totalclient()
+     {
+ 
+         try {
+ 
+              $totalClient= Client::count();
+             return response()->json([
+             'status_code' => 200,
+             'status_message' => 'Le nombre total de Client',
+             'data' => [
+             'Total_Client' => $totalClient,
+             ]]);
+ 
+             } 
+         catch (Exception $e) {  
+             return response()->json($e);
+        }
+     }
 
     /**
      * Show the form for creating a new resource.

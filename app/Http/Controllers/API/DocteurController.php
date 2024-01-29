@@ -65,7 +65,7 @@ class DocteurController extends Controller
             }
 
 
-    public function archive(Docteur $docteur)
+    public function disponibilite(Docteur $docteur)
     {
         try {
             $docteur->update([
@@ -178,37 +178,37 @@ class DocteurController extends Controller
    
 
 
-    public function update(Request $request, Docteur $docteur)
-    {
-        try {
-            [  'nom' => $request->nom,
-            'prenom' => $request->prenom,
-            'sexe' => $request->sexe, 
-            'age' => $request->age, 
-            'telephone' => $request->telephone, 
-            'email' => $request->email, 
-            'adresse' => $request->adresse, 
-            'photo_profil' => $request->photo_profil, 
-            'password' => Hash::make($request->password),
-            'role_id'=>$request->role_id, ];
-            $utilisateur->save();
-            [ 
-            'diplome' => $request->diplome,
-            'numero_licence' =>  $request->numero_licence,
-            'annee_experience' => $request->annee_experience , 
-            'specialite_id'=>$request->specialite_id ,
-            'utilisateurs_id'=>$user->id, ]
+    // public function update(Request $request, Docteur $docteur)
+    // {
+    //     try {
+    //         [  'nom' => $request->nom,
+    //         'prenom' => $request->prenom,
+    //         'sexe' => $request->sexe, 
+    //         'age' => $request->age, 
+    //         'telephone' => $request->telephone, 
+    //         'email' => $request->email, 
+    //         'adresse' => $request->adresse, 
+    //         'photo_profil' => $request->photo_profil, 
+    //         'password' => Hash::make($request->password),
+    //         'role_id'=>$request->role_id, ];
+    //         $utilisateur->save();
+    //         [ 
+    //         'diplome' => $request->diplome,
+    //         'numero_licence' =>  $request->numero_licence,
+    //         'annee_experience' => $request->annee_experience , 
+    //         'specialite_id'=>$request->specialite_id ,
+    //         'utilisateurs_id'=>$user->id, ]
            
-            $docteur->save();
-            return response()->json([
-                'status_code' => 200,
-                'status_message' => 'L\'événement a été modifier',
-                'docteur' => $docteur
-            ]);
-        } catch (Exception $e) {
-            return response()->json($e);
-        }
-    }
+    //         $docteur->save();
+    //         return response()->json([
+    //             'status_code' => 200,
+    //             'status_message' => 'L\'événement a été modifier',
+    //             'docteur' => $docteur
+    //         ]);
+    //     } catch (Exception $e) {
+    //         return response()->json($e);
+    //     }
+    // }
 
 
     public function destroy(Docteur $docteur)
