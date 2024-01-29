@@ -21,7 +21,7 @@ class Admin
         if (auth()->guard('api')->check() && auth()->guard('api')->user()->role_id===1) {
             return $next($request);
         }
-dd(auth()->guard('api')->user());
+// dd(auth()->guard('api')->user());
         // Rediriger ou retourner une réponse en cas de non-admin
         return redirect('/')->with('error', 'Accès non autorisé.');
     }
