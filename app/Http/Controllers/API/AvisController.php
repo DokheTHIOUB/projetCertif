@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
 use Exception;
 use App\Models\Avis;
@@ -43,7 +43,7 @@ class AvisController extends Controller
             $avis->save();
             return response()->json([
                 'status_code' => 200,
-                'status_message' => 'L\'avis a été modifie',
+                'status_message' => 'L\'avis a été modifié',
                 'avis' => $avis
             ]);
         } catch (Exception $e) {

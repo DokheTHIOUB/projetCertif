@@ -1,18 +1,13 @@
 <?php
-
 namespace App\Http\Controllers\API;
 
 use Exception;
 use App\Models\Docteur; 
 use App\Models\Utilisateur;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Auth\Events\Validated;
 use App\Http\Requests\RegisterDocteur;
-use Illuminate\Support\Facades\Request;
-use App\Http\Requests\StoreDocteurRequest;
-use App\Http\Requests\UpdateDocteurRequest;
-use App\Http\Requests\StoreUtilisateurRequest;
 
 class DocteurController extends Controller
 {
@@ -20,7 +15,6 @@ class DocteurController extends Controller
     public function registerDocteur( RegisterDocteur $request)
     {
         // dd($request->validated());
-
          $user =Utilisateur::create([
             'nom' => $request->nom,
             'prenom' => $request->prenom,
@@ -42,15 +36,13 @@ class DocteurController extends Controller
                     'annee_experience' => $request->annee_experience , 
                     'specialite_id'=>$request->specialite_id ,
                     'utilisateurs_id'=>$user->id,
-                ]
-        );
-        return response()->json([
-            'message' => 'Bonjour docteur',
-            'user' => $docteur
+                ] );
+                return response()->json([
+                    'message' => 'Bonjour docteur',
+                    'user' => $docteur
         ]);
-              }
-            
-
+    }
+        
             public function index(Docteur $docteur)
             {
                 try {
@@ -64,23 +56,37 @@ class DocteurController extends Controller
                 }
             }
 
-
     public function disponibilite(Docteur $docteur)
-    {
-        try {
-            $docteur->update([
-                'statut' => 'disponible',
-            ]);
-            $docteur->save();
-            return response()->json([
-                'status_code' => 200,
-                'status_message' => "docteur disponible",
-            ]);
-        } catch (Exception $e) {
-            return response()->json($e);
-        }
+    {   
+        if ($docteur->statut==='indisponible') {
+            try {
+                $docteur->update([
+                    'statut' => 'disponible',
+                ]);
+                $docteur->save();
+                return response()->json([
+                    'status_code' => 200,
+                    'status_message' => "docteur disponible",
+                ]);
+            } catch (Exception $e) {
+                return response()->json($e);
+            } 
+        }else{
+            try {
+                $docteur->update([
+                    'statut' => 'indisponible',
+                ]);
+                $docteur->save();
+                return response()->json([
+                    'status_code' => 200,
+                    'status_message' => "docteur indisponible",
+                ]);
+            } catch (Exception $e) {
+                return response()->json($e);
+            }
+        } 
+       
     }
-
 
        //Cette methode permet de récuperer un docteur spécifique
               public function show(Docteur $docteur)
@@ -95,7 +101,6 @@ class DocteurController extends Controller
                       return response()->json($e);
                   }
               }
-
 
     public function Docteurdisponible(Docteur $docteur)
     {
@@ -128,10 +133,8 @@ class DocteurController extends Controller
         }
     }
 
-
     public function Totaldocteur()
     {
-
         try {
 
              $totalDocteur= Docteur::count();
@@ -147,70 +150,39 @@ class DocteurController extends Controller
             return response()->json($e);
        }
     }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    
+    public function update(Request $request, Docteur $docteur)
     {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Docteur $request)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Docteur $docteur)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-   
-
-
-    // public function update(Request $request, Docteur $docteur)
-    // {
-    //     try {
-    //         [  'nom' => $request->nom,
-    //         'prenom' => $request->prenom,
-    //         'sexe' => $request->sexe, 
-    //         'age' => $request->age, 
-    //         'telephone' => $request->telephone, 
-    //         'email' => $request->email, 
-    //         'adresse' => $request->adresse, 
-    //         'photo_profil' => $request->photo_profil, 
-    //         'password' => Hash::make($request->password),
-    //         'role_id'=>$request->role_id, ];
-    //         $utilisateur->save();
-    //         [ 
-    //         'diplome' => $request->diplome,
-    //         'numero_licence' =>  $request->numero_licence,
-    //         'annee_experience' => $request->annee_experience , 
-    //         'specialite_id'=>$request->specialite_id ,
-    //         'utilisateurs_id'=>$user->id, ]
+        try {
            
-    //         $docteur->save();
-    //         return response()->json([
-    //             'status_code' => 200,
-    //             'status_message' => 'L\'événement a été modifier',
-    //             'docteur' => $docteur
-    //         ]);
-    //     } catch (Exception $e) {
-    //         return response()->json($e);
-    //     }
-    // }
-
-
+            $utilisateur = $docteur->utilisateur;
+            $utilisateur->nom = $request->nom;
+            $utilisateur->prenom = $request->prenom;
+            $utilisateur->sexe = $request->sexe;
+            $utilisateur->age = $request->age;
+            $utilisateur->telephone = $request->telephone;
+            $utilisateur->email = $request->email;
+            $utilisateur->adresse = $request->adresse;
+            $utilisateur->photo_profil = $request->photo_profil;
+            $utilisateur->password = Hash::make($request->password);
+            $utilisateur->update();
+            
+            $docteur->diplome = $request->diplome;
+            $docteur->numero_licence = $request->numero_licence;
+            $docteur->annee_experience = $request->annee_experience;
+            $docteur->specialite_id = $request->specialite_id;
+            $docteur->update();
+            
+            return response()->json([
+                'status_code' => 200,
+                'status_message' => 'Le docteur a été modifié',
+                'docteur' => $docteur
+            ]);
+        } catch (Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+    
     public function destroy(Docteur $docteur)
     {
         try {
@@ -218,12 +190,28 @@ class DocteurController extends Controller
 
             return response()->json([
                 'status_code' => 200,
-                'status_message' => 'L\'événement a été supprimer',
+                'status_message' => 'Le docteur a été supprimé',
                 'docteur' => $docteur
             ]);
         } catch (Exception $e) {
             return response()->json($e);
         }
     }
+
+    public function filterDocteurparspecialite(Request $request)
+{
+    try {
+        $specialite_id = $request->input('specialite_id'); // Récupérer les docteurs en fonction de leur specialites
+        $docteur = Docteur::where('specialite_id', $specialite_id)->get();  // Retourner une réponse JSON avec les hôpitaux filtrés
+        return response()->json([
+            'status_code' => 200,
+            'status_message' => 'docteurs filtrés par specialité avec succès',
+            'filtrer_hospitals' => $docteur,
+        ]);
+    } catch (Exception $e) {
+    
+        return response()->json([$e]);
+    }
+} 
    
 }

@@ -1,9 +1,11 @@
 <?php
 
+use FFI\CData;
 use Illuminate\Http\Request;
+use App\Http\Middleware\Docteur;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AvisController;
 use App\Http\Requests\StoreClientRequest;
+use App\Http\Controllers\API\AvisController;
 use App\Http\Controllers\API\ClientController;
 use App\Http\Controllers\API\RegionController;
 use App\Http\Controllers\API\DocteurController;
@@ -11,8 +13,6 @@ use App\Http\Controllers\API\HopitalController;
 use App\Http\Controllers\API\LocaliteController;
 use App\Http\Controllers\API\SpecialiteController;
 use App\Http\Controllers\API\UtilisateurController;
-use App\Http\Middleware\Docteur;
-use FFI\CData;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,8 +24,6 @@ use FFI\CData;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
-
-
 Route::post('/login', [UtilisateurController::class, 'login']);
 //ROute d'inscription, connexion et de deconnexion des Clients 
 
@@ -52,52 +50,38 @@ Route::post('avis/edit/{avis}', [AvisController::class, 'update']);
 
 Route::post('/registerclient', [ClientController::class, 'registerClient']); 
 Route::post('/logoutClient', [UtilisateurController::class, 'logout']); 
-Route::middleware(['auth:api','Client'])->group(function (){
-   
-
-
+Route::middleware(['auth:api','Client'])->group(function (){   
 });
-
 
 //Route d'inscription et de connexion pour les Docteurs 
 Route::middleware(['auth:api','admin'])->group(function (){
     Route::post('/registerdocteur', [DocteurController::class, 'registerDocteur']);
-    Route::post('/logoutAdmin', [UtilisateurController::class, 'logout']); 
-     
+    Route::post('/logoutAdmin', [UtilisateurController::class, 'logout']);    
 }); 
-
 
 Route::middleware(['auth:api','docteur'])->group(function(){ 
     Route::post('/logoutDocteur', [UtilisateurController::class, 'logout']); 
-  
 });
 
 Route::get('docteur', [DocteurController::class, 'index']); 
-Route::put('docteur/disponible/{docteur}', [DocteurController::class, 'disponibilite']); 
-Route::get('docteur/show', [DocteurController::class, 'show']); 
+Route::put('docteur/disponibilite/{docteur}', [DocteurController::class, 'disponibilite']); 
+Route::get('docteur/show/{docteur}', [DocteurController::class, 'show']); 
 Route::get('docteur/indisponible', [DocteurController::class, 'DocteurIndisponible']); 
 Route::put('docteur/disponible/', [DocteurController::class, 'Docteurdisponible']); 
-Route::get('totaldocteur',[DocteurController::class,'Totaldocteur']); 
-Route::put('mentor/archive/{mentor}', [DocteurController::class, 'archive']); 
+Route::get('totaldocteur',[DocteurController::class,'Totaldocteur']);  
+Route::get('Docteur/filtre/specialite',[DocteurController::class,'filterDocteurparspecialite']); 
+Route::post('Docteur/edit/{docteur}', [DocteurController::class, 'update']); 
+Route::put('docteur/archive/{docteur}', [DocteurController::class, 'archive']);
 
 Route::get('Hopital', [HopitalController::class, 'index']); 
-Route::post('Hopital/edit/{docteur}', [HopitalController::class, 'update']); 
-Route::post('Hopital/create', [HopitalController::class, 'store']); 
+Route::post('Hopital/edit/{hopitaux}', [HopitalController::class, 'update']); 
+Route::post('Hopital/create', [HopitalController::class, 'ajouterHopital']); 
 Route::get('Hopital/totalHopitaux', [HopitalController::class, 'TotalHopitaux']); 
-Route::get('Hopital/', [HopitalController::class, 'filterHopitauxparLocalite']); 
+Route::get('Hopital/localite', [HopitalController::class, 'filterHopitauxparLocalite']); 
+Route::post('Hopital/{hopitaux}', [HopitalController::class, 'destroy']); 
 
 Route::get('client', [ClientController::class, 'index']); 
 Route::get('client/Totalclient', [clientController::class, 'Totalclient']); 
-
-
-
-
-
-
-
-
-
-
-
-
+Route::get('client/{client}', [clientController::class, 'destroy']); 
+Route::get('client/edit/{client}', [clientController::class, 'update']); 
 

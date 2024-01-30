@@ -11,13 +11,11 @@ class HopitalController extends Controller
 {
    
 
-public function filterHopitauxparLocalite(Request $request)
+public function filterHopitaux(Request $request)
 {
     try {
-        $localiteId = $request->input('localite_id');
-        // Récupérer les hôpitaux en fonction de la localité choisie
-        $hopitaux = hopitaux::where('localite_id', $localiteId)->get();
-        // Retourner une réponse JSON avec les hôpitaux filtrés
+        $localiteId = $request->input('localite_id'); // Récupérer les hôpitaux en fonction de la localité choisie
+        $hopitaux = hopitaux::where('localite_id', $localiteId)->get();  // Retourner une réponse JSON avec les hôpitaux filtrés
         return response()->json([
             'status_code' => 200,
             'status_message' => 'Hôpitaux filtrés par localité avec succès',
@@ -29,10 +27,25 @@ public function filterHopitauxparLocalite(Request $request)
     }
 } 
 
+public function filterHopitauxparLocalite(Request $request)
+{
+    try {
+        $localiteFiltrer = $request->input('localite_id');
+        $hopitaux = hopitaux::where('localite', 'like', '%' . $localiteFiltrer . '%')->get();
+
+        return response()->json([
+            'status_code' => 200,
+            'status_message' => 'Hôpitaux filtrés par localité avec succès',
+            'hospitals_filtres' => $hopitaux,
+        ]);
+    } catch (Exception $e) {
+        return response()->json(['error' => $e->getMessage()], 500);
+    }
+}
+
 
 public function TotalHopitaux()
 {
-
     try {
 
        $totalhopitaux= hopitaux::count();
@@ -51,10 +64,15 @@ public function TotalHopitaux()
    }
 }
 
+private function storeImage($image)
+{
+    return $image->store('hopitauxImage', 'public');
+}
 
-public function store(Request $request)
+public function ajouterHopital(Request $request)
 {
     try {
+        $img = $request->file('image')->store('hopitauxImage', 'public');
         $hopitaux = new hopitaux();
         $hopitaux->nom_hopital = $request->nom_hopital;
         $hopitaux->description = $request->description;
@@ -62,7 +80,8 @@ public function store(Request $request)
         $hopitaux->lattitude = $request->lattitude;
         $hopitaux->horaire = $request->horaire; 
         $hopitaux->localite_id = $request->localite_id; 
-        $hopitaux->image = $this->storeImage($request->image);
+        $hopitaux->image = $img;
+
         $hopitaux->save();
         return response()->json([
             'status_code' => 200, //Pour montrer que la réquete a été effectuer
@@ -74,15 +93,10 @@ public function store(Request $request)
     }
 }
 
-private function storeImage($image)
-{
-    return $image->store('hopitauxImage', 'public');
-}
-
 public function update(Request $request, hopitaux $hopitaux)
 {
     try {
-        $hopitaux = new hopitaux();
+       
         $hopitaux->nom_hopital = $request->nom_hopital;
         $hopitaux->description = $request->description;
         $hopitaux->longitude = $request->longitude;
@@ -93,7 +107,7 @@ public function update(Request $request, hopitaux $hopitaux)
         if ($request->hasFile("image")) {
             $hopitaux->image = $this->storeImage($request->image);
         }
-        $hopitaux->save();
+        $hopitaux->update();
         return response()->json([
             'status_code' => 200,
             'status_message' => 'L\'hopital a été modifie',
