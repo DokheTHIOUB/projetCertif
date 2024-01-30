@@ -19,14 +19,14 @@ class UtilisateurFactory extends Factory
     { 
         
         return [
-        'nom' => $this->faker->nom,
-        'prenom' => $this->faker->prenom,
+        'nom' => $this->faker->name(),
+        'prenom' => $this->faker->name(),
         'sexe' => $this->faker->randomElement(['homme', 'femme']),
         'age' => $this->faker->numberBetween(18, 80),
-        'telephone' => $this->faker->telephone,
-        'role' => $this->faker->randomElement(['admin', 'client', 'docteur']),
+        'telephone' => $this->faker->phoneNumber(),
+        'role_id' => 3,
         'email' => $this->faker->unique()->safeEmail,
-        'adresse' => $this->faker->addresse,
+        'adresse' => $this->faker->city(),
         'photo_profil' => $this->faker->imageUrl(),
         'password' => bcrypt('password'), 
         ];

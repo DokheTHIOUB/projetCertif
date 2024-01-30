@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Utilisateur;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,18 +18,9 @@ class DocteurFactory extends Factory
     public function definition(): array
     {
         return [
-            'nom' => $this->faker->nom,
-            'prenom' => $this->faker->prenom,
-            'sexe' => $this->faker->randomElement(['homme', 'femme']),
-            'age' => $this->faker->numberBetween(18, 80),
-            'telephone' => $this->faker->telephone,
-            'role' => $this->faker->randomElement('docteur'),
-            'email' => $this->faker->unique()->safeEmail,
-            'adresse' => $this->faker->addresse,
-            'photo_profil' => $this->faker->imageUrl(),
-            'password' => bcrypt('password'), 
+            'utilisateurs_id'=>Utilisateur::factory()->create()->id,
             'diplome' => $this->faker->word, 
-            'specialite' => $this->faker->word,
+            'specialite_id' => 2,
             'numero_licence' => $this->faker->randomNumber(),
             'annee_experience' => $this->faker->numberBetween(1, 30),
             'statut' => $this->faker->randomElement(['disponible', 'indisponible']),

@@ -9,7 +9,7 @@ use App\Models\Utilisateur;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class Authentification extends TestCase
+class AuthentificationTest extends TestCase
 {
     /**
      * A basic feature test example.
@@ -27,7 +27,7 @@ class Authentification extends TestCase
     {
         $user = Client::factory()->create();
         $unserinsert = $user->toArray();
-        $this->assertDatabaseHas('client', $unserinsert); 
+        $this->assertDatabaseHas('clients', $unserinsert); 
 
     }
 
@@ -35,13 +35,14 @@ class Authentification extends TestCase
     {
         $user = Utilisateur::factory()->create();
         $unserinsert = $user->toArray();
-        $this->assertDatabaseHas('Admin', $unserinsert);
+        $this->assertDatabaseHas('Utilisateurs', $unserinsert);
     }
 
     public function testLoginclient(): void
     {
         $user = Client::factory()->create();
-        $credentials = ['email' => $user->email, 'password' => $user->password];
+        $usertr=Utilisateur::where('id',$user->utilisateur_id)->first();
+        $credentials = ['email' => $usertr->email, 'password' => $usertr->password];
         $response = $this->post('api/login', $credentials);
         $response->assertStatus(200);
     } 
@@ -49,7 +50,8 @@ class Authentification extends TestCase
     public function testLogindocteur(): void
     {
         $user = Docteur::factory()->create();
-        $credentials = ['email' => $user->email, 'password' => $user->password];
+        $usertr=Utilisateur::where('id',$user->utilisateurs_id)->first();
+        $credentials = ['email' => $usertr->email, 'password' => $usertr->password];
         $response = $this->post('api/login', $credentials);
         $response->assertStatus(200); 
     }

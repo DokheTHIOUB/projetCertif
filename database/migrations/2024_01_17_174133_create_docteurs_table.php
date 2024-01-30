@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id(); 
             $table->string('diplome');
             $table->string('numero_licence');
-            $table->string('annee_experience'); 
+            $table->string('annee_experience');  
+            $table->enum('statut',['disponible','indisponible']);  
             $table->foreignId('specialite_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('utilisateurs_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
