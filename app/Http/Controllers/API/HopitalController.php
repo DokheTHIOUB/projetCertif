@@ -6,6 +6,7 @@ use Exception;
 use App\Models\hopitaux;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use App\Http\Requests\StoreHopitalRequest;
 
 class HopitalController extends Controller
 {
@@ -31,7 +32,7 @@ public function filterHopitauxparLocalite(Request $request)
 {
     try {
         $localiteFiltrer = $request->input('localite_id');
-        $hopitaux = hopitaux::where('localite', 'like', '%' . $localiteFiltrer . '%')->get();
+        $hopitaux = hopitaux::where('localite_id', 'like', '%' . $localiteFiltrer . '%')->get();
 
         return response()->json([
             'status_code' => 200,
@@ -69,18 +70,21 @@ private function storeImage($image)
     return $image->store('hopitauxImage', 'public');
 }
 
-public function ajouterHopital(Request $request)
+public function ajouterHopital(StoreHopitalRequest $request)
 {
     try {
-        $img = $request->file('image')->store('hopitauxImage', 'public');
         $hopitaux = new hopitaux();
+        if ($request->hasFile('image')) {
+            $imageFile = $request->file('image');
+            $imageName = time() . '_' . $imageFile->getClientOriginalName();
+            $imageFile->move(public_path('/hopitauxImage'), $imageName);
+            $hopitaux->image=$imageName;
         $hopitaux->nom_hopital = $request->nom_hopital;
         $hopitaux->description = $request->description;
         $hopitaux->longitude = $request->longitude;
         $hopitaux->lattitude = $request->lattitude;
         $hopitaux->horaire = $request->horaire; 
         $hopitaux->localite_id = $request->localite_id; 
-        $hopitaux->image = $img;
 
         $hopitaux->save();
         return response()->json([
@@ -88,12 +92,13 @@ public function ajouterHopital(Request $request)
             'status_message' => 'L\'hopital a été ajoute',
             'hopitaux' => $hopitaux
         ]);
+    }
     } catch (Exception $e) {
         return response()->json($e);
     }
 }
 
-public function update(Request $request, hopitaux $hopitaux)
+public function update(StoreHopitalRequest $request, hopitaux $hopitaux)
 {
     try {
        

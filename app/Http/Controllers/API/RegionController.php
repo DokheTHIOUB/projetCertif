@@ -6,10 +6,11 @@ use Exception;
 use App\Models\Region;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use App\Http\Requests\StoreRegionRequest;
 
 class RegionController extends Controller
 {
-    public function index(Region $Region)
+    public function index(StoreRegionRequest $Region)
     {
         try {
             return response()->json([
@@ -22,8 +23,7 @@ class RegionController extends Controller
         }
     }
 
-
-    public function store(Request $request)
+    public function store(StoreRegionRequest $request)
     {
         $Region = new Region();
         $Region->nom_region = $request->nom_region;
@@ -37,10 +37,8 @@ class RegionController extends Controller
         ]);
 
     }
-
-
       //Modifier des Regions
-      public function update(Request $request, Region $Region)
+      public function update(StoreRegionRequest $request, Region $Region)
       {
           try {
               $Region->nom_Region = $request->nom_Region;

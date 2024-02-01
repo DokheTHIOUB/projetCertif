@@ -3,21 +3,22 @@
 namespace App\Http\Controllers\API;
 
 
-use App\Models\Utilisateur;
+use Exception;
 use App\Models\Role;
+use App\Models\Utilisateur;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\StoreUtilisateurRequest;
 use App\Http\Requests\UpdateUtilisateurRequest;
-use Illuminate\Http\Request;
 
 class UtilisateurController extends Controller
 {
 
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login', 'register']]);
+        $this->middleware('auth:api', ['except' => ['login', 'register','listeUtilisateurs']]);
     }
 
         public function login(Request $req)  {
@@ -94,17 +95,22 @@ class UtilisateurController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function listeUtilisateurs()
     {
-        //
-    }
-
+        try {
+        
+            return response()->json([
+                'status_code' => 200,
+                'status_message' => 'Voici la liste de tout les clients',
+                'liste client' => Utilisateur::all(),
+            ]);
+        } catch (Exception $e) {
+            return response()->json($e);
+        }
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
-    {
-        //
+   
     }
 
     /**

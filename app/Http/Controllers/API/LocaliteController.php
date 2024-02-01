@@ -38,7 +38,7 @@ class LocaliteController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreLocaliteRequest $request)
     {
         $localite = new Localite();
 
@@ -56,7 +56,7 @@ class LocaliteController extends Controller
 
     }
 
-    public function update(Request $request, localite $localite)
+    public function update(StoreLocaliteRequest $request, localite $localite)
     {
         try {
             $localite->nom_localite = $request->nom_localite;

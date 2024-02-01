@@ -57,59 +57,7 @@ class RegisterDocteur extends FormRequest
         ]));
     }
     
-    public function messages()
-    {
-        return [
-            'nom.required' => 'Le champ nom est obligatoire.',
-            'nom.string' => 'Le champ nom doit être une chaîne de caractères.',
-            'nom.max' => 'Le champ nom ne doit pas dépasser 50 caractères.', 
-
-            'prenom.required' => 'Le champ prénom est obligatoire.',
-            'prenom.string' => 'Le champ prénom doit être une chaîne de caractères.',
-            'prenom.max' => 'Le champ prénom ne doit pas dépasser 50 caractères.',
-
-            'sexe.required' => 'Le champ sexe est obligatoire.',
-            'sexe.string' => 'Le champ sexe doit être une chaîne de caractères.',
-            'sexe.in' => 'Le champ sexe doit être soit homme, soit femme.',
-            
-            'age.required' => 'Le champ âge est obligatoire.',
-            'age.integer' => 'Le champ âge doit être un nombre entier.',
-            'age.min' => 'Le champ âge doit être d\'au moins 18 ans.',
-            'age.max' => 'Le champ âge ne doit pas dépasser :100 ans.',
-            
-            'telephone.required' => 'Le champ téléphone est obligatoire.',
-            'telephone.regex' => 'Le format du téléphone est invalide.',
-            
-            'email.required' => 'Le champ email est obligatoire.',
-            'email.email' => 'Le champ email doit être une adresse email valide.',
-            'email.unique' => 'Cette adresse email est déjà utilisée.',
-            
-            'adresse.required' => 'Le champ adresse est obligatoire.',
-            'adresse.string' => 'Le champ adresse doit être une chaîne de caractères.',
-            'adresse.max' => 'Le champ adresse ne doit pas dépasser 255 caractères.',
-            
-            'photo_profil.required' => 'Le champ photo de profil est obligatoire.',
-            'photo_profil.image' => 'Le champ photo de profil doit être une image.',
-            'photo_profil.mimes' => 'Le champ photo de profil doit être au format jpeg,png,jpg,gif',
-            'photo_profil.max' => 'Le champ photo de profil ne doit pas dépasser 2000 kilo-octets.',
-            
-            'password.required' => 'Le champ mot de passe est obligatoire.',
-            'password.regex' => 'Le mot de passe doit contenir au moins une lettre, un chiffre et un caractère spécial, et avoir une longueur d\'au moins 8 caractères.',
-            
-            'diplome.required' => 'Le champ diplôme est obligatoire.',
-            'diplome.string' => 'Le champ diplôme doit être une chaîne de caractères.',
-            
-            'numero_licence.required' => 'Le champ numéro de licence est obligatoire.',
-            'numero_licence.string' => 'Le champ numéro de licence doit être une chaîne de caractères.',
-            'numero_licence.max' => 'Le champ numéro de licence ne doit pas dépasser 80 caractères.',
-            
-            'annee_experience.required' => 'Le champ année d\'expérience est obligatoire.',
-            'annee_experience.integer' => 'Le champ année d\'expérience doit être un nombre entier.',
-            'annee_experience.min' => 'Le champ année d\'expérience doit être d\'au moins 3 ans.',
-            'annee_experience.max' => 'Le champ année d\'expérience ne doit pas dépasser 80 ans.',
-          
-        ];
-    }
+   
     
 }
 

@@ -6,6 +6,7 @@ use Exception;
 use App\Models\Specialite;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use App\Http\Requests\StoreSpecialiteRequest;
 
 
 class SpecialiteController extends Controller
@@ -24,11 +25,9 @@ class SpecialiteController extends Controller
         }
     }
 
-
-    public function store(Request $request)
+    public function store(StoreSpecialiteRequest $request)
     {
         $specialite = new Specialite();
-
         $specialite->nom_specialite = $request->nom_specialite;
         $specialite->save();
 
@@ -39,10 +38,8 @@ class SpecialiteController extends Controller
         ]);
 
     }
-
-
       //Modifier des specialites
-      public function update(Request $request, specialite $specialite)
+      public function update(StoreSpecialiteRequest $request, specialite $specialite)
       {
           try {
               $specialite->nom_specialite = $request->nom_specialite;

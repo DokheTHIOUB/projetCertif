@@ -8,6 +8,7 @@ use App\Models\Client;
 use App\Models\Utilisateur;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\StoreClientRequest;
 use App\Http\Requests\UpdateClientRequest;
@@ -36,39 +37,39 @@ class ClientController extends Controller
             'user' => $client
         ]);
      } 
-     
-     public function update(Request $request, Client $Client)
+
+     public function update(StoreClientRequest $request, Client $Client)
      {
          try {
-            [   'nom' => $request->nom,
-                'prenom' => $request->prenom,
-                'sexe' => $request->sexe, 
-                'age' => $request->age, 
-                'telephone' => $request->telephone, 
-                'email' => $request->email, 
-                'adresse' => $request->adresse, 
-                'photo_profil' => $request->photo_profil, 
-                'password' => Hash::make($request->password),
-             ];
-         
-             $Client->update();
+            $user=Utilisateur::where('id',$Client->utilisateur_id)->first();
+            $user->nom=$request->nom;
+            $user->prenom=$request->prenom;
+            $user->sexe=$request->sexe;
+            $user->age=$request->age;
+            $user->telephone=$request->telephone;
+            $user->email=$request->email;
+            $user->adresse=$request->adresse;
+            $user->photo_profil=$request->photo_profil;
+            $user->password=$request->password;
+            $user->update();
              return response()->json([
                  'status_code' => 200,
                  'status_message' => 'Le client a été modifié',
-                 'Client' => $Client
+                 'Client' => $user
              ]);
          } catch (Exception $e) {
              return response()->json($e);
          }
      }
 
-     public function index(Client $docteur)
+     public function index(Client $Client)
      {
          try {
+          $client=Utilisateur::where('role_id',2)->get();
              return response()->json([
                  'status_code' => 200,
                  'status_message' => 'Voici la liste de tout les clients',
-                 'liste docteur' => Client::all(),
+                 'liste client' => $client
              ]);
          } catch (Exception $e) {
              return response()->json($e);
@@ -80,7 +81,7 @@ class ClientController extends Controller
  
          try {
  
-              $totalClient= Client::count();
+              $totalClient= Utilisateur::where('role_id',2)->count();
              return response()->json([
              'status_code' => 200,
              'status_message' => 'Le nombre total de Client',

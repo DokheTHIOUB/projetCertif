@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\RegisterDocteur;
+use App\Http\Requests\UpdateDocteurRequest;
+use App\Http\Middleware\Docteur as MiddlewareDocteur;
 
 class DocteurController extends Controller
 {
@@ -43,6 +45,38 @@ class DocteurController extends Controller
         ]);
     }
         
+
+    public function update(UpdateDocteurRequest $request, Utilisateur $utilisateur)
+    {
+        // dd($request->all());
+        try {
+// dd($utilisateur);
+            $utilisateur->nom = $request->nom;
+            $utilisateur->prenom = $request->prenom;
+            $utilisateur->sexe = $request->sexe;
+            $utilisateur->age = $request->age;
+            $utilisateur->telephone = $request->telephone;
+            $utilisateur->email = $request->email;
+            $utilisateur->adresse = $request->adresse;
+            $utilisateur->photo_profil = $request->photo_profil;
+            $utilisateur->password = Hash::make($request->password);
+            $utilisateur->update();
+            
+            $docteur = Docteur::where('utilisateurs_id', $utilisateur->id)->first();
+            $docteur->annee_experience = $request->annee_experience;
+            $docteur->update();
+            return response()->json([
+                'status_code' => 200,
+                'status_message' => 'Le docteur a été modifié',
+                'docteur' =>  $utilisateur,
+                'Info supplementaire'=>$docteur
+            ]);
+        } catch (Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+    
+
             public function index(Docteur $docteur)
             {
                 try {
@@ -102,14 +136,15 @@ class DocteurController extends Controller
                   }
               }
 
+
     public function Docteurdisponible(Docteur $docteur)
     {
         try {
-            if ($docteur->statut == 'disponible') {
+            {
                 return response()->json([
                     'status_code' => 200,
                     'status_message' => 'Voici la liste des docteurs disponible',
-                    'docteur disponible' => Docteur::where('disponible', 1)->get(),
+                    'docteur' => Docteur::where( 'statut',  '=', 'disponible')->get(),
                 ]);
             }
         } catch (Exception $e) {
@@ -118,16 +153,15 @@ class DocteurController extends Controller
     }
     
     //Liste des docteurs indisponible
-    public function DocteurIndisponible(Docteur $docteur)
+    public function DocteurIndisponible()
     {
         try {
-            if ( $docteur->statut == 'indisponible' ) {
                 return response()->json([
                     'status_code' => 200,
                     'status_message' => 'Voici la liste des Docteurs indisponible',
-                    'docteur' => Docteur::where('statut', 0)->get(),
+                    'docteur' => Docteur::where( 'statut',  '=', 'indisponible')->get(),
                 ]);
-            }
+            
         } catch (Exception $e) {
             return response()->json($e);
         }
@@ -151,38 +185,7 @@ class DocteurController extends Controller
        }
     }
     
-    public function update(Request $request, Docteur $docteur)
-    {
-        try {
-           
-            $utilisateur = $docteur->utilisateur;
-            $utilisateur->nom = $request->nom;
-            $utilisateur->prenom = $request->prenom;
-            $utilisateur->sexe = $request->sexe;
-            $utilisateur->age = $request->age;
-            $utilisateur->telephone = $request->telephone;
-            $utilisateur->email = $request->email;
-            $utilisateur->adresse = $request->adresse;
-            $utilisateur->photo_profil = $request->photo_profil;
-            $utilisateur->password = Hash::make($request->password);
-            $utilisateur->update();
-            
-            $docteur->diplome = $request->diplome;
-            $docteur->numero_licence = $request->numero_licence;
-            $docteur->annee_experience = $request->annee_experience;
-            $docteur->specialite_id = $request->specialite_id;
-            $docteur->update();
-            
-            return response()->json([
-                'status_code' => 200,
-                'status_message' => 'Le docteur a été modifié',
-                'docteur' => $docteur
-            ]);
-        } catch (Exception $e) {
-            return response()->json(['error' => $e->getMessage()], 500);
-        }
-    }
-    
+   
     public function destroy(Docteur $docteur)
     {
         try {

@@ -4,14 +4,14 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateUtilisateurControllerRequest extends FormRequest
+class StoreRegionRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -19,10 +19,10 @@ class UpdateUtilisateurControllerRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
-    public function rules(): array
+    public function rules()
     {
         return [
-            //
+            'nom_region' => 'required|string|max:255', // Exemple de règle : obligatoire, chaîne de caractères, maximum de 255 caractères
         ];
     }
 }

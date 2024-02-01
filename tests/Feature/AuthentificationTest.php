@@ -21,8 +21,6 @@ class AuthentificationTest extends TestCase
     //     $response->assertStatus(200);
     // } 
 
-
-    
     public function testresgisterclient(): void
     {
         $user = Client::factory()->create();
