@@ -11,8 +11,7 @@ class ClientFactory extends Factory
     public function definition(): array
     {
         return [
-          'utilisateur_id'=>Utilisateur::factory()->create()->id
-            
+          'utilisateur_id'=>Utilisateur::factory()->create()->id 
         ];
     }
 }

@@ -20,10 +20,10 @@ class Docteur extends Model
 
     public function utilisateur(){
             return $this->belongsTo(Utilisateur::class);
-        } 
+    } 
 
-        public function specialite(){
+    public function specialite(){
             return $this->belongsTo(Specialite::class);
-        } 
+    } 
 
 }

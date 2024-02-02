@@ -16,8 +16,6 @@ class AdminFactory extends Factory
      */
     public function definition(): array
     {
-        
-   
         return [
            
                 'nom' => $this->faker->nom,
@@ -25,13 +23,11 @@ class AdminFactory extends Factory
                 'sexe' => $this->faker->randomElement(['homme', 'femme']),
                 'age' => $this->faker->numberBetween(18, 80),
                 'telephone' => $this->faker->telephone,
-                'role' => $this->faker->randomElement('admin'),
+                'role_id' => 1,
                 'email' => $this->faker->unique()->safeEmail,
                 'adresse' => $this->faker->addresse,
                 'photo_profil' => $this->faker->imageUrl(),
                 'password' => bcrypt('password'), 
                 ];
-        
-        
     }
 }

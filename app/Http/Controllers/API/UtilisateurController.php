@@ -4,12 +4,9 @@ namespace App\Http\Controllers\API;
 
 
 use Exception;
-use App\Models\Role;
 use App\Models\Utilisateur;
-use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\StoreUtilisateurRequest;
 use App\Http\Requests\UpdateUtilisateurRequest;
 
@@ -21,7 +18,7 @@ class UtilisateurController extends Controller
         $this->middleware('auth:api', ['except' => ['login', 'register','listeUtilisateurs']]);
     }
 
-        public function login(Request $req)  {
+        public function login(StoreUtilisateurRequest $req)  {
        
             $req->validate([
                 'email' => 'required|string|email',
@@ -88,10 +85,7 @@ class UtilisateurController extends Controller
                 'message' => 'Déconnexion réussie'
             ]);
         }
-    
 
-
-    
     /**
      * Display a listing of the resource.
      */
@@ -107,49 +101,5 @@ class UtilisateurController extends Controller
         } catch (Exception $e) {
             return response()->json($e);
         }
-    /**
-     * Show the form for creating a new resource.
-     */
-   
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreUtilisateurRequest $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Utilisateur $utilisateur)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Utilisateur $utilisateur)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateUtilisateurRequest $request, Utilisateur $utilisateur)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Utilisateur $utilisateur)
-    {
-        //
-    }
+     }
 }

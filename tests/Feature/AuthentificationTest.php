@@ -29,6 +29,13 @@ class AuthentificationTest extends TestCase
 
     }
 
+public function testRegisterDocteur(){
+    $credentials = ['email' => 'admin@gmail.com', 'password' => 'admin123'];
+    $this->post('api/login', $credentials);
+    $user = Docteur::factory()->create()->toArray();
+    $this->assertDatabaseHas('docteurs',$user);
+}
+
     public function testRegisterAdmin(): void
     {
         $user = Utilisateur::factory()->create();

@@ -24,7 +24,7 @@ class UtilisateurFactory extends Factory
         'sexe' => $this->faker->randomElement(['homme', 'femme']),
         'age' => $this->faker->numberBetween(18, 80),
         'telephone' => $this->faker->phoneNumber(),
-        'role_id' => 3,
+        'role_id' => $this->faker->randomElement([1,2,3]),
         'email' => $this->faker->unique()->safeEmail,
         'adresse' => $this->faker->city(),
         'photo_profil' => $this->faker->imageUrl(),

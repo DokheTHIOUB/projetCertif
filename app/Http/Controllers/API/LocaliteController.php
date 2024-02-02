@@ -50,12 +50,10 @@ class LocaliteController extends Controller
         return response()->json([
             'status_code' => 200,
             'status_message' => 'localite enregistrer',
-            'liste_specialite' => $localite,
-            
+            'liste_specialite' => $localite, 
         ]);
-
     }
-
+    
     public function update(StoreLocaliteRequest $request, localite $localite)
     {
         try {

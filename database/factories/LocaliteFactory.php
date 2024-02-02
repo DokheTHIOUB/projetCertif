@@ -14,10 +14,17 @@ class LocaliteFactory extends Factory
      *
      * @return array<string, mixed>
      */
-    public function definition(): array
+    public function definition()
     {
         return [
-            //
+            'nom_localite' => $this->faker->city,
+            'code_postal' => $this->faker->postcode,
+            'region_id' => function () {
+                // Return the id of an existing region or create a new one
+                return \App\Models\Region::factory()->create()->id;
+            },
+            'created_at' => now(),
+            'updated_at' => now(),
         ];
     }
 }
