@@ -39,8 +39,9 @@ Route::middleware(['auth:api','client'])->group(function (){
     Route::post('/logoutClient', [UtilisateurController::class, 'logout']); 
     Route::post('client/edit/{Client}', [clientController::class, 'update']); 
     Route::get('Hopital/localite', [HopitalController::class, 'filterHopitauxparLocalite']); 
+    Route::get('Docteur/filtre/specialite',[DocteurController::class,'filterDocteurparspecialite']); 
 });
-Route::middleware(['auth:api','Admin'])->group(function (){
+Route::middleware(['auth:api','admin'])->group(function (){
     Route::post('/logoutAdmin', [UtilisateurController::class, 'logout']); 
     Route::post('/registerdocteur', [DocteurController::class, 'registerDocteur']);
     Route::delete('docteur/archive/{docteur}', [DocteurController::class, 'destroy']);
@@ -65,12 +66,12 @@ Route::middleware(['auth:api','Admin'])->group(function (){
     Route::post('Hopital/create', [HopitalController::class, 'ajouterHopital']); 
     Route::post('Hopital/edit/{hopitaux}', [HopitalController::class, 'update']); 
 }); 
-Route::middleware(['auth:api','Docteur'])->group(function(){ 
+Route::middleware(['auth:api','docteur'])->group(function(){ 
     // Route::get('docteur/show/{docteur}', [DocteurController::class, 'show']);  
     Route::post('/logoutDocteur', [UtilisateurController::class, 'logout']); 
     Route::post('Docteur/edit/{utilisateur}', [DocteurController::class, 'update']); 
     Route::put('docteur/disponibilite/{docteur}', [DocteurController::class, 'disponibilite']); 
 });
-Route::get('Docteur/filtre/specialite',[DocteurController::class,'filterDocteurparspecialite']); 
+
 
 

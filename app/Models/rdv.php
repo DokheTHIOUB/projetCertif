@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class DocteurHopitalClient extends Model
+class rdv extends Model
 {
     protected $guarded = [
     
@@ -15,7 +15,7 @@ class DocteurHopitalClient extends Model
         $this->belongsTo(docteurHopital::class);
     } 
 
-    public function hopitaux(){
+    public function client(){
         $this->belongsTo(Client::class);
     } 
 }

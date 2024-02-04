@@ -7,14 +7,14 @@ use App\Models\Utilisateur;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Hash;
-use App\Http\Requests\RegisterDocteur;
 use App\Http\Requests\UpdateDocteurRequest;
-use App\Http\Middleware\Docteur as MiddlewareDocteur;
+use App\Http\Requests\RegisterDocteurRequest;
+
 
 class DocteurController extends Controller
 {
    
-    public function registerDocteur( RegisterDocteur $request)
+    public function registerDocteur( RegisterDocteurRequest $request)
     {
         // dd($request->validated());
          $user =Utilisateur::create([
@@ -38,10 +38,11 @@ class DocteurController extends Controller
                     'annee_experience' => $request->annee_experience , 
                     'specialite_id'=>$request->specialite_id ,
                     'utilisateurs_id'=>$user->id,
-                ] );
+                ] ); 
                 return response()->json([
                     'message' => 'Bonjour docteur',
-                    'user' => $docteur
+                    'user' => $docteur 
+                    
         ]);
     }
         
@@ -201,6 +202,8 @@ class DocteurController extends Controller
         }
     }
 
+
+    
     public function filterDocteurparspecialite(Request $request)
 {
     try {

@@ -19,21 +19,14 @@ class UtilisateurController extends Controller
     }
 
         public function login(StoreUtilisateurRequest $req)  {
-       
-            $req->validate([
-                'email' => 'required|string|email',
-                'password' => 'required|string',
-            ]);
-    
             $credentials = $req->only('email','password');
             // dd($credentials);
-
             $token = Auth::attempt($credentials);
             // dd($token);
             if (!$token){
                 return response()->json([
                     'status' => 'erreur',
-                    'message' => ' La connexion a échoué '
+                    'message' => ' Email ou mot de passe incorrecte '
                 ]);
             }
     
@@ -46,7 +39,7 @@ class UtilisateurController extends Controller
                     'token'=> $token,
                     'type'=> 'bearer',
                     'status' => 'success',
-                    'message' => 'connexion réussie',
+                    'message' => 'Bonjour Admin ',
                   ]
             ]);
         }
@@ -59,7 +52,7 @@ class UtilisateurController extends Controller
                     'token'=> $token,
                     'type'=> 'bearer',
                     'status' => 'success',
-                    'message' => 'connexion réussie',
+                    'message' => 'Bonjour Client ',
                   ]
             ]);
         }
@@ -72,7 +65,7 @@ class UtilisateurController extends Controller
                   'token'=> $token,
                   'type'=> 'bearer',
                   'status' => 'success',
-                'message' => 'connexion réussie',
+                'message' => 'Bonjour Docteur',
                 ]
           ]);
         }

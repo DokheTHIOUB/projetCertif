@@ -6,7 +6,7 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class RegisterDocteur extends FormRequest
+class RegisterDocteurRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,8 +23,6 @@ class RegisterDocteur extends FormRequest
      */
     public function rules(): array
     {
-       
-        {
             return [ 
 
                 'nom' => 'required|string|max:50',
@@ -43,10 +41,9 @@ class RegisterDocteur extends FormRequest
                 'role_id' => 'required|exists:roles,id',
                 
             ];
-        }
+            
     }
-
-
+    
     public function failedValidation(Validator $validator ){
         throw new HttpResponseException(response()->json([
             'success'=>false,
@@ -56,8 +53,5 @@ class RegisterDocteur extends FormRequest
             'errorList'=>$validator->errors(),
         ]));
     }
-    
-   
-    
 }
 
