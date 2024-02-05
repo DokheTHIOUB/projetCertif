@@ -7,32 +7,16 @@ use App\Models\hopitaux;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use App\Http\Requests\StoreHopitalRequest;
+use App\Models\hopital;
 
 class HopitalController extends Controller
 {
    
-
-public function filterHopitaux(Request $request)
-{
-    try {
-        $localiteId = $request->input('localite_id'); // Récupérer les hôpitaux en fonction de la localité choisie
-        $hopitaux = hopitaux::where('localite_id', $localiteId)->get();  // Retourner une réponse JSON avec les hôpitaux filtrés
-        return response()->json([
-            'status_code' => 200,
-            'status_message' => 'Hôpitaux filtrés par localité avec succès',
-            'filtrer_hospitals' => $hopitaux,
-        ]);
-    } catch (Exception $e) {
-    
-        return response()->json([$e]);
-    }
-} 
-
 public function filterHopitauxparLocalite(Request $request)
 {
     try {
         $localiteFiltrer = $request->input('localite_id');
-        $hopitaux = hopitaux::where('localite_id', 'like', '%' . $localiteFiltrer . '%')->get();
+        $hopitaux = hopital::where('localite_id', 'like', '%' . $localiteFiltrer . '%')->get();
 
         return response()->json([
             'status_code' => 200,
@@ -49,7 +33,7 @@ public function TotalHopitaux()
 {
     try {
 
-       $totalhopitaux= hopitaux::count();
+       $totalhopitaux= hopital::count();
 
         return response()->json([
         'status_code' => 200,
@@ -73,7 +57,7 @@ private function storeImage($image)
 public function ajouterHopital(StoreHopitalRequest $request)
 {
     try {
-        $hopitaux = new hopitaux();
+        $hopitaux = new hopital();
         if ($request->hasFile('image')) {
             $imageFile = $request->file('image');
             $imageName = time() . '_' . $imageFile->getClientOriginalName();
@@ -98,7 +82,7 @@ public function ajouterHopital(StoreHopitalRequest $request)
     }
 }
 
-public function update(StoreHopitalRequest $request, hopitaux $hopitaux)
+public function update(StoreHopitalRequest $request, hopital $hopitaux)
 {
     try {
        
@@ -123,7 +107,7 @@ public function update(StoreHopitalRequest $request, hopitaux $hopitaux)
     }
 }
 
-public function destroy(hopitaux $hopitaux)
+public function destroy(hopital $hopitaux)
 {
     try {
         $hopitaux->delete();
@@ -139,13 +123,13 @@ public function destroy(hopitaux $hopitaux)
 }
 
 
-public function index(hopitaux $hopitaux)
+public function index()
 {
     try {
             return response()->json([
                 'status_code' => 200,
                 'status_message' => 'Voici la liste des hopitaux ',
-                'hopitaux' => hopitaux::all(),
+                'hopitaux' => hopital::all(),
             ]);
     } catch (Exception $e) {
         return response()->json($e);

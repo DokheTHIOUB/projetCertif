@@ -33,7 +33,7 @@ class StoreClientRequest extends FormRequest
             'email' => 'required|email|unique:utilisateurs,email',
             'adresse' => 'required|string|max:100',
             'photo_profil' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2000',
-            'password' => 'required|string|min:8',
+            'password'=> ['required', 'regex:/^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[@#$%^&+=!])(.{8,})$/'],
             'role_id' =>  'required|exists:roles,id',
 
         ];

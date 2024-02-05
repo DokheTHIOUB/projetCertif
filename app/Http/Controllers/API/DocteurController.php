@@ -28,7 +28,6 @@ class DocteurController extends Controller
             'photo_profil' => $request->photo_profil, 
             'password' => Hash::make($request->password),
             'role_id'=>$request->role_id
-           
         ]); 
         // dd($user->id);
             $docteur =Docteur::create( 
@@ -41,8 +40,7 @@ class DocteurController extends Controller
                 ] ); 
                 return response()->json([
                     'message' => 'Bonjour docteur',
-                    'user' => $docteur 
-                    
+                    'user' => $docteur          
         ]);
     }
         
@@ -77,7 +75,6 @@ class DocteurController extends Controller
         }
     }
     
-
             public function index(Docteur $docteur)
             {
                 try {
@@ -91,7 +88,7 @@ class DocteurController extends Controller
                 }
             }
 
-    public function disponibilite(Docteur $docteur)
+    public function Statut(Docteur $docteur)
     {   
         if ($docteur->statut==='indisponible') {
             try {
@@ -203,21 +200,20 @@ class DocteurController extends Controller
     }
 
 
-    
-    public function filterDocteurparspecialite(Request $request)
+    public function filterDocteurparSpecialite(Request $request)
 {
     try {
-        $specialite_id = $request->input('specialite_id'); // Récupérer les docteurs en fonction de leur specialites
-        $docteur = Docteur::where('specialite_id', $specialite_id)->get();  // Retourner une réponse JSON avec les hôpitaux filtrés
+        $filtreSpecialite = $request->input('localite_id');
+        $docteur = Docteur::where('specialite_id', 'like', '%' . $filtreSpecialite . '%')->get();
         return response()->json([
             'status_code' => 200,
-            'status_message' => 'docteurs filtrés par specialité avec succès',
-            'filtrer_hospitals' => $docteur,
+            'status_message' => 'Hôpitaux filtrés par localité avec succès',
+            'hospitals_filtres' => $docteur,
         ]);
     } catch (Exception $e) {
-    
-        return response()->json([$e]);
+        return response()->json(['error' => $e->getMessage()], 500);
     }
-} 
+}
+
    
 }

@@ -10,7 +10,7 @@ use App\Http\Requests\StoreRegionRequest;
 
 class RegionController extends Controller
 {
-    public function index(StoreRegionRequest $Region)
+    public function index()
     {
         try {
             return response()->json([
@@ -41,7 +41,7 @@ class RegionController extends Controller
       public function update(StoreRegionRequest $request, Region $Region)
       {
           try {
-              $Region->nom_Region = $request->nom_Region;
+              $Region->nom_region = $request->nom_region;
               $Region->save();
               return response()->json([
                   'status_code' => 200,
@@ -71,4 +71,5 @@ class RegionController extends Controller
       }
 
 
+      
 }

@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('rdv', function (Blueprint $table) {
+        Schema::create('rdvs', function (Blueprint $table) {
             $table->id();
             $table->date('date');
             $table->time('heure');
-            $table->enum('statut',['en_attente','confirmer','annuler']);
+            $table->enum('statut',['en_attente','confirmer','annuler'])->default('en_attente');
             $table->string('descriptiondubesoin');
             $table->foreignId('client_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('docteur_hopitals_id')->constrained()->onDelete('cascade')->onUpdate('cascade');

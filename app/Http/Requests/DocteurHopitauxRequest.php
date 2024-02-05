@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class StoreRegionRequest extends FormRequest
+class DocteurHopitauxRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -21,11 +21,12 @@ class StoreRegionRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
-    public function rules()
+    public function rules(): array
     {
         return [
-            'nom_region' => 'required|string|max:255'
-        ];
+            'docteurs_id' => 'required|exists:docteur,id', 
+            'hopitauxs_id' => 'required|exists:hopitauxs,id'
+        ]; 
     }
 
     public function failedValidation(Validator $validator ){
@@ -37,5 +38,4 @@ class StoreRegionRequest extends FormRequest
             'errorList'=>$validator->errors(),
         ]));
     }
-
 }
