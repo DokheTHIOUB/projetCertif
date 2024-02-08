@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class UpdateAvisRequest extends FormRequest
+class DisponibiliteRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,10 +24,7 @@ class UpdateAvisRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'description' => 'required|string|max:255',
-            'client_id' => 'required|exists:clients,id',
-            'hopitals_id' => 'required|exists:hopitals,id',
-
+            'statut'=>'required|string|in:disponible,indisponible'
         ];
     }
 

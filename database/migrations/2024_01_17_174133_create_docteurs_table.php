@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('docteurs', function (Blueprint $table) {
             $table->id(); 
-            $table->string('diplome');
+            $table->string('diplome')->default(null);
             $table->string('numero_licence');
             $table->string('annee_experience');  
             $table->enum('statut',['disponible','indisponible'])->default('disponible');  

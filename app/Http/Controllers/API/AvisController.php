@@ -19,7 +19,7 @@ class AvisController extends Controller
             $avis = new Avis();
             $avis->description = $request->description;
             $avis->client_id = $request->client_id;
-            $avis->hopitaux_id = $request->hopitaux_id;
+            $avis->hopitals_id = $request->hopitals_id;
             $avis->save();
             return response()->json([
                 'status_code' => 200,
@@ -37,7 +37,7 @@ class AvisController extends Controller
         try {
             $avis->description = $request->description;
             $avis->client_id = $request->client_id;
-            $avis->hopitaux_id = $request->hopitaux_id;
+            $avis->hopitals_id = $request->hopitals_id;
             $avis->update();
             return response()->json([
                 'status_code' => 200,

@@ -7,6 +7,7 @@ use App\Models\Utilisateur;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\DisponibiliteRequest;
 use App\Http\Requests\UpdateDocteurRequest;
 use App\Http\Requests\RegisterDocteurRequest;
 
@@ -45,7 +46,7 @@ class DocteurController extends Controller
     }
         
 
-    public function update(UpdateDocteurRequest $request, Utilisateur $utilisateur)
+    public function update(UpdateDocteurRequest $request, Utilisateur $utilisateur, Docteur $docteur)
     {
         // dd($request->all());
         try {
@@ -75,7 +76,7 @@ class DocteurController extends Controller
         }
     }
     
-            public function index(Docteur $docteur)
+            public function index()
             {
                 try {
                     return response()->json([
@@ -88,7 +89,7 @@ class DocteurController extends Controller
                 }
             }
 
-    public function Statut(Docteur $docteur)
+    public function Statut( Docteur $docteur)
     {   
         if ($docteur->statut==='indisponible') {
             try {
@@ -96,7 +97,7 @@ class DocteurController extends Controller
                     'statut' => 'disponible',
                 ]);
                 $docteur->save();
-                return response()->json([
+                  return response()->json([
                     'status_code' => 200,
                     'status_message' => "docteur disponible",
                 ]);
@@ -105,9 +106,7 @@ class DocteurController extends Controller
             } 
         }else{
             try {
-                $docteur->update([
-                    'statut' => 'indisponible',
-                ]);
+               
                 $docteur->save();
                 return response()->json([
                     'status_code' => 200,
@@ -120,7 +119,6 @@ class DocteurController extends Controller
        
     }
 
-       //Cette methode permet de récuperer un docteur spécifique
               public function show(Docteur $docteur)
               {
                   try {
@@ -135,7 +133,7 @@ class DocteurController extends Controller
               }
 
 
-    public function Docteurdisponible(Docteur $docteur)
+    public function Docteurdisponible()
     {
         try {
             {
@@ -200,15 +198,15 @@ class DocteurController extends Controller
     }
 
 
-    public function filterDocteurparSpecialite(Request $request)
+    public function filterDocteurparSpecialite(Request $request, Docteur $docteur)
 {
     try {
-        $filtreSpecialite = $request->input('localite_id');
+        $filtreSpecialite = $request->input('specialite_id');
         $docteur = Docteur::where('specialite_id', 'like', '%' . $filtreSpecialite . '%')->get();
         return response()->json([
             'status_code' => 200,
-            'status_message' => 'Hôpitaux filtrés par localité avec succès',
-            'hospitals_filtres' => $docteur,
+            'status_message' => 'docteur filtrés par localité avec succès',
+            'docteur_filtres' => $docteur,
         ]);
     } catch (Exception $e) {
         return response()->json(['error' => $e->getMessage()], 500);

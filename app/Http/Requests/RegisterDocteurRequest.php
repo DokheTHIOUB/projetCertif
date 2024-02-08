@@ -37,7 +37,7 @@ class RegisterDocteurRequest extends FormRequest
                 'diplome' => 'nullable|file|',
                 'numero_licence' => 'required|string|max:80',
                 'annee_experience' => 'required|integer|min:3|max:80',
-                'specialite_id' => 'required|exists:specialite,id',
+                'specialite_id' => 'required|exists:specialites,id',
                 'role_id' => 'required|exists:roles,id',
                 
             ];

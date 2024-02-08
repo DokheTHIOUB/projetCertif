@@ -26,7 +26,7 @@ class StoreAvisRequest extends FormRequest
         return [
             'description' => 'required|string|max:255',
             'client_id' => 'required|exists:clients,id',
-            'hopitaux_id' => 'required|exists:hopitaux,id',
+            'hopitals_id' => 'required|exists:hopitals,id',
 
         ];
     }

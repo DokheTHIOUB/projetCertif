@@ -12,6 +12,8 @@ use App\Http\Controllers\API\LocaliteController;
 use App\Http\Controllers\API\SpecialiteController;
 use App\Http\Controllers\API\UtilisateurController;
 use App\Http\Controllers\API\DocteurHopitalController;
+use App\Http\Middleware\Docteur;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -24,8 +26,7 @@ use App\Http\Controllers\API\DocteurHopitalController;
 */
 
 Route::get('/listerDocteurHopital', [DocteurHopitalController::class, 'listeRdv']); 
-Route::get('/update/{DocteurHopital}', [DocteurHopitalController::class, 'update']); 
-Route::get('/ajoutDocteurHopital', [DocteurHopitalController::class, 'store']); 
+
 
     Route::get('/avis', [AvisController::class, 'index']); 
     Route::get('docteur', [DocteurController::class, 'index']); 
@@ -39,23 +40,31 @@ Route::get('/ajoutDocteurHopital', [DocteurHopitalController::class, 'store']);
     Route::get('Hopital/totalHopitaux', [HopitalController::class, 'TotalHopitaux']); 
 
 Route::middleware(['auth:api','client'])->group(function (){   
-    Route::post('/avis/create', [AvisController::class, 'store']);
     Route::delete('avis/{avis}', [AvisController::class, 'destroy']);
     Route::post('avis/edit/{avis}', [AvisController::class, 'update']); 
-    Route::delete('client/{client}', [clientController::class, 'destroy']); 
+    Route::delete('client/{Client}', [clientController::class, 'destroy']); 
     Route::post('/logoutClient', [UtilisateurController::class, 'logout']); 
     Route::post('client/edit/{Client}', [clientController::class, 'update']); 
     Route::get('Hopital/localite', [HopitalController::class, 'filterHopitauxparLocalite']); 
-    Route::get('Docteur/filtre/specialite',[DocteurController::class,'filterDocteurparspecialite']); 
+
     Route::post('/ajouter/rdv', [RdvControlleur::class, 'store']); 
     Route::post('/rdv/uptade/{rdv}', [RdvControlleur::class, 'update']);
     Route::delete('/rdv/delete/{rdv}', [RdvControlleur::class, 'destroy']); 
+
+    Route::get('Docteur/filtre/specialite',[DocteurController::class,'filterDocteurparspecialite']); 
+    Route::post('docteur/disponible', [DocteurController::class, 'Docteurdisponible']);
+    Route::post('docteur/indisponible', [DocteurController::class, 'DocteurIndisponible']);
+
+
 });
 Route::middleware(['auth:api','admin'])->group(function (){
     Route::post('/logoutAdmin', [UtilisateurController::class, 'logout']); 
     Route::post('/registerdocteur', [DocteurController::class, 'registerDocteur']);
-    Route::delete('docteur/archive/{docteur}', [DocteurController::class, 'destroy']);
     Route::get('/liste/utilisateurs', [UtilisateurController::class, 'listeUtilisateurs']); 
+    Route::get('/ajoutDocteurHopital', [DocteurHopitalController::class, 'store']); 
+    Route::get('/update/{DocteurHopital}', [DocteurHopitalController::class, 'update']); 
+    
+    Route::delete('docteur/archive/{Docteur}', [DocteurController::class, 'destroy']);
    
      //LOCALITES 
     Route::post('/localite/create', [LocaliteController::class, 'store']);
@@ -80,13 +89,15 @@ Route::middleware(['auth:api','admin'])->group(function (){
 Route::middleware(['auth:api','docteur'])->group(function(){ 
     // Route::get('docteur/show/{docteur}', [DocteurController::class, 'show']);  
     Route::post('/logoutDocteur', [UtilisateurController::class, 'logout']); 
-    Route::post('Docteur/edit/{utilisateur}', [DocteurController::class, 'update']); 
-    Route::put('docteur/disponibilite/{docteur}', [DocteurController::class, 'disponibilite']); 
+   
     Route::get('/rdv', [RdvControlleur::class, 'listeRdv']); 
     Route::get('/rdv/confirmer', [RdvControlleur::class, 'listeRdvConfirmer']); 
     Route::get('/rdv/annuler', [RdvControlleur::class, 'listeRdvAnnuler']); 
     Route::get('/rdv/en_attente', [RdvControlleur::class, 'listeRdvEnAttente']); 
     Route::put('rdv/etat/{rdv}', [DocteurController::class, 'Statut']); 
     Route::get('rdv/filtre/date',[DocteurController::class,'Rechercheenfonctiondesdates']); 
+
+    Route::post('Docteur/edit/{utilisateur}', [DocteurController::class, 'update']); 
+    Route::patch('docteur/disponibilite/{Docteur}', [DocteurController::class, 'Statut']); 
    
 });

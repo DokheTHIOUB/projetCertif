@@ -3,16 +3,16 @@
 namespace App\Http\Controllers\API;
 
 use Exception;
-use App\Models\hopitaux;
+use App\Models\hopital;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use App\Http\Requests\StoreHopitalRequest;
-use App\Models\hopital;
+use App\Http\Requests\FiltreHopitauxRequest;
 
 class HopitalController extends Controller
 {
    
-public function filterHopitauxparLocalite(Request $request)
+public function filterHopitauxparLocalite(FiltreHopitauxRequest $request, hopital $hopitaux)
 {
     try {
         $localiteFiltrer = $request->input('localite_id');
