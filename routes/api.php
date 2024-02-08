@@ -26,8 +26,6 @@ use App\Http\Middleware\Docteur;
 */
 
 Route::get('/listerDocteurHopital', [DocteurHopitalController::class, 'listeRdv']); 
-
-
     Route::get('/avis', [AvisController::class, 'index']); 
     Route::get('docteur', [DocteurController::class, 'index']); 
     Route::get('Hopital', [HopitalController::class, 'index']); 
