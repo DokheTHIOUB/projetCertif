@@ -23,52 +23,7 @@
         "multipart/form-data"
     ],
     "paths": {
-        "": {
-            "get": {
-                "summary": "New Request",
-                "description": "",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "Authentification"
-                ],
-                "parameters": [
-                    {
-                        "in": "header",
-                        "name": "User-Agent",
-                        "type": "string"
-                    }
-                ]
-            }
-        },
-        "/api/login": {
+        "http://localhost:8000/api/login": {
             "post": {
                 "summary": "LoginDocteur",
                 "description": "",
@@ -143,7 +98,7 @@
                 }
             }
         },
-        "/api/logoutAdmin": {
+        "http://localhost:8000/api/logoutAdmin": {
             "post": {
                 "summary": "LogoutAdmin",
                 "description": "",
@@ -197,7 +152,7 @@
                 ]
             }
         },
-        "/api/registerclient": {
+        "http://localhost:8000/api/registerclient": {
             "post": {
                 "summary": "RegisterClient",
                 "description": "",
@@ -308,7 +263,7 @@
                 }
             }
         },
-        "/api/logoutClient": {
+        "http://localhost:8000/api/logoutClient": {
             "post": {
                 "summary": "LogoutClient",
                 "description": "",
@@ -362,7 +317,7 @@
                 ]
             }
         },
-        "/api/registerdocteur": {
+        "http://localhost:8000/api/registerdocteur": {
             "post": {
                 "summary": "RegisterDocteur",
                 "description": "",
@@ -498,7 +453,7 @@
                 }
             }
         },
-        "/api/logoutDocteur": {
+        "http://localhost:8000/api/logoutDocteur": {
             "post": {
                 "summary": "LogoutDocteur",
                 "description": "",

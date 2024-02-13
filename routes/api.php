@@ -79,7 +79,7 @@ Route::middleware(['auth:api','admin'])->group(function (){
     Route::post('specialite/edit/{specialite}', [SpecialiteController::class, 'update']);
     //HOPITAUX
     Route::get('client', [ClientController::class, 'index']); 
-    Route::post('Hopital/{hopitaux}', [HopitalController::class, 'destroy']); 
+    Route::delete('Hopital/{hopitaux}', [HopitalController::class, 'destroy']); 
     Route::get('client/Totalclient', [clientController::class, 'Totalclient']); 
     Route::post('hopital/create', [HopitalController::class, 'ajouterHopital']); 
     Route::post('Hopital/edit/{hopitaux}', [HopitalController::class, 'update']); 

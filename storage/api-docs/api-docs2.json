@@ -25,7 +25,7 @@
         "multipart/form-data"
     ],
     "paths": {
-        "http://localhost:8000/api/listerDocteurHopital": {
+        "/api/listerDocteurHopital": {
             "get": {
                 "summary": "ListeDocteurHopital",
                 "description": "",
@@ -70,7 +70,7 @@
                 ]
             }
         },
-        "http://localhost:8000/api/ajoutDocteurHopital": {
+        "/api/ajoutDocteurHopital": {
             "get": {
                 "summary": "AjoutDocteurHopital",
                 "description": "",
@@ -136,7 +136,7 @@
                 }
             }
         },
-        "http://localhost:8000/api/ajouter/rdv": {
+        "/api/ajouter/rdv": {
             "post": {
                 "summary": "Ajouter Rdv",
                 "description": "",
@@ -227,7 +227,7 @@
                 }
             }
         },
-        "http://localhost:8000/api/rdv/en_attente": {
+        "/api/rdv/en_attente": {
             "get": {
                 "summary": "liste Rdv en attente",
                 "description": "",
@@ -272,7 +272,7 @@
                 ]
             }
         },
-        "http://localhost:8000/api/rdv/confirmer": {
+        "/api/rdv/confirmer": {
             "get": {
                 "summary": "liste Rdv Confirmé",
                 "description": "",
@@ -317,7 +317,7 @@
                 ]
             }
         },
-        "http://localhost:8000/api/rdv/annuler": {
+        "/api/rdv/annuler": {
             "get": {
                 "summary": "liste Rdv Annuler",
                 "description": "",
@@ -362,7 +362,7 @@
                 ]
             }
         },
-        "http://localhost:8000/api/rdv": {
+        "/api/rdv": {
             "get": {
                 "summary": "liste_Rdv",
                 "description": "",
@@ -407,7 +407,7 @@
                 ]
             }
         },
-        "http://localhost:8000/api/rdv/uptade/{rdv}": {
+        "/api/rdv/uptade/{rdv}": {
             "get": {
                 "summary": "update Rdv",
                 "description": "",
@@ -452,7 +452,7 @@
                 ]
             }
         },
-        "http://localhost:8000/api/rdv/etat/1": {
+        "/api/rdv/etat/1": {
             "put": {
                 "summary": "Etat Rendez-Vous",
                 "description": "",
@@ -502,7 +502,7 @@
                 ]
             }
         },
-        "http://localhost:8000/api/rdv/delete/{rdv}": {
+        "/api/rdv/delete/{rdv}": {
             "get": {
                 "summary": "delete Rdv",
                 "description": "",
@@ -547,7 +547,7 @@
                 ]
             }
         },
-        "http://localhost:8000/api/rdv/filtre/date": {
+        "/api/rdv/filtre/date": {
             "get": {
                 "summary": "Recherche en fonction des dates",
                 "description": "",
@@ -592,7 +592,7 @@
                 ]
             }
         },
-        "http://localhost:8000/api/client/Totalclient": {
+        "/api/client/Totalclient": {
             "get": {
                 "summary": "totalClients",
                 "description": "",
@@ -637,7 +637,7 @@
                 ]
             }
         },
-        "http://localhost:8000/api/client": {
+        "/api/client": {
             "get": {
                 "summary": "lister",
                 "description": "",
@@ -699,7 +699,7 @@
                 }
             }
         },
-        "http://localhost:8000/api/client/1": {
+        "/api/client/1": {
             "delete": {
                 "summary": "delete",
                 "description": "",
@@ -753,7 +753,7 @@
                 ]
             }
         },
-        "http://localhost:8000/api/client/edit/1": {
+        "/api/client/edit/1": {
             "post": {
                 "summary": "update",
                 "description": "",
@@ -860,7 +860,7 @@
                 }
             }
         },
-        "http://localhost:8000/api/Docteur/filtre/specialite": {
+        "/api/Docteur/filtre/specialite": {
             "get": {
                 "summary": "FiltrerDocteur/Specialite",
                 "description": "",
@@ -922,7 +922,7 @@
                 }
             }
         },
-        "http://localhost:8000/api/docteur": {
+        "/api/docteur": {
             "get": {
                 "summary": "Lister",
                 "description": "",
@@ -967,7 +967,7 @@
                 ]
             }
         },
-        "http://localhost:8000/api/totaldocteur": {
+        "/api/totaldocteur": {
             "get": {
                 "summary": "TotalDocteur",
                 "description": "",
@@ -1012,7 +1012,7 @@
                 ]
             }
         },
-        "http://localhost:8000/api/docteur/indisponible": {
+        "/api/docteur/indisponible": {
             "post": {
                 "summary": "Indisponible",
                 "description": "",
@@ -1066,7 +1066,7 @@
                 ]
             }
         },
-        "http://localhost:8000/api/docteur/disponible": {
+        "/api/docteur/disponible": {
             "post": {
                 "summary": "Disponible",
                 "description": "",
@@ -1120,7 +1120,7 @@
                 ]
             }
         },
-        "http://localhost:8000/api/docteur/archive/1": {
+        "/api/docteur/archive/1": {
             "delete": {
                 "summary": "archiver",
                 "description": "",
@@ -1174,7 +1174,7 @@
                 ]
             }
         },
-        "http://localhost:8000/api/docteur/disponibilite/1": {
+        "/api/docteur/disponibilite/1": {
             "patch": {
                 "summary": "etat",
                 "description": "",
@@ -1273,7 +1273,7 @@
                 ]
             }
         },
-        "http://localhost:8000/api/Docteur/edit/1": {
+        "/api/Docteur/edit/1": {
             "post": {
                 "summary": "Modif",
                 "description": "",
@@ -1384,7 +1384,7 @@
                 }
             }
         },
-        "http://localhost:8000/api/liste/utilisateurs": {
+        "/api/liste/utilisateurs": {
             "get": {
                 "summary": "lister",
                 "description": "",
@@ -1446,7 +1446,7 @@
                 }
             }
         },
-        "http://localhost:8000/api/avis": {
+        "/api/avis": {
             "get": {
                 "summary": "lister",
                 "description": "",
@@ -1491,7 +1491,7 @@
                 ]
             }
         },
-        "http://localhost:8000/api/avis/create": {
+        "/api/avis/create": {
             "post": {
                 "summary": "ajout",
                 "description": "",
@@ -1570,7 +1570,7 @@
                 }
             }
         },
-        "http://localhost:8000/api/avis/edit/1": {
+        "/api/avis/edit/1": {
             "post": {
                 "summary": "modif",
                 "description": "",
@@ -1649,7 +1649,7 @@
                 }
             }
         },
-        "http://localhost:8000/api/avis/2": {
+        "/api/avis/2": {
             "delete": {
                 "summary": "delete",
                 "description": "",
@@ -1703,7 +1703,7 @@
                 ]
             }
         },
-        "http://localhost:8000/api/Hopital/localite": {
+        "/api/Hopital/localite": {
             "get": {
                 "summary": "Filtrer",
                 "description": "",
@@ -1765,7 +1765,7 @@
                 }
             }
         },
-        "http://localhost:8000/api/Hopital": {
+        "/api/Hopital": {
             "get": {
                 "summary": "Lister",
                 "description": "",
@@ -1909,7 +1909,7 @@
                 }
             }
         },
-        "http://localhost:8000/api/Hopital/edit/2": {
+        "/api/Hopital/edit/2": {
             "post": {
                 "summary": "Modif",
                 "description": "",
@@ -2008,7 +2008,7 @@
                 }
             }
         },
-        "http://localhost:8000/api/Hopital/2": {
+        "/api/Hopital/2": {
             "post": {
                 "summary": "delete",
                 "description": "",
@@ -2062,7 +2062,7 @@
                 ]
             }
         },
-        "http://localhost:8000/api/localite/4": {
+        "/api/localite/4": {
             "delete": {
                 "summary": "delete",
                 "description": "",
@@ -2116,7 +2116,7 @@
                 ]
             }
         },
-        "http://localhost:8000/api/localite/edit/1": {
+        "/api/localite/edit/1": {
             "post": {
                 "summary": "update",
                 "description": "",
@@ -2195,7 +2195,7 @@
                 }
             }
         },
-        "http://localhost:8000/api/localite/create": {
+        "/api/localite/create": {
             "post": {
                 "summary": "create",
                 "description": "",
@@ -2274,7 +2274,7 @@
                 }
             }
         },
-        "http://localhost:8000/api/localite": {
+        "/api/localite": {
             "get": {
                 "summary": "lister",
                 "description": "",
@@ -2319,7 +2319,7 @@
                 ]
             }
         },
-        "http://localhost:8000/api/Region/8": {
+        "/api/Region/8": {
             "delete": {
                 "summary": "delete",
                 "description": "",
@@ -2373,7 +2373,7 @@
                 ]
             }
         },
-        "http://localhost:8000/api/Region/edit/2": {
+        "/api/Region/edit/2": {
             "post": {
                 "summary": "update",
                 "description": "",
@@ -2444,7 +2444,7 @@
                 }
             }
         },
-        "http://localhost:8000/api/Region/create": {
+        "/api/Region/create": {
             "post": {
                 "summary": "create",
                 "description": "",
@@ -2515,7 +2515,7 @@
                 }
             }
         },
-        "http://localhost:8000/api/Region": {
+        "/api/Region": {
             "get": {
                 "summary": "lister",
                 "description": "",
@@ -2571,7 +2571,7 @@
                 }
             }
         },
-        "http://localhost:8000/api/specialite": {
+        "/api/specialite": {
             "get": {
                 "summary": "lister",
                 "description": "",
@@ -2616,7 +2616,7 @@
                 ]
             }
         },
-        "http://localhost:8000/api/specialite/create": {
+        "/api/specialite/create": {
             "post": {
                 "summary": "create",
                 "description": "",
@@ -2687,7 +2687,7 @@
                 }
             }
         },
-        "http://localhost:8000/api/specialite/edit/6": {
+        "/api/specialite/edit/6": {
             "post": {
                 "summary": "update",
                 "description": "",
@@ -2758,7 +2758,7 @@
                 }
             }
         },
-        "http://localhost:8000/api/specialite/5": {
+        "/api/specialite/5": {
             "delete": {
                 "summary": "delete",
                 "description": "",
