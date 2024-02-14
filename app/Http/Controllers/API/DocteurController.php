@@ -15,10 +15,15 @@ use App\Http\Requests\FiltreDocteurSpecialiteRequest;
 class DocteurController extends Controller
 {
    
+    private function storeImage($image)
+    {
+        return $image->store('photoProfilDocteur', 'public');
+    }
+
     public function registerDocteur( RegisterDocteurRequest $request)
     {
         // dd($request->validated());
-         $user =Utilisateur::create([
+         $user =Utilisateur::create([ 
             'nom' => $request->nom,
             'prenom' => $request->prenom,
             'sexe' => $request->sexe, 
@@ -28,7 +33,8 @@ class DocteurController extends Controller
             'adresse' => $request->adresse, 
             'photo_profil' => $request->photo_profil, 
             'password' => Hash::make($request->password),
-            'role_id'=>$request->role_id
+            'role_id'=>$request->role_id 
+            
         ]); 
         // dd($user->id);
             $docteur =Docteur::create( 
@@ -37,7 +43,8 @@ class DocteurController extends Controller
                     'numero_licence' =>  $request->numero_licence,
                     'annee_experience' => $request->annee_experience , 
                     'specialite_id'=>$request->specialite_id ,
-                    'utilisateurs_id'=>$user->id,
+                    'utilisateurs_id'=>$user->id, 
+                    
                 ] ); 
                 return response()->json([
                     'message' => 'Bonjour docteur',
@@ -45,6 +52,10 @@ class DocteurController extends Controller
         ]);
     }
         
+
+   
+    
+
 
     public function update(UpdateDocteurRequest $request, Utilisateur $utilisateur, Docteur $docteur)
     {
