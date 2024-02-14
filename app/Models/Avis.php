@@ -7,7 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Avis extends Model
 {
-   
+    use HasFactory;
+    
     protected $guarded = [
     
     ];
@@ -17,6 +18,6 @@ class Avis extends Model
     } 
 
     public function Hopital(){
-        $this->belongsTo(hopitaux::class);
+        $this->belongsTo(hopital::class);
     } 
 }

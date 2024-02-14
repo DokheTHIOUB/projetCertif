@@ -16,7 +16,6 @@ class FiltreHopitauxRequest extends FormRequest
     {
         return true;
     }
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -25,7 +24,7 @@ class FiltreHopitauxRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'localite_id'=> 'required|exists:localite,id'
+            'localite_id'=> 'required|exists:localites,id'
         ];
     }
     public function failedValidation(Validator $validator ){

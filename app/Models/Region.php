@@ -7,11 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Region extends Model
 {
+    use HasFactory;
+    
     protected $guarded = [
     
     ];
 
     public function hopitaux(){
-        $this->belongsTo(hopitaux::class);
+        $this->belongsTo(hopital::class);
     } 
 }

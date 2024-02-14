@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\hopital;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class DocteurHopital extends Model
 {
@@ -17,7 +18,7 @@ class DocteurHopital extends Model
     } 
 
     public function hopitaux(){
-        $this->belongsTo(hopitaux::class);
+        $this->belongsTo(hopital::class);
     } 
 
     

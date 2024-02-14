@@ -12,21 +12,22 @@ use App\Http\Requests\FiltreHopitauxRequest;
 class HopitalController extends Controller
 {
    
-public function filterHopitauxparLocalite(FiltreHopitauxRequest $request, hopital $hopitaux)
-{
-    try {
-        $localiteFiltrer = $request->input('localite_id');
-        $hopitaux = hopital::where('localite_id', 'like', '%' . $localiteFiltrer . '%')->get();
-
-        return response()->json([
-            'status_code' => 200,
-            'status_message' => 'Hôpitaux filtrés par localité avec succès',
-            'hospitals_filtres' => $hopitaux,
-        ]);
-    } catch (Exception $e) {
-        return response()->json(['error' => $e->getMessage()], 500);
+    public function filterhopital(Request $request, hopital $hopital)
+    {
+        try {
+            $filtrehopital = $request->input('localite_id');
+            $hopital = hopital::where('localite_id', $filtrehopital)->get();
+    
+            return response()->json([
+                'status_code' => 200,
+                'status_message' => 'hopital filtrés par localité avec succès',
+                'hopital_filtres' => $hopital,
+            ]);
+        } catch (Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
     }
-}
+    
 
 
 public function TotalHopitaux()

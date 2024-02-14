@@ -202,7 +202,9 @@ class DocteurController extends Controller
 {
     try {
         $filtreSpecialite = $request->input('specialite_id');
-        $docteur = Docteur::where('specialite_id', 'like', '%' . $filtreSpecialite . '%')->get();
+        // $docteur = Docteur::where('specialite_id', 'like', '%' . $filtreSpecialite . '%')->get();
+        $docteur = Docteur::where('specialite_id', $filtreSpecialite)->get();
+
         return response()->json([
             'status_code' => 200,
             'status_message' => 'docteur filtrés par localité avec succès',

@@ -43,7 +43,7 @@ Route::middleware(['auth:api','client'])->group(function (){
     Route::delete('client/{Client}', [clientController::class, 'destroy']); 
     Route::post('/logoutClient', [UtilisateurController::class, 'logout']); 
     Route::post('client/edit/{Client}', [clientController::class, 'update']); 
-    Route::get('Hopital/localite', [HopitalController::class, 'filterHopitauxparLocalite']); 
+    Route::get('localitehopital',[HopitalController::class, 'filterhopital']);
 
     Route::post('/ajouter/rdv', [RdvControlleur::class, 'store']); 
     Route::post('/rdv/uptade/{rdv}', [RdvControlleur::class, 'update']);
