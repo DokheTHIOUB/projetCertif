@@ -12,7 +12,7 @@ use App\Http\Requests\FiltreHopitauxRequest;
 class HopitalController extends Controller
 {
    
-    public function filterhopital(Request $request, hopital $hopital)
+    public function filterhopital(FiltreHopitauxRequest $request, hopital $hopital)
     {
         try {
             $filtrehopital = $request->input('localite_id');

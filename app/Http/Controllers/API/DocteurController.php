@@ -7,9 +7,9 @@ use App\Models\Utilisateur;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Hash;
-use App\Http\Requests\DisponibiliteRequest;
 use App\Http\Requests\UpdateDocteurRequest;
 use App\Http\Requests\RegisterDocteurRequest;
+use App\Http\Requests\FiltreDocteurSpecialiteRequest;
 
 
 class DocteurController extends Controller
@@ -198,7 +198,7 @@ class DocteurController extends Controller
     }
 
 
-    public function filterDocteurparSpecialite(Request $request, Docteur $docteur)
+    public function filterDocteurparSpecialite(FiltreDocteurSpecialiteRequest $request, Docteur $docteur)
 {
     try {
         $filtreSpecialite = $request->input('specialite_id');
