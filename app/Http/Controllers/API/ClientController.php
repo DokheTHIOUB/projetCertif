@@ -62,10 +62,12 @@ class ClientController extends Controller
          }
      }
 
-     public function index(Client $Client)
+     public function index()
      {
+        
          try {
           $client=Utilisateur::where('role_id',2)->get();
+        //   dd($client);
              return response()->json([
                  'status_code' => 200,
                  'status_message' => 'Voici la liste de tout les clients',

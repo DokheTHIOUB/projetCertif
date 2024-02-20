@@ -24,8 +24,8 @@ class DocteurHopitauxRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'docteurs_id' => 'required|exists:docteur,id', 
-            'hopitauxs_id' => 'required|exists:hopitauxs,id'
+            'docteur_id' => 'required|exists:docteurs,id', 
+            'hopitals_id' => 'required|exists:hopitals,id'
         ]; 
     }
 

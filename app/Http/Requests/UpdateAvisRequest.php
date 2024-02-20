@@ -25,8 +25,6 @@ class UpdateAvisRequest extends FormRequest
     {
         return [
             'description' => 'required|string|max:255',
-            'client_id' => 'required|exists:clients,id',
-            'hopitals_id' => 'required|exists:hopitals,id',
 
         ];
     }

@@ -21,39 +21,53 @@ class DocteurController extends Controller
     }
 
 
-    public function registerDocteur( RegisterDocteurRequest $request)
+    public function registerDocteur(RegisterDocteurRequest $request)
     {
         // dd($request->validated());
-         $user =Utilisateur::create([ 
-            'nom' => $request->nom,
-            'prenom' => $request->prenom,
-            'sexe' => $request->sexe, 
-            'age' => $request->age, 
-            'telephone' => $request->telephone, 
-            'email' => $request->email, 
-            'adresse' => $request->adresse, 
-            'photo_profil' => $request->photo_profil, 
-            'password' => Hash::make($request->password),
-            'role_id'=>$request->role_id 
-            
-        ]); 
-        // dd($user->id);
-            $docteur =Docteur::create( 
-                [ 
-                    'diplome' => $request->diplome,
-                    'numero_licence' =>  $request->numero_licence,
-                    'annee_experience' => $request->annee_experience , 
-                    'specialite_id'=>$request->specialite_id ,
-                    'utilisateurs_id'=>$user->id, 
-                    
-                ] ); 
-                return response()->json([
-                    'message' => 'Bonjour docteur',
-                    'user' => $docteur          
+        // $user = Utilisateur::create([
+        //     'nom' => $request->nom,
+        //     'prenom' => $request->prenom,
+        //     'sexe' => $request->sexe,
+        //     'age' => $request->age,
+        //     'telephone' => $request->telephone,
+        //     'email' => $request->email,
+        //     'adresse' => $request->adresse,
+        //     'password' => Hash::make($request->password),
+        //     'role_id' => $request->role_id,
+        // ]);
+    
+        $user = new Utilisateur();
+        $user->nom = $request->nom;
+        $user->prenom = $request->prenom;
+        $user->sexe = $request->sexe;
+        $user->age = $request->age;
+        $user->telephone = $request->telephone;
+        $user->email = $request->email;
+        $user->adresse = $request->adresse;
+        $user->password = $request->password;
+        $user->role_id = $request->role_id;
+        if ($request->hasFile('image')) {
+            $imageFile = $request->file('photo_profil');
+            $imageName = time() . '_' . $imageFile->getClientOriginalName();
+            $imageFile->move(public_path('/photoProfilDocteur'), $imageName);
+            $user->photo_profil = $imageName; 
+        }
+        $user->save();
+        
+        $docteur = Docteur::create([
+            'diplome' => $request->diplome,
+            'numero_licence' => $request->numero_licence,
+            'annee_experience' => $request->annee_experience,
+            'specialite_id' => $request->specialite_id,
+            'utilisateurs_id' => $user->id,
+        ]);
+    
+        return response()->json([
+            'message' => 'Bonjour docteur',
+            'user' => $docteur,
         ]);
     }
-        
-
+    
     public function update(UpdateDocteurRequest $request, Utilisateur $utilisateur, Docteur $docteur)
     {
        

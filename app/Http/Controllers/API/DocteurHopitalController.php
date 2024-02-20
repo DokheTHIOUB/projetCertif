@@ -30,8 +30,8 @@ class DocteurHopitalController extends Controller
         
         try {
             $DocteurHopital = new DocteurHopital();
-            $DocteurHopital->hopitauxs_id = $request->hopitauxs_id; 
-            $DocteurHopital->docteurs_id = $request->docteurs_id; 
+            $DocteurHopital->hopitals_id  = $request->hopitals_id   ; 
+            $DocteurHopital->docteur_id = $request->docteur_id; 
             $DocteurHopital->save();
                 return response()->json([
                     'status_code' => 200,
@@ -49,8 +49,8 @@ class DocteurHopitalController extends Controller
     {
 
         try {
-            $DocteurHopital->hopitauxs_id = $request->hopitauxs_id; 
-            $DocteurHopital->docteurs_id = $request->docteurs_id; 
+            $DocteurHopital->hopitals_id = $request->hopitals_id; 
+            $DocteurHopital->docteur_id = $request->docteur_id; 
             $DocteurHopital->update();
                 return response()->json([
                     'status_code' => 200,

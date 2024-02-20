@@ -26,9 +26,7 @@ class RdvRequest extends FormRequest
         return [
             'date' => 'required|date',
             'heure' => 'required|date_format:H:i:s',
-            'statut' => 'required|in:en_attente,confirmer,annuler',
             'descriptiondubesoin' => 'required|string',
-            'client_id' => 'required|exists:clients,id',
             'docteur_hopitals_id' => 'required|exists:docteur_hopitals,id',
         ];
     } 

@@ -9,6 +9,7 @@ use App\Models\Utilisateur;
 use Illuminate\Http\Request;
 use App\Http\Requests\RdvRequest;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class RdvControlleur extends Controller
 {
@@ -30,13 +31,15 @@ class RdvControlleur extends Controller
 
     public function store(RdvRequest $request ,  Docteur $Docteur){
         
-        try {
-            if ($Docteur->statut==='disponible') {
+        
+    $user=Auth::user()->client;
+        try { 
+             {
                 $rdv = new rdv();
                 $rdv->date = $request->date;
                 $rdv->heure = $request->heure;
                 $rdv->descriptiondubesoin = $request->descriptiondubesoin; 
-                $rdv->client_id = $request->client_id; 
+                $rdv->client_id = $user->id;
                 $rdv->docteur_hopitals_id = $request->docteur_hopitals_id; 
                 $rdv->save();
                     return response()->json([
@@ -90,7 +93,8 @@ class RdvControlleur extends Controller
     {   
         if ($rdv->statut==='en_attente') {
             try {
-                $rdv->update([ 'statut' => 'confirmer',]);
+               // $rdv->update([ 'statut' => 'confirmer',]);
+               $rdv->statut='confirmer';
                 $rdv->save();
                 return response()->json([
                     'status_code' => 200,
@@ -104,9 +108,10 @@ class RdvControlleur extends Controller
         
         elseif($rdv->statut==='confirmer'){
             try { 
-                $rdv->update([
-                    'statut' => 'annuler',
-                ]);
+                // $rdv->update([
+                //     'statut' => 'annuler',
+                // ]);
+                $rdv->statut='annuler';
                 $rdv->save();
                     return response()->json([
                         'status_code' => 200,
@@ -120,9 +125,10 @@ class RdvControlleur extends Controller
 
         else {
             try { 
-                $rdv->update([
-                    'statut' => 'Annuler',
-                ]);
+                // $rdv->update([
+                //     'statut' => 'Annuler',
+                // ]);
+                $rdv->statut='en_attente';
                 $rdv->save();
                     return response()->json([
                         'status_code' => 200,
