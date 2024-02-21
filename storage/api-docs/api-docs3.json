@@ -1,9 +1,7 @@
 {
-          
-
     "openapi": "3.0.0",
     "info": {
-        "title": "SAMA_DOCTEUR",
+        "title": "Your API Title",
         "description": "Your API Description",
         "version": "1.0.0"
     },
@@ -25,6 +23,81 @@
         "multipart/form-data"
     ],
     "paths": {
+        "/api/ajouterDocteurHopital": {
+            "post": {
+                "summary": "Ajouter DocteurHopital",
+                "description": "",
+                "responses": {
+                    "201": {
+                        "description": "Created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "DocteurHopital"
+                ],
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "User-Agent",
+                        "type": "string"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "docteur_id": {
+                                        "type": "integer"
+                                    },
+                                    "hopitals_id": {
+                                        "type": "integer"
+                                    }
+                                }
+                            },
+                            "example": {
+                                "docteur_id": 1,
+                                "hopitals_id": 2
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/api/listerDocteurHopital": {
             "get": {
                 "summary": "ListeDocteurHopital",
@@ -70,72 +143,6 @@
                 ]
             }
         },
-        "/api/ajoutDocteurHopital": {
-            "get": {
-                "summary": "AjoutDocteurHopital",
-                "description": "",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "DocteurHopital"
-                ],
-                "parameters": [
-                    {
-                        "in": "header",
-                        "name": "User-Agent",
-                        "type": "string"
-                    }
-                ],
-                "requestBody": {
-                    "content": {
-                        "multipart/form-data": {
-                            "schema": {
-                                "type": "object",
-                                "properties": {
-                                    "docteurs_id": {
-                                        "type": "string"
-                                    },
-                                    "hopitaux_id": {
-                                        "type": "string"
-                                    }
-                                }
-                            },
-                            "example": {
-                                "docteurs_id": "7",
-                                "hopitaux_id": "13"
-                            }
-                        }
-                    }
-                }
-            }
-        },
         "/api/ajouter/rdv": {
             "post": {
                 "summary": "Ajouter Rdv",
@@ -160,7 +167,7 @@
                         }
                     },
                     "401": {
-                        "description": "Unauthenticated",
+                        "description": "Unauthorized",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -169,7 +176,7 @@
                         }
                     },
                     "403": {
-                        "description": "Unauthorize",
+                        "description": "Forbidden",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -200,14 +207,8 @@
                                     "heure": {
                                         "type": "string"
                                     },
-                                    "statut": {
-                                        "type": "string"
-                                    },
                                     "descriptiondubesoin": {
                                         "type": "string"
-                                    },
-                                    "client_id": {
-                                        "type": "integer"
                                     },
                                     "docteur_hopitals_id": {
                                         "type": "integer"
@@ -217,9 +218,7 @@
                             "example": {
                                 "date": "2024-02-01",
                                 "heure": "14:30:00",
-                                "statut": "confirmer",
                                 "descriptiondubesoin": "Bonjour Docteur j'ai eu des mot de tete depuis la semaine passé et je veux un rdv",
-                                "client_id": 5,
                                 "docteur_hopitals_id": 1
                             }
                         }
@@ -407,52 +406,7 @@
                 ]
             }
         },
-        "/api/rdv/uptade/{rdv}": {
-            "get": {
-                "summary": "update Rdv",
-                "description": "",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "Rendez-Vous"
-                ],
-                "parameters": [
-                    {
-                        "in": "header",
-                        "name": "User-Agent",
-                        "type": "string"
-                    }
-                ]
-            }
-        },
-        "/api/rdv/etat/1": {
+        "/api/rdv/etat/2": {
             "put": {
                 "summary": "Etat Rendez-Vous",
                 "description": "",
@@ -502,13 +456,31 @@
                 ]
             }
         },
-        "/api/rdv/delete/{rdv}": {
-            "get": {
+        "/api/rdv/delete/1": {
+            "delete": {
                 "summary": "delete Rdv",
                 "description": "",
                 "responses": {
-                    "200": {
-                        "description": "OK",
+                    "204": {
+                        "description": "Deleted successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -518,60 +490,6 @@
                     },
                     "404": {
                         "description": "Not Found",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "Rendez-Vous"
-                ],
-                "parameters": [
-                    {
-                        "in": "header",
-                        "name": "User-Agent",
-                        "type": "string"
-                    }
-                ]
-            }
-        },
-        "/api/rdv/filtre/date": {
-            "get": {
-                "summary": "Recherche en fonction des dates",
-                "description": "",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -679,24 +597,7 @@
                         "name": "User-Agent",
                         "type": "string"
                     }
-                ],
-                "requestBody": {
-                    "content": {
-                        "multipart/form-data": {
-                            "schema": {
-                                "type": "object",
-                                "properties": {
-                                    "": {
-                                        "type": "string"
-                                    }
-                                }
-                            },
-                            "example": {
-                                "": ""
-                            }
-                        }
-                    }
-                }
+                ]
             }
         },
         "/api/client/1": {
@@ -714,7 +615,7 @@
                         }
                     },
                     "401": {
-                        "description": "Unauthenticated",
+                        "description": "Unauthorized",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -723,7 +624,7 @@
                         }
                     },
                     "403": {
-                        "description": "Unauthorize",
+                        "description": "Forbidden",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -777,7 +678,7 @@
                         }
                     },
                     "401": {
-                        "description": "Unauthenticated",
+                        "description": "Unauthorized",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -786,7 +687,7 @@
                         }
                     },
                     "403": {
-                        "description": "Unauthorize",
+                        "description": "Forbidden",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -1036,7 +937,7 @@
                         }
                     },
                     "401": {
-                        "description": "Unauthenticated",
+                        "description": "Unauthorized",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -1045,7 +946,7 @@
                         }
                     },
                     "403": {
-                        "description": "Unauthorize",
+                        "description": "Forbidden",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -1090,7 +991,7 @@
                         }
                     },
                     "401": {
-                        "description": "Unauthenticated",
+                        "description": "Unauthorized",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -1099,7 +1000,7 @@
                         }
                     },
                     "403": {
-                        "description": "Unauthorize",
+                        "description": "Forbidden",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -1135,7 +1036,7 @@
                         }
                     },
                     "401": {
-                        "description": "Unauthenticated",
+                        "description": "Unauthorized",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -1144,7 +1045,7 @@
                         }
                     },
                     "403": {
-                        "description": "Unauthorize",
+                        "description": "Forbidden",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -1228,49 +1129,6 @@
                         }
                     }
                 }
-            },
-            "put": {
-                "summary": "recupererDocteur",
-                "description": "",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "Docteurs"
-                ],
-                "parameters": [
-                    {
-                        "in": "header",
-                        "name": "User-Agent",
-                        "type": "string"
-                    }
-                ]
             }
         },
         "/api/Docteur/edit/1": {
@@ -1297,7 +1155,7 @@
                         }
                     },
                     "401": {
-                        "description": "Unauthenticated",
+                        "description": "Unauthorized",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -1306,7 +1164,7 @@
                         }
                     },
                     "403": {
-                        "description": "Unauthorize",
+                        "description": "Forbidden",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -1491,7 +1349,7 @@
                 ]
             }
         },
-        "/api/avis/create": {
+        "/api/avis/2": {
             "post": {
                 "summary": "ajout",
                 "description": "",
@@ -1515,7 +1373,7 @@
                         }
                     },
                     "401": {
-                        "description": "Unauthenticated",
+                        "description": "Unauthorized",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -1524,7 +1382,7 @@
                         }
                     },
                     "403": {
-                        "description": "Unauthorize",
+                        "description": "Forbidden",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -1551,105 +1409,16 @@
                                 "properties": {
                                     "description": {
                                         "type": "string"
-                                    },
-                                    "client_id": {
-                                        "type": "integer"
-                                    },
-                                    "hopitals_id": {
-                                        "type": "integer"
                                     }
                                 }
                             },
                             "example": {
-                                "description": " bon Docteur ",
-                                "client_id": 1,
-                                "hopitals_id": 1
+                                "description": " bon Docteur "
                             }
                         }
                     }
                 }
-            }
-        },
-        "/api/avis/edit/1": {
-            "post": {
-                "summary": "modif",
-                "description": "",
-                "responses": {
-                    "201": {
-                        "description": "Created successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthenticated",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "403": {
-                        "description": "Unauthorize",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "Avis"
-                ],
-                "parameters": [
-                    {
-                        "in": "header",
-                        "name": "User-Agent",
-                        "type": "string"
-                    }
-                ],
-                "requestBody": {
-                    "content": {
-                        "multipart/form-data": {
-                            "schema": {
-                                "type": "object",
-                                "properties": {
-                                    "description": {
-                                        "type": "string"
-                                    },
-                                    "client_id": {
-                                        "type": "integer"
-                                    },
-                                    "hopitals_id": {
-                                        "type": "integer"
-                                    }
-                                }
-                            },
-                            "example": {
-                                "description": " Mercii Docteur",
-                                "client_id": 1,
-                                "hopitals_id": 1
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/api/avis/2": {
+            },
             "delete": {
                 "summary": "delete",
                 "description": "",
@@ -1664,7 +1433,7 @@
                         }
                     },
                     "401": {
-                        "description": "Unauthenticated",
+                        "description": "Unauthorized",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -1673,7 +1442,7 @@
                         }
                     },
                     "403": {
-                        "description": "Unauthorize",
+                        "description": "Forbidden",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -1703,9 +1472,80 @@
                 ]
             }
         },
-        "/api/Hopital/localite": {
+        "/api/avis/edit/2": {
+            "post": {
+                "summary": "modif",
+                "description": "",
+                "responses": {
+                    "201": {
+                        "description": "Created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Avis"
+                ],
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "User-Agent",
+                        "type": "string"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "description": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "example": {
+                                "description": " Mercii Docteur"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/localitehopital": {
             "get": {
-                "summary": "Filtrer",
+                "summary": "Filtrer hopital/localité",
                 "description": "",
                 "responses": {
                     "200": {
@@ -1753,12 +1593,12 @@
                                 "type": "object",
                                 "properties": {
                                     "localite_id": {
-                                        "type": "string"
+                                        "type": "integer"
                                     }
                                 }
                             },
                             "example": {
-                                "localite_id": "1"
+                                "localite_id": 4
                             }
                         }
                     }
@@ -1834,7 +1674,7 @@
                         }
                     },
                     "401": {
-                        "description": "Unauthenticated",
+                        "description": "Unauthorized",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -1843,7 +1683,7 @@
                         }
                     },
                     "403": {
-                        "description": "Unauthorize",
+                        "description": "Forbidden",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -1893,7 +1733,7 @@
                                 }
                             },
                             "example": {
-                                "nom_hopital": "PolycliniqueMedina",
+                                "nom_hopital": "Fann",
                                 "description": "bf jhergfbyrhjf bghgv jhh hjhe",
                                 "lattitude": "152",
                                 "longitude": "168",
@@ -1902,7 +1742,7 @@
                                     "type": "string",
                                     "format": "binary"
                                 },
-                                "localite_id": "1"
+                                "localite_id": "5"
                             }
                         }
                     }
@@ -1933,7 +1773,7 @@
                         }
                     },
                     "401": {
-                        "description": "Unauthenticated",
+                        "description": "Unauthorized",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -1942,7 +1782,7 @@
                         }
                     },
                     "403": {
-                        "description": "Unauthorize",
+                        "description": "Forbidden",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -2008,22 +1848,13 @@
                 }
             }
         },
-        "/api/Hopital/2": {
-            "post": {
+        "/api/Hopital/1": {
+            "delete": {
                 "summary": "delete",
                 "description": "",
                 "responses": {
-                    "201": {
-                        "description": "Created successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
+                    "204": {
+                        "description": "Deleted successfully",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -2032,7 +1863,7 @@
                         }
                     },
                     "401": {
-                        "description": "Unauthenticated",
+                        "description": "Unauthorized",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -2041,7 +1872,16 @@
                         }
                     },
                     "403": {
-                        "description": "Unauthorize",
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -2077,7 +1917,7 @@
                         }
                     },
                     "401": {
-                        "description": "Unauthenticated",
+                        "description": "Unauthorized",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -2086,7 +1926,7 @@
                         }
                     },
                     "403": {
-                        "description": "Unauthorize",
+                        "description": "Forbidden",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -2140,7 +1980,7 @@
                         }
                     },
                     "401": {
-                        "description": "Unauthenticated",
+                        "description": "Unauthorized",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -2149,7 +1989,7 @@
                         }
                     },
                     "403": {
-                        "description": "Unauthorize",
+                        "description": "Forbidden",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -2219,7 +2059,7 @@
                         }
                     },
                     "401": {
-                        "description": "Unauthenticated",
+                        "description": "Unauthorized",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -2228,7 +2068,7 @@
                         }
                     },
                     "403": {
-                        "description": "Unauthorize",
+                        "description": "Forbidden",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -2265,9 +2105,9 @@
                                 }
                             },
                             "example": {
-                                "nom_localite": "Fass",
+                                "nom_localite": "Colobane",
                                 "code_postal": "11111",
-                                "region_id": 1
+                                "region_id": 2
                             }
                         }
                     }
@@ -2319,7 +2159,7 @@
                 ]
             }
         },
-        "/api/Region/8": {
+        "/api/Region/1": {
             "delete": {
                 "summary": "delete",
                 "description": "",
@@ -2334,7 +2174,7 @@
                         }
                     },
                     "401": {
-                        "description": "Unauthenticated",
+                        "description": "Unauthorized",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -2343,7 +2183,7 @@
                         }
                     },
                     "403": {
-                        "description": "Unauthorize",
+                        "description": "Forbidden",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -2397,7 +2237,7 @@
                         }
                     },
                     "401": {
-                        "description": "Unauthenticated",
+                        "description": "Unauthorized",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -2406,7 +2246,7 @@
                         }
                     },
                     "403": {
-                        "description": "Unauthorize",
+                        "description": "Forbidden",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -2468,7 +2308,7 @@
                         }
                     },
                     "401": {
-                        "description": "Unauthenticated",
+                        "description": "Unauthorized",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -2477,7 +2317,7 @@
                         }
                     },
                     "403": {
-                        "description": "Unauthorize",
+                        "description": "Forbidden",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -2508,7 +2348,7 @@
                                 }
                             },
                             "example": {
-                                "nom_region": " Podor "
+                                "nom_region": " Matam "
                             }
                         }
                     }
@@ -2640,7 +2480,7 @@
                         }
                     },
                     "401": {
-                        "description": "Unauthenticated",
+                        "description": "Unauthorized",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -2649,7 +2489,7 @@
                         }
                     },
                     "403": {
-                        "description": "Unauthorize",
+                        "description": "Forbidden",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -2711,7 +2551,7 @@
                         }
                     },
                     "401": {
-                        "description": "Unauthenticated",
+                        "description": "Unauthorized",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -2720,7 +2560,7 @@
                         }
                     },
                     "403": {
-                        "description": "Unauthorize",
+                        "description": "Forbidden",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -2773,7 +2613,7 @@
                         }
                     },
                     "401": {
-                        "description": "Unauthenticated",
+                        "description": "Unauthorized",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -2782,7 +2622,7 @@
                         }
                     },
                     "403": {
-                        "description": "Unauthorize",
+                        "description": "Forbidden",
                         "content": {
                             "application/json": {
                                 "schema": {},

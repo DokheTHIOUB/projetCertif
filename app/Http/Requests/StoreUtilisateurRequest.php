@@ -26,7 +26,7 @@ class StoreUtilisateurRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => 'required|email',
+            'email' => 'required|email|regex:/^[a-zA-Z_][\w.-]*@[a-zA-Z][a-zA-Z.-]+.[a-zA-Z]{2,4}$/',
             'password'=> ['required', 'regex:/^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[@#$%^&+=!])(.{8,})$/'],
         ];
      }

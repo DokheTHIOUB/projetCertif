@@ -24,7 +24,7 @@ class StoreSpecialiteRequest extends FormRequest
     public function rules()
     {
         return [
-            'nom_specialite' => 'required|string|max:255', // Exemple de règle : obligatoire, chaîne de caractères, maximum de 255 caractères
+            'nom_specialite' => 'required|string|min:max:255', // Exemple de règle : obligatoire, chaîne de caractères, maximum de 255 caractères
         ];
     }
 

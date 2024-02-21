@@ -30,7 +30,7 @@ class StoreClientRequest extends FormRequest
             'sexe' => 'required|string|in:homme,femme',
             'age' => 'required|integer|min:18',
             'telephone' => 'required|string|max:30',
-            'email' => 'required|email|unique:utilisateurs,email',
+            'email' => ['required|email|unique:utilisateurs,email','regex:/^[a-zA-Z_][\w.-]*@[a-zA-Z][a-zA-Z.-]+.[a-zA-Z]{2,4}$/'],
             'adresse' => 'required|string|max:100',
             'photo_profil' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2000',
             'password'=> ['required', 'regex:/^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[@#$%^&+=!])(.{8,})$/'],

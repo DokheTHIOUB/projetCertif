@@ -1,7 +1,7 @@
 {
     "openapi": "3.0.0",
     "info": {
-        "title": "SAMA_DOCTEUR",
+        "title": "Your API Title",
         "description": "Your API Description",
         "version": "1.0.0"
     },
@@ -23,54 +23,9 @@
         "multipart/form-data"
     ],
     "paths": {
-        "": {
-            "get": {
-                "summary": "New Request",
-                "description": "",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "Authentification"
-                ],
-                "parameters": [
-                    {
-                        "in": "header",
-                        "name": "User-Agent",
-                        "type": "string"
-                    }
-                ]
-            }
-        },
         "/api/login": {
             "post": {
-                "summary": "LoginDocteur",
+                "summary": "Login",
                 "description": "",
                 "responses": {
                     "201": {
@@ -92,7 +47,7 @@
                         }
                     },
                     "401": {
-                        "description": "Unauthenticated",
+                        "description": "Unauthorized",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -101,7 +56,7 @@
                         }
                     },
                     "403": {
-                        "description": "Unauthorize",
+                        "description": "Forbidden",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -167,7 +122,7 @@
                         }
                     },
                     "401": {
-                        "description": "Unauthenticated",
+                        "description": "Unauthorized",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -176,7 +131,7 @@
                         }
                     },
                     "403": {
-                        "description": "Unauthorize",
+                        "description": "Forbidden",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -221,7 +176,7 @@
                         }
                     },
                     "401": {
-                        "description": "Unauthenticated",
+                        "description": "Unauthorized",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -230,7 +185,7 @@
                         }
                     },
                     "403": {
-                        "description": "Unauthorize",
+                        "description": "Forbidden",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -294,7 +249,7 @@
                                 "sexe": "homme",
                                 "age": "40",
                                 "telephone": "777778899",
-                                "email": "zall@gmail.com",
+                                "email": "zaLll@gmail.com",
                                 "adresse": "Medina",
                                 "photo_profil": {
                                     "type": "string",
@@ -332,7 +287,7 @@
                         }
                     },
                     "401": {
-                        "description": "Unauthenticated",
+                        "description": "Unauthorized",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -341,7 +296,7 @@
                         }
                     },
                     "403": {
-                        "description": "Unauthorize",
+                        "description": "Forbidden",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -386,7 +341,7 @@
                         }
                     },
                     "401": {
-                        "description": "Unauthenticated",
+                        "description": "Unauthorized",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -395,7 +350,7 @@
                         }
                     },
                     "403": {
-                        "description": "Unauthorize",
+                        "description": "Forbidden",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -477,7 +432,7 @@
                                 "sexe": "femme",
                                 "age": "20",
                                 "telephone": "7755522222",
-                                "email": "Faloul@gmail.com",
+                                "email": "Falilouu89@gmail.com",
                                 "adresse": "Medina",
                                 "photo_profil": {
                                     "type": "string",
@@ -522,7 +477,7 @@
                         }
                     },
                     "401": {
-                        "description": "Unauthenticated",
+                        "description": "Unauthorized",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -531,7 +486,7 @@
                         }
                     },
                     "403": {
-                        "description": "Unauthorize",
+                        "description": "Forbidden",
                         "content": {
                             "application/json": {
                                 "schema": {},
