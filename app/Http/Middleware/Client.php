@@ -20,6 +20,8 @@ class Client
         }
 
     
-        return redirect('/')->with('error', 'Accès non autorisé.');
+        return response()->json([
+            'message'=> 'Vous n\'avez pas les droits d\'acceder à cette ressouce '
+        ], 403);
     }
 }
