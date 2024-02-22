@@ -23,7 +23,9 @@ class Admin
         }
 // dd(auth()->guard('api')->user());
         // Rediriger ou retourner une réponse en cas de non-admin
-        return redirect('/')->with('error', 'Accès non autorisé.');
+        return response()->json([
+            'message'=> 'Vous n\'avez pas les droits d\'acceder a cette ressouce '
+        ], 403);
     }
     
 }

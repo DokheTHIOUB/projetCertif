@@ -85,7 +85,8 @@ class DocteurController extends Controller
             $utilisateur->update();
             
             $docteur = Docteur::where('utilisateurs_id', $utilisateur->id)->first();
-            $docteur->annee_experience = $request->annee_experience;
+            $docteur->annee_experience = $request->annee_experience; 
+            
             $docteur->update();
             return response()->json([
                 'status_code' => 200,

@@ -76,7 +76,7 @@ Route::middleware(['auth:api','admin'])->group(function (){
     Route::post('Region/edit/{Region}', [RegionController::class, 'update']);
     Route::post('/Region/create', 'App\Http\Controllers\API\RegionController@store');
     //SPECIALITES
-    Route::post('/specialite/create', [SpecialiteController::class, 'store']);
+    Route::post('specialite/create', [SpecialiteController::class, 'store']);
     Route::delete('specialite/{specialite}', [SpecialiteController::class, 'destroy']);
     Route::post('specialite/edit/{specialite}', [SpecialiteController::class, 'update']);
     //HOPITAUX

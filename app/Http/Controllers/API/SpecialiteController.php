@@ -27,6 +27,7 @@ class SpecialiteController extends Controller
 
     public function store(StoreSpecialiteRequest $request)
     {
+        
         $specialite = new Specialite();
         $specialite->nom_specialite = $request->nom_specialite;
         $specialite->save();
