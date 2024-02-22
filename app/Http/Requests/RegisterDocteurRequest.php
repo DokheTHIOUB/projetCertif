@@ -25,8 +25,8 @@ class RegisterDocteurRequest extends FormRequest
     {
             return [ 
 
-                'nom' => 'required|string|max:50',
-                'prenom' => 'required|string|max:50',
+                'nom' => 'required|string|max:100',
+                'prenom' => 'required|string|max:100',
                 'sexe' => 'required|string|in:homme,femme', 
                 'age' => 'required|integer|min:18|max:100',
                 'telephone' => ['nullable', 'regex:/^(77|76|75|78)+[0-9]{7}/'],

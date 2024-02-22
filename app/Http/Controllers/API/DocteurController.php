@@ -53,7 +53,7 @@ class DocteurController extends Controller
             $user->photo_profil = $imageName; 
         }
         $user->save();
-        
+
         $docteur = Docteur::create([
             'diplome' => $request->diplome,
             'numero_licence' => $request->numero_licence,
@@ -107,6 +107,7 @@ class DocteurController extends Controller
         foreach($docteurs as $docteur){ 
         $utilisateur= Utilisateur::where('id',$docteur->utilisateurs_id)->first();
         $data[]=[
+            'id'=>$docteur->id,
             'nom'=>$utilisateur->nom,
             'prenom'=>$utilisateur->Prenom, 
             'annee_experience'=>$docteur->annee_experience,

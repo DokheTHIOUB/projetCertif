@@ -64,7 +64,7 @@ Route::middleware(['auth:api','admin'])->group(function (){
     Route::get('/ajoutDocteurHopital', [DocteurHopitalController::class, 'store']); 
     Route::get('/update/{DocteurHopital}', [DocteurHopitalController::class, 'update']); 
     
-    Route::delete('docteur/archive/{Docteur}', [DocteurController::class, 'destroy']);
+    Route::delete('docteur/archive/{docteur}', [DocteurController::class, 'destroy']);
    
      //LOCALITES 
     Route::post('/localite/create', [LocaliteController::class, 'store']);

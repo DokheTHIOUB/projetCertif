@@ -24,7 +24,7 @@ class RdvRequest extends FormRequest
     public function rules()
     {
         return [
-            'date' => 'required|date',
+            'date' => 'required|date|after:1 week',
             'heure' => 'required|date_format:H:i:s',
             'descriptiondubesoin' => 'required|string',
             'docteur_hopitals_id' => 'required|exists:docteur_hopitals,id',

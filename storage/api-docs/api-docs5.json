@@ -1,7 +1,7 @@
 {
     "openapi": "3.0.0",
     "info": {
-        "title": "SAMA_DOCTEUR",
+        "title": "Your API Title",
         "description": "Your API Description",
         "version": "1.0.0"
     },
@@ -90,8 +90,8 @@
                                 }
                             },
                             "example": {
-                                "docteur_id": 1,
-                                "hopitals_id": 2
+                                "docteur_id": 2,
+                                "hopitals_id": 3
                             }
                         }
                     }
