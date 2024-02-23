@@ -15,6 +15,12 @@ use App\Http\Requests\UpdateClientRequest;
 
 class ClientController extends Controller
 {
+
+    private function storeImage($image)
+    {
+        return $image->store('/photoProfilClient', 'public');
+    }
+
     public function registerClient( StoreClientRequest $request)
     {
         $roleclient = Role::where('nom_role','client')->first();
@@ -31,6 +37,12 @@ class ClientController extends Controller
             'password' => Hash::make($request->password),
             'role_id' => $request->role_id, 
         ]); 
+        if ($request->hasFile('photo_profil')) {
+            $imageFile = $request->file('photo_profil');
+            $imageName = time() . '_' . $imageFile->getClientOriginalName();
+            $imageFile->move(public_path('/photoProfilClient'), $imageName);
+            $user->photo_profil = $imageName; 
+        }
         $client = $user->client()->create();
         return response()->json([
             'message' => ' Bonjour client ',
@@ -64,7 +76,6 @@ class ClientController extends Controller
 
      public function index()
      {
-        
          try {
           $client=Utilisateur::where('role_id',2)->get();
         //   dd($client);
@@ -80,9 +91,7 @@ class ClientController extends Controller
 
      public function Totalclient()
      {
- 
          try {
- 
               $totalClient= Utilisateur::where('role_id',2)->count();
              return response()->json([
              'status_code' => 200,

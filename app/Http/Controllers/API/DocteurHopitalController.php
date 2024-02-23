@@ -11,7 +11,7 @@ use App\Http\Requests\DocteurHopitauxRequest;
 class DocteurHopitalController extends Controller
 {
    
-    public function listeRdv(){
+    public function listeDocteurHopital(){
 
         try {
             return response()->json([

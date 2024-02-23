@@ -6,99 +6,14 @@ use App\Models\Docteur;
 use App\Models\Utilisateur;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\UpdateDocteurRequest;
 use App\Http\Requests\RegisterDocteurRequest;
 use App\Http\Requests\FiltreDocteurSpecialiteRequest;
 
-
 class DocteurController extends Controller
 {
-   
-    private function storeImage($image)
-    {
-        return $image->store('photoProfilDocteur', 'public');
-    }
-
-
-    public function registerDocteur(RegisterDocteurRequest $request)
-    {
-        // dd($request->validated());
-        // $user = Utilisateur::create([
-        //     'nom' => $request->nom,
-        //     'prenom' => $request->prenom,
-        //     'sexe' => $request->sexe,
-        //     'age' => $request->age,
-        //     'telephone' => $request->telephone,
-        //     'email' => $request->email,
-        //     'adresse' => $request->adresse,
-        //     'password' => Hash::make($request->password),
-        //     'role_id' => $request->role_id,
-        // ]);
-    
-        $user = new Utilisateur();
-        $user->nom = $request->nom;
-        $user->prenom = $request->prenom;
-        $user->sexe = $request->sexe;
-        $user->age = $request->age;
-        $user->telephone = $request->telephone;
-        $user->email = $request->email;
-        $user->adresse = $request->adresse;
-        $user->password = $request->password;
-        $user->role_id = $request->role_id;
-        if ($request->hasFile('image')) {
-            $imageFile = $request->file('photo_profil');
-            $imageName = time() . '_' . $imageFile->getClientOriginalName();
-            $imageFile->move(public_path('/photoProfilDocteur'), $imageName);
-            $user->photo_profil = $imageName; 
-        }
-        $user->save();
-
-        $docteur = Docteur::create([
-            'diplome' => $request->diplome,
-            'numero_licence' => $request->numero_licence,
-            'annee_experience' => $request->annee_experience,
-            'specialite_id' => $request->specialite_id,
-            'utilisateurs_id' => $user->id,
-        ]);
-    
-        return response()->json([
-            'message' => 'Bonjour docteur',
-            'user' => $docteur,
-        ]);
-    }
-    
-    public function update(UpdateDocteurRequest $request, Utilisateur $utilisateur, Docteur $docteur)
-    {
-       
-        try {
-
-            $utilisateur->nom = $request->nom;
-            $utilisateur->prenom = $request->prenom;
-            $utilisateur->sexe = $request->sexe;
-            $utilisateur->age = $request->age;
-            $utilisateur->telephone = $request->telephone;
-            $utilisateur->email = $request->email;
-            $utilisateur->adresse = $request->adresse;
-            $utilisateur->photo_profil = $request->photo_profil;
-            $utilisateur->password = Hash::make($request->password);
-            $utilisateur->update();
-            
-            $docteur = Docteur::where('utilisateurs_id', $utilisateur->id)->first();
-            $docteur->annee_experience = $request->annee_experience; 
-            
-            $docteur->update();
-            return response()->json([
-                'status_code' => 200,
-                'status_message' => 'Le docteur a été modifié',
-                'docteur' =>  $utilisateur,
-                'Info supplementaire'=>$docteur
-            ]);
-        } catch (Exception $e) {
-            return response()->json(['error' => $e->getMessage()], 500);
-        }
-    }
-    
 
     public function index()
     {
@@ -127,11 +42,96 @@ class DocteurController extends Controller
             return response()->json($e);
         }
     }
+   
+    private function storeImage($image)
+    {
+        return $image->store('photoProfilDocteur', 'public');
+    }
+
+
+    public function registerDocteur(Request $request)
+    {
+        // dd($request->validated());
+        // $user = Utilisateur::create([
+        //     'nom' => $request->nom,
+        //     'prenom' => $request->prenom,
+        //     'sexe' => $request->sexe,
+        //     'age' => $request->age,
+        //     'telephone' => $request->telephone,
+        //     'email' => $request->email,
+        //     'adresse' => $request->adresse,
+        //     'password' => Hash::make($request->password),
+        //     'role_id' => $request->role_id,
+        // ]);
+    
+        $user = new Utilisateur();
+        $user->nom = $request->nom;
+        $user->prenom = $request->prenom;
+        $user->sexe = $request->sexe;
+        $user->age = $request->age;
+        $user->telephone = $request->telephone;
+        $user->email = $request->email;
+        $user->adresse = $request->adresse;
+        $user->password = $request->password;
+        $user->role_id = 3;
+        if ($request->hasFile('photo_profil')) {
+            $imageFile = $request->file('photo_profil');
+            $imageName = time() . '_' . $imageFile->getClientOriginalName();
+            $imageFile->move(public_path('/photoProfilDocteur'), $imageName);
+            $user->photo_profil = $imageName; 
+        }
+        $user->save();
+        $docteur = Docteur::create([
+            'diplome' => $request->diplome,
+            'numero_licence' => $request->numero_licence,
+            'annee_experience' => $request->annee_experience,
+            'specialite_id' => $request->specialite_id,
+            'utilisateurs_id' => $user->id,
+        ]);
+        return response()->json([
+            'message' => 'Bonjour docteur',
+            'user' => $docteur,
+        ]);
+    }
+    
+    public function update(UpdateDocteurRequest $request, Utilisateur $utilisateur, Docteur $docteur)
+    {
+        if($docteur->utilisateur_id==$utilisateur->id) {
+
+            try {
+                $utilisateur->nom = $request->nom;
+                $utilisateur->prenom = $request->prenom;
+                $utilisateur->sexe = $request->sexe;
+                $utilisateur->age = $request->age;
+                $utilisateur->telephone = $request->telephone;
+                $utilisateur->email = $request->email;
+                $utilisateur->adresse = $request->adresse;
+                $utilisateur->photo_profil = $request->photo_profil;
+                $utilisateur->password = Hash::make($request->password);
+                $utilisateur->update();
+                
+                $docteur = Docteur::where('utilisateurs_id', $utilisateur->id)->first();
+                $docteur->annee_experience = $request->annee_experience; 
+                $docteur->update();
+                return response()->json([
+                    'status_code' => 200,
+                    'status_message' => 'Le docteur a été modifié',
+                    'docteur' =>  $utilisateur,
+                    'Info supplementaire'=>$docteur
+                ]);
+            } catch (Exception $e) {
+                return response()->json(['error' => $e->getMessage()], 500);
+            }
+
+        }
+      
+    }
 
 
     public function Statut( Docteur $docteur)
-    {   
-        if ($docteur->statut==='indisponible') {
+    {  
+        $utilisateur= Auth::user();
+        if ($docteur->statut==='indisponible' && $docteur->utilisateur_id==$utilisateur->id) {
             try {
                 $docteur->update([
                     'statut' => 'disponible',
@@ -144,9 +144,11 @@ class DocteurController extends Controller
             } catch (Exception $e) {
                 return response()->json($e);
             } 
-        }else{
+        }elseif($docteur->statut==='disponible' && $docteur->utilisateur_id==$utilisateur->id){
             try {
-            
+                $docteur->update([
+                    'statut' => 'disponible',
+                ]);
                 $docteur->save();
                 return response()->json([
                     'status_code' => 200,
@@ -228,7 +230,6 @@ class DocteurController extends Controller
         {
             try {
                 $docteur->delete();
-
                 return response()->json([
                     'status_code' => 200,
                     'status_message' => 'Le docteur a été supprimé',
@@ -246,7 +247,6 @@ class DocteurController extends Controller
                 $filtreSpecialite = $request->input('specialite_id');
                 // $docteur = Docteur::where('specialite_id', 'like', '%' . $filtreSpecialite . '%')->get();
                 $docteur = Docteur::where('specialite_id', $filtreSpecialite)->get();
-
                 return response()->json([
                     'status_code' => 200,
                     'status_message' => 'docteur filtrés par localité avec succès',

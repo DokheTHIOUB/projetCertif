@@ -28,7 +28,7 @@ class AvisController extends Controller
             $avis->save();
             return response()->json([
                 'status_code' => 200,
-                'status_message' => 'L\'avis a été ajoute',
+                'status_message' => 'L\'avis a été ajouté',
                 'avis' => $avis
             ]);
         } catch (Exception $e) {
@@ -73,14 +73,14 @@ class AvisController extends Controller
                 $avis->delete();
                 return response()->json([
                     'status_code' => 200,
-                    'status_message' => 'L\'avis a été supprime',
+                    'status_message' => 'L\'avis a été supprimé',
                     'avis' => $avis
                 ]); 
             }
             else{
                 return response()->json([
                     'status_code' => 200,
-                    'status_message' => 'Voue ne pouvez pas supprimer cette avis',
+                    'status_message' => 'Voue ne pouvez pas supprimé cette avis',
                 ]);
               }
           
