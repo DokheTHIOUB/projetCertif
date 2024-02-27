@@ -37,39 +37,35 @@ class RegionController extends Controller
         ]);
 
     }
-      //Modifier des Regions
-      public function update(StoreRegionRequest $request, Region $Region)
-      {
-          try {
-              $Region->nom_region = $request->nom_region;
-              $Region->save();
-              return response()->json([
-                  'status_code' => 200,
-                  'status_message' => 'La Region a été modifié',
-                  'Region' => $Region
-              ]);
-          } catch (Exception $e) {
-              return response()->json($e);
-          }
-      }
+     
+    public function update(StoreRegionRequest $request, Region $Region)
+    {
+        try {
+            $Region->nom_region = $request->nom_region;
+            $Region->save();
+            return response()->json([
+                'status_code' => 200,
+                'status_message' => 'La Region a été modifié',
+                'Region' => $Region
+            ]);
+        } catch (Exception $e) {
+            return response()->json($e);
+        }
+    }
   
-       //SUPPRIMER des Regions
-  
-      public function destroy(Region $Region)
-      {
-          try {
-              $Region->delete();
-             
-              return response()->json([
-                  'status_code' => 200,
-                  'status_message' => 'La Region a été supprimé',
-                  'Region' => $Region
-              ]);
-          } catch (Exception $e) {
-              return response()->json($e);
-          }
-      }
-
-
+    public function destroy(Region $Region)
+    {
+        try {
+            $Region->delete();
+            
+            return response()->json([
+                'status_code' => 200,
+                'status_message' => 'La Region a été supprimé',
+                'Region' => $Region
+            ]);
+        } catch (Exception $e) {
+            return response()->json($e);
+        }
+    }
       
 }

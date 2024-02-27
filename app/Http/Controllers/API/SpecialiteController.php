@@ -39,7 +39,7 @@ class SpecialiteController extends Controller
         ]);
 
     }
-      //Modifier des specialites
+    
       public function update(StoreSpecialiteRequest $request, specialite $specialite)
       {
           try {
@@ -55,7 +55,6 @@ class SpecialiteController extends Controller
           }
       }
   
-       //SUPPRIMER des specialites
       public function destroy(Specialite $specialite)
       {
           try {
@@ -70,7 +69,6 @@ class SpecialiteController extends Controller
               return response()->json($e);
           }
       }
-
 
 }
  

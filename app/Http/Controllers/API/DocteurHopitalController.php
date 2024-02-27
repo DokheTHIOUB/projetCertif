@@ -11,7 +11,8 @@ use App\Http\Requests\DocteurHopitauxRequest;
 class DocteurHopitalController extends Controller
 {
    
-    public function listeDocteurHopital(){
+    public function listeDocteurHopital()
+    {
 
         try {
             return response()->json([
@@ -25,9 +26,8 @@ class DocteurHopitalController extends Controller
     
     }
     
-
-    public function store(DocteurHopital $DocteurHopital , DocteurHopitauxRequest $request){
-        
+    public function store(DocteurHopital $DocteurHopital , DocteurHopitauxRequest $request)
+    {    
         try {
             $DocteurHopital = new DocteurHopital();
             $DocteurHopital->hopitals_id  = $request->hopitals_id   ; 
@@ -43,7 +43,6 @@ class DocteurHopitalController extends Controller
             return response()->json($e);
         }
     }
-
    
     public function update(DocteurHopital $DocteurHopital , DocteurHopitauxRequest $request)
     {

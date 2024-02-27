@@ -227,7 +227,7 @@ class DocteurController extends Controller
     
    
     public function destroy(Docteur $docteur)
-        {
+    {
             try {
                 $docteur->delete();
                 return response()->json([
@@ -238,23 +238,23 @@ class DocteurController extends Controller
             } catch (Exception $e) {
                 return response()->json($e);
             }
-        }
+    }
 
 
     public function filterDocteurparSpecialite(FiltreDocteurSpecialiteRequest $request, Docteur $docteur)
-        {
-            try {
-                $filtreSpecialite = $request->input('specialite_id');
-                // $docteur = Docteur::where('specialite_id', 'like', '%' . $filtreSpecialite . '%')->get();
-                $docteur = Docteur::where('specialite_id', $filtreSpecialite)->get();
-                return response()->json([
-                    'status_code' => 200,
-                    'status_message' => 'docteur filtrés par localité avec succès',
-                    'docteur_filtres' => $docteur,
-                ]);
-            } catch (Exception $e) {
-                return response()->json(['error' => $e->getMessage()], 500);
-            }
+    {
+        try {
+            $filtreSpecialite = $request->input('specialite_id');
+            // $docteur = Docteur::where('specialite_id', 'like', '%' . $filtreSpecialite . '%')->get();
+            $docteur = Docteur::where('specialite_id', $filtreSpecialite)->get();
+            return response()->json([
+                'status_code' => 200,
+                'status_message' => 'docteur filtrés par localité avec succès',
+                'docteur_filtres' => $docteur,
+            ]);
+        } catch (Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
         }
+    }
 
     }

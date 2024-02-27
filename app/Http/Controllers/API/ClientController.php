@@ -24,7 +24,6 @@ class ClientController extends Controller
     public function registerClient( StoreClientRequest $request)
     {
         $roleclient = Role::where('nom_role','client')->first();
-    // $user =Utilisateur::create($request->validated());
         $user =Utilisateur::create([
             'nom' => $request->nom,
             'prenom' => $request->prenom,
@@ -48,10 +47,10 @@ class ClientController extends Controller
             'message' => ' Bonjour client ',
             'user' => $client
         ]);
-     } 
+    } 
 
-     public function update(StoreClientRequest $request, Client $Client)
-     {
+    public function update(StoreClientRequest $request, Client $Client)
+    {
          try {
             $user=Utilisateur::where('id',$Client->utilisateur_id)->first();
             $user->nom=$request->nom;
@@ -72,10 +71,10 @@ class ClientController extends Controller
          } catch (Exception $e) {
              return response()->json($e);
          }
-     }
+    }
 
-     public function index()
-     {
+    public function index()
+    {
          try {
           $client=Utilisateur::where('role_id',2)->get();
         //   dd($client);
@@ -87,10 +86,10 @@ class ClientController extends Controller
          } catch (Exception $e) {
              return response()->json($e);
          }
-     } 
+    } 
 
-     public function Totalclient()
-     {
+    public function Totalclient()
+    {
          try {
               $totalClient= Utilisateur::where('role_id',2)->count();
              return response()->json([
@@ -104,7 +103,7 @@ class ClientController extends Controller
          catch (Exception $e) {  
              return response()->json($e);
         }
-     }
+    }
 
     public function destroy(Client $Client)
     {

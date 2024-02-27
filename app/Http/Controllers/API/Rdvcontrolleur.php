@@ -14,8 +14,8 @@ use Illuminate\Support\Facades\Auth;
 class RdvControlleur extends Controller
 {
 
-    public function listeRdv(rdv $rdv){
-
+    public function listeRdv(rdv $rdv)
+    {
         try {
             return response()->json([
                 'status_code' => 200,
@@ -25,14 +25,11 @@ class RdvControlleur extends Controller
         } catch (Exception $e) {
             return response()->json($e);
         }
-    
     }
     
-
-    public function store(RdvRequest $request ,  Docteur $Docteur){
-        
-        
-    $user=Auth::user()->client;
+    public function store(RdvRequest $request ,  Docteur $Docteur)
+    {
+      $user=Auth::user()->client;
         try { 
              {
                 $rdv = new rdv();
@@ -47,17 +44,14 @@ class RdvControlleur extends Controller
                         'status_message' => 'Le rdv a été ajoute',
                         'rdv' => $rdv
                     ]);
-            }
-          
+            }         
         } catch (Exception $e) {
             return response()->json($e);
         }
     }
-
    
     public function update(RdvRequest $request, rdv $rdv)
     {
-
         try {
             $rdv->date = $request->date;
             $rdv->heure = $request->heure;  
@@ -73,7 +67,6 @@ class RdvControlleur extends Controller
         }
 
     }
-
 
     public function destroy(rdv $rdv)
     {
@@ -143,8 +136,7 @@ class RdvControlleur extends Controller
 
     public function listeRdvEnAttente(){
 
-        try {
-            
+        try {     
             return response()->json([
                 'status_code' => 200, 
                 'status_message' => 'Voici la liste des rendez-vous en attente',
@@ -154,13 +146,10 @@ class RdvControlleur extends Controller
         } catch (Exception $e) {
             return response()->json($e);
         }
-
     }
     
     public function listeRdvAnnuler(){
-
-        try {
-            
+        try {   
             return response()->json([
                 'status_code' => 200,
                 'status_message' => 'Voici la liste des rendez-vous annulés',
@@ -173,9 +162,7 @@ class RdvControlleur extends Controller
     }
     
     public function listeRdvConfirmer(){
-
-        try {
-            
+        try {    
             return response()->json([
                 'status_code' => 200,
                 'status_message' => 'Voici la liste des rendez-vous confirmés',
@@ -187,10 +174,10 @@ class RdvControlleur extends Controller
         }
     }
     
-    public function Rechercheenfonctiondesdates(Request $request){
- 
-    try {
-
+    public function Rechercheenfonctiondesdates(Request $request)
+    {
+       try 
+       {
         $filtrerRdv = $request->input('date_id');
         $rdv = rdv::where('date_id', 'like', '%' . $filtrerRdv . '%')->get();
             return response()->json([
@@ -203,4 +190,5 @@ class RdvControlleur extends Controller
         return response()->json(['error' => $e->getMessage()], 500);
         } 
     }
+
 }

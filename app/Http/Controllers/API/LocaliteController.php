@@ -13,9 +13,7 @@ use Locale;
 
 class LocaliteController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index(localite $localite)
     {
         try {
@@ -30,14 +28,6 @@ class LocaliteController extends Controller
         }
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-   
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(StoreLocaliteRequest $request)
     {
         $localite = new Localite();
@@ -85,24 +75,5 @@ class LocaliteController extends Controller
             return response()->json($e);
         }
     }
-
-   
-    
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Localite $localite)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-   
-
-    /**
-     * Remove the specified resource from storage.
-     */
    
 }

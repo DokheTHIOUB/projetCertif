@@ -18,7 +18,8 @@ class UtilisateurController extends Controller
         $this->middleware('auth:api', ['except' => ['login', 'register','listeUtilisateurs']]);
     }
 
-        public function login(StoreUtilisateurRequest $req)  {
+    public function login(StoreUtilisateurRequest $req) 
+    {
             $credentials = $req->only('email','password');
             // dd($credentials);
             $token = Auth::attempt($credentials);
@@ -29,7 +30,6 @@ class UtilisateurController extends Controller
                     'message' => ' Email ou mot de passe incorrecte '
                 ]);
             }
-    
         $user=Auth::user();
         if($user->role_id==1){
     
@@ -43,7 +43,6 @@ class UtilisateurController extends Controller
                   ]
             ]);
         }
-    
         elseif($user->role_id==2){
     
             return response()->json([
