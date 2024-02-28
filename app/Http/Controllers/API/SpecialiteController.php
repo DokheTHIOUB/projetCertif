@@ -32,43 +32,43 @@ class SpecialiteController extends Controller
         $specialite->nom_specialite = $request->nom_specialite;
         $specialite->save();
 
-        return response()->json([
-            'status_code' => 200,
-            'status_message' => 'specialite enregistrer',
-            'liste_specialite' => $specialite
-        ]);
+            return response()->json([
+                'status_code' => 200,
+                'status_message' => 'specialite enregistrer',
+                'liste_specialite' => $specialite
+            ]);
 
     }
     
-      public function update(StoreSpecialiteRequest $request, specialite $specialite)
-      {
-          try {
-              $specialite->nom_specialite = $request->nom_specialite;
-              $specialite->save();
-              return response()->json([
-                  'status_code' => 200,
-                  'status_message' => 'La specialite a été modifié',
-                  'specialite' => $specialite
-              ]);
-          } catch (Exception $e) {
-              return response()->json($e);
-          }
-      }
+    public function update(StoreSpecialiteRequest $request, specialite $specialite)
+    {
+        try {
+            $specialite->nom_specialite = $request->nom_specialite;
+            $specialite->save();
+            return response()->json([
+                'status_code' => 200,
+                'status_message' => 'La specialite a été modifié',
+                'specialite' => $specialite
+            ]);
+        } catch (Exception $e) {
+            return response()->json($e);
+        }
+    }
   
-      public function destroy(Specialite $specialite)
-      {
-          try {
-              $specialite->delete();
-             
-              return response()->json([
-                  'status_code' => 200,
-                  'status_message' => 'La specialite a été supprimé',
-                  'specialite' => $specialite
-              ]);
-          } catch (Exception $e) {
-              return response()->json($e);
-          }
-      }
+    public function destroy(Specialite $specialite)
+    {
+        try {
+            $specialite->delete();
+            
+            return response()->json([
+                'status_code' => 200,
+                'status_message' => 'La specialite a été supprimé',
+                'specialite' => $specialite
+            ]);
+        } catch (Exception $e) {
+            return response()->json($e);
+        }
+    } 
 
 }
  

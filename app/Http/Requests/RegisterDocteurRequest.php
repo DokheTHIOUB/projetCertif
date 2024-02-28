@@ -23,22 +23,20 @@ class RegisterDocteurRequest extends FormRequest
      */
     public function rules(): array
     {
-            return [ 
-
-                'nom' => ['required|string|min:2|max:100','regex:/^[a-zA-Z]+$/'],
-                'prenom' => ['required|string|min:3|max:100','regex:/^[a-zA-Z]+$/'],
-                'sexe' => 'required|string|in:homme,femme', 
-                'age' => 'required|integer|min:18|max:100',
-                'telephone' => ['nullable', 'regex:/^(77|76|75|78)+[0-9]{7}/'],
-                'email' => ['required','email','regex:/^[a-zA-Z_][\w.-]*@[a-zA-Z][a-zA-Z.-]+.[a-zA-Z]{2,4}$/','unique:utilisateurs'],
-                'adresse' => 'required|string|max:255',
-                'photo_profil' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2000', 
-                'password'=> ['required', 'regex:/^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[@#$%^&+=!])(.{8,})$/'],
-                'numero_licence' => 'required|string|max:80',
+        
+            return [
+                'nom' => ['required', 'string', 'max:100', 'min:2', 'regex:/^[a-zA-Z]+$/'],
+                'prenom' => ['required', 'string', 'max:100', 'min:2', 'regex:/^[a-zA-Z]+$/'],
+                'sexe' => ['required', 'string', 'in:homme,femme'],
+                'age' => ['required', 'integer', 'min:15', 'max:90'],
+                'telephone' => ['required', 'string', 'regex:/^(77|76|75|78)[0-9]{7}$/'],
+                'email' => ['required', 'email', 'regex:/^[a-z_][\w.-]*@[a-zA-Z][a-zA-Z.-]+\.[a-zA-Z]{2,4}$/', 'unique:utilisateurs,email'],
+                'adresse' => ['required', 'string', 'max:100'],
+                'photo_profil' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2000'],
+                'password' => ['required', 'regex:/^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[@#$%^&+=!])(.{8,})$/'],
                 'annee_experience' => 'required|integer|min:3|max:80',
-                'specialite_id' => 'required|exists:specialites,id',
-                
-            ];
+                'specialite_id' => 'required|exists:specialites,id'
+        ];
             
     }
     

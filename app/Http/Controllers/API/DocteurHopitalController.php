@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\DocteurHopital;
 use Illuminate\Routing\Controller;
 use App\Http\Requests\DocteurHopitauxRequest;
+use Illuminate\Support\Facades\DB;
 
 class DocteurHopitalController extends Controller
 {
@@ -59,7 +60,21 @@ class DocteurHopitalController extends Controller
             } catch (Exception $e) {
             return response()->json($e);
         }
+    }
 
+    public function destroy(DocteurHopital $DocteurHopital)
+    {
+        try{
+            $DocteurHopital->delete();
+                return response()->json([
+                    'status_code' => 200,
+                    'status_message' => 'Le docteur a été supprime',
+                    'Docteur_hopital' => $DocteurHopital
+                ]);
+            }  catch(Exception $e) {
+            return response()->json($e);
+            }
     }
 
 }
+  

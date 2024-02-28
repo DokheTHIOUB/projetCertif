@@ -10,6 +10,7 @@ use App\Http\Requests\StoreRegionRequest;
 
 class RegionController extends Controller
 {
+
     public function index()
     {
         try {
@@ -68,4 +69,5 @@ class RegionController extends Controller
         }
     }
       
+    
 }

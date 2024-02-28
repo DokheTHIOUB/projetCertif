@@ -15,6 +15,18 @@ use PhpParser\Node\Stmt\Else_;
 class AvisController extends Controller
 {
 
+    public function index()
+    {
+        try {
+            return response()->json([
+                'status_code' => 200,
+                'status_message' => 'Voici la liste de tous les avis',
+                'Mentor' => Avis::all(),
+            ]); 
+        } catch (Exception $e) {
+            return response()->json($e);
+        }
+    }
 
     public function store(StoreAvisRequest $request, hopital $hopital)
     {
@@ -36,7 +48,6 @@ class AvisController extends Controller
         }
     }
               
-
     public function update(UpdateAvisRequest $request, hopital $hopital )
     {
         
@@ -88,18 +99,5 @@ class AvisController extends Controller
             return response()->json($e);
         }
     } 
-
-    public function index()
-    {
-        try {
-            return response()->json([
-                'status_code' => 200,
-                'status_message' => 'Voici la liste de tous les avis',
-                'Mentor' => Avis::all(),
-            ]); 
-        } catch (Exception $e) {
-            return response()->json($e);
-        }
-    }
 
 }

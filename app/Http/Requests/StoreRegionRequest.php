@@ -37,5 +37,4 @@ class StoreRegionRequest extends FormRequest
             'errorList'=>$validator->errors(),
         ]));
     }
-
 }

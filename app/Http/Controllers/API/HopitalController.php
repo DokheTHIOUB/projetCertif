@@ -12,6 +12,19 @@ use App\Http\Requests\FiltreHopitauxRequest;
 class HopitalController extends Controller
 {
    
+    public function index()
+    {
+        try {
+                return response()->json([
+                    'status_code' => 200,
+                    'status_message' => 'Voici la liste des hopitaux ',
+                    'hopitaux' => hopital::all(),
+                ]);
+        } catch (Exception $e) {
+            return response()->json($e);
+        }
+    }
+
     public function filterhopital(FiltreHopitauxRequest $request, hopital $hopital)
     {
         try {
@@ -112,20 +125,6 @@ class HopitalController extends Controller
                 'status_message' => 'L\'hopital a été supprime',
                 'hopitaux' => $hopitaux
             ]);
-        } catch (Exception $e) {
-            return response()->json($e);
-        }
-    }
-
-
-    public function index()
-    {
-        try {
-                return response()->json([
-                    'status_code' => 200,
-                    'status_message' => 'Voici la liste des hopitaux ',
-                    'hopitaux' => hopital::all(),
-                ]);
         } catch (Exception $e) {
             return response()->json($e);
         }

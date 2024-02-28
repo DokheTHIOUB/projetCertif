@@ -26,6 +26,46 @@ class RdvControlleur extends Controller
             return response()->json($e);
         }
     }
+
+    public function listeRdvEnAttente(){
+
+        try {     
+            return response()->json([
+                'status_code' => 200, 
+                'status_message' => 'Voici la liste des rendez-vous en attente',
+                'rendez-Vous' => rdv::where('statut','en_attente')->get(),
+            ]);
+        
+        } catch (Exception $e) {
+            return response()->json($e);
+        }
+    }
+    
+    public function listeRdvAnnuler(){
+        try {   
+            return response()->json([
+                'status_code' => 200,
+                'status_message' => 'Voici la liste des rendez-vous annulés',
+                'rendez-Vous' => rdv::where('statut','annuler')->get(),
+            ]);
+        
+        } catch (Exception $e) {
+            return response()->json($e);
+        }
+    }
+    
+    public function listeRdvConfirmer(){
+        try {    
+            return response()->json([
+                'status_code' => 200,
+                'status_message' => 'Voici la liste des rendez-vous confirmés',
+                'rendez-Vous' => rdv::where('statut','confirmer')->get(),
+            ]);
+        
+        } catch (Exception $e) {
+            return response()->json($e);
+        }
+    }
     
     public function store(RdvRequest $request ,  Docteur $Docteur)
     {
@@ -50,40 +90,25 @@ class RdvControlleur extends Controller
         }
     }
    
-    public function update(RdvRequest $request, rdv $rdv)
+    public function Rechercheenfonctiondesdates(Request $request)
     {
-        try {
-            $rdv->date = $request->date;
-            $rdv->heure = $request->heure;  
-            $rdv->descriptiondubesoin = $request->descriptiondubesoin;
-            $rdv->update();
-                return response()->json([
-                    'status_code' => 200,
-                    'status_message' => 'Le rdv a été modifié',
-                    'rdv' => $rdv
-                ]);
-            } catch (Exception $e) {
-            return response()->json($e);
-        }
-
-    }
-
-    public function destroy(rdv $rdv)
-    {
-        try {
-            $rdv->delete();
-                return response()->json([
-                    'status_code' => 200,
-                    'status_message' => 'Le rdv a été supprimé',
-                    'rdv' => $rdv
-                ]);
-        } catch (Exception $e) {
-            return response()->json($e);
-        }
+       try 
+       {
+        $filtrerRdv = $request->input('date_id');
+        $rdv = rdv::where('date_id', 'like', '%' . $filtrerRdv . '%')->get();
+            return response()->json([
+                'status_code' => 200,
+                'status_message' => 'Rendez-Vous filtrés par jour avec succès',
+                'Rendez-Vous_filtrés' => $rdv,
+            ]);
+        } 
+        catch (Exception $e) {
+        return response()->json(['error' => $e->getMessage()], 500);
+        } 
     }
 
     public function Statut(rdv $rdv)
-    {   
+    {
         if ($rdv->statut==='en_attente') {
             try {
                // $rdv->update([ 'statut' => 'confirmer',]);
@@ -133,62 +158,37 @@ class RdvControlleur extends Controller
             }
         } 
     }
-
-    public function listeRdvEnAttente(){
-
-        try {     
-            return response()->json([
-                'status_code' => 200, 
-                'status_message' => 'Voici la liste des rendez-vous en attente',
-                'rendez-Vous' => rdv::where('statut','en_attente')->get(),
-            ]);
-        
-        } catch (Exception $e) {
-            return response()->json($e);
-        }
-    }
     
-    public function listeRdvAnnuler(){
-        try {   
-            return response()->json([
-                'status_code' => 200,
-                'status_message' => 'Voici la liste des rendez-vous annulés',
-                'rendez-Vous' => rdv::where('statut','annuler')->get(),
-            ]);
-        
-        } catch (Exception $e) {
-            return response()->json($e);
-        }
-    }
-    
-    public function listeRdvConfirmer(){
-        try {    
-            return response()->json([
-                'status_code' => 200,
-                'status_message' => 'Voici la liste des rendez-vous confirmés',
-                'rendez-Vous' => rdv::where('statut','confirmer')->get(),
-            ]);
-        
-        } catch (Exception $e) {
-            return response()->json($e);
-        }
-    }
-    
-    public function Rechercheenfonctiondesdates(Request $request)
+    public function update(RdvRequest $request, rdv $rdv)
     {
-       try 
-       {
-        $filtrerRdv = $request->input('date_id');
-        $rdv = rdv::where('date_id', 'like', '%' . $filtrerRdv . '%')->get();
-            return response()->json([
-                'status_code' => 200,
-                'status_message' => 'Rendez-Vous filtrés par jour avec succès',
-                'Rendez-Vous_filtrés' => $rdv,
-            ]);
-        } 
-        catch (Exception $e) {
-        return response()->json(['error' => $e->getMessage()], 500);
-        } 
+        try {
+            $rdv->date = $request->date;
+            $rdv->heure = $request->heure;  
+            $rdv->descriptiondubesoin = $request->descriptiondubesoin;
+            $rdv->update();
+                return response()->json([
+                    'status_code' => 200,
+                    'status_message' => 'Le rdv a été modifié',
+                    'rdv' => $rdv
+                ]);
+            } catch (Exception $e) {
+            return response()->json($e);
+        }
+
+    }
+
+    public function destroy(rdv $rdv)
+    {
+        try {
+            $rdv->delete();
+                return response()->json([
+                    'status_code' => 200,
+                    'status_message' => 'Le rdv a été supprimé',
+                    'rdv' => $rdv
+                ]);
+        } catch (Exception $e) {
+            return response()->json($e);
+        }
     }
 
 }

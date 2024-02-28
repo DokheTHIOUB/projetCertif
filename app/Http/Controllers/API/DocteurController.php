@@ -13,7 +13,71 @@ use App\Http\Requests\RegisterDocteurRequest;
 use App\Http\Requests\FiltreDocteurSpecialiteRequest;
 
 class DocteurController extends Controller
-{
+{   
+
+    public function filterDocteurparSpecialite(FiltreDocteurSpecialiteRequest $request, Docteur $docteur)
+    {
+        try {
+            $filtreSpecialite = $request->input('specialite_id');
+            // $docteur = Docteur::where('specialite_id', 'like', '%' . $filtreSpecialite . '%')->get();
+            $docteur = Docteur::where('specialite_id', $filtreSpecialite)->get();
+            return response()->json([
+                'status_code' => 200,
+                'status_message' => 'docteur filtrés par localité avec succès',
+                'docteur_filtres' => $docteur,
+            ]);
+        } catch (Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+
+    public function Docteurdisponible()
+    {
+        try {
+            {
+                return response()->json([
+                    'status_code' => 200,
+                    'status_message' => 'Voici la liste des docteurs disponible',
+                    'docteur' => Docteur::where( 'statut',  '=', 'disponible')->get(),
+                ]);
+            }
+        } catch (Exception $e) {
+            return response()->json($e);
+        }
+    }
+    
+    public function DocteurIndisponible()
+    {
+        try {
+                return response()->json([
+                    'status_code' => 200,
+                    'status_message' => 'Voici la liste des Docteurs indisponible',
+                    'docteur' => Docteur::where( 'statut',  '=', 'indisponible')->get(),
+                ]);
+            
+        } catch (Exception $e) {
+            return response()->json($e);
+        }
+    }
+
+    public function Totaldocteur()
+    {
+        try {
+
+             $totalDocteur= Docteur::count();
+            return response()->json([
+            'status_code' => 200,
+            'status_message' => 'Le nombre total de docteur',
+            'data' => [
+            'Total_docteur' => $totalDocteur,
+            ]]);
+
+            } 
+        catch (Exception $e) {  
+            return response()->json($e);
+       }
+    }
+    
 
     public function index()
     {
@@ -49,7 +113,7 @@ class DocteurController extends Controller
     }
 
 
-    public function registerDocteur(Request $request)
+    public function registerDocteur(RegisterDocteurRequest$request)
     {
         // dd($request->validated());
         // $user = Utilisateur::create([
@@ -72,7 +136,7 @@ class DocteurController extends Controller
         $user->telephone = $request->telephone;
         $user->email = $request->email;
         $user->adresse = $request->adresse;
-        $user->password = $request->password;
+        $user->password = Hash::make($request->password);
         $user->role_id = 3;
         if ($request->hasFile('photo_profil')) {
             $imageFile = $request->file('photo_profil');
@@ -82,8 +146,6 @@ class DocteurController extends Controller
         }
         $user->save();
         $docteur = Docteur::create([
-            'diplome' => $request->diplome,
-            'numero_licence' => $request->numero_licence,
             'annee_experience' => $request->annee_experience,
             'specialite_id' => $request->specialite_id,
             'utilisateurs_id' => $user->id,
@@ -174,57 +236,6 @@ class DocteurController extends Controller
             return response()->json($e);
         }
     }
-
-
-    public function Docteurdisponible()
-    {
-        try {
-            {
-                return response()->json([
-                    'status_code' => 200,
-                    'status_message' => 'Voici la liste des docteurs disponible',
-                    'docteur' => Docteur::where( 'statut',  '=', 'disponible')->get(),
-                ]);
-            }
-        } catch (Exception $e) {
-            return response()->json($e);
-        }
-    }
-    
-    
-    public function DocteurIndisponible()
-    {
-        try {
-                return response()->json([
-                    'status_code' => 200,
-                    'status_message' => 'Voici la liste des Docteurs indisponible',
-                    'docteur' => Docteur::where( 'statut',  '=', 'indisponible')->get(),
-                ]);
-            
-        } catch (Exception $e) {
-            return response()->json($e);
-        }
-    }
-
-
-    public function Totaldocteur()
-    {
-        try {
-
-             $totalDocteur= Docteur::count();
-            return response()->json([
-            'status_code' => 200,
-            'status_message' => 'Le nombre total de docteur',
-            'data' => [
-            'Total_docteur' => $totalDocteur,
-            ]]);
-
-            } 
-        catch (Exception $e) {  
-            return response()->json($e);
-       }
-    }
-    
    
     public function destroy(Docteur $docteur)
     {
@@ -238,23 +249,6 @@ class DocteurController extends Controller
             } catch (Exception $e) {
                 return response()->json($e);
             }
-    }
-
-
-    public function filterDocteurparSpecialite(FiltreDocteurSpecialiteRequest $request, Docteur $docteur)
-    {
-        try {
-            $filtreSpecialite = $request->input('specialite_id');
-            // $docteur = Docteur::where('specialite_id', 'like', '%' . $filtreSpecialite . '%')->get();
-            $docteur = Docteur::where('specialite_id', $filtreSpecialite)->get();
-            return response()->json([
-                'status_code' => 200,
-                'status_message' => 'docteur filtrés par localité avec succès',
-                'docteur_filtres' => $docteur,
-            ]);
-        } catch (Exception $e) {
-            return response()->json(['error' => $e->getMessage()], 500);
-        }
     }
 
     }

@@ -14,7 +14,22 @@ use App\Http\Requests\StoreClientRequest;
 use App\Http\Requests\UpdateClientRequest;
 
 class ClientController extends Controller
-{
+{   
+
+    public function index()
+    {
+         try {
+          $client=Utilisateur::where('role_id',2)->get();
+        //   dd($client);
+             return response()->json([
+                 'status_code' => 200,
+                 'status_message' => 'Voici la liste de tout les clients',
+                 'liste client' => $client
+             ]);
+         } catch (Exception $e) {
+             return response()->json($e);
+         }
+    } 
 
     private function storeImage($image)
     {
@@ -34,7 +49,7 @@ class ClientController extends Controller
             'adresse' => $request->adresse, 
             'photo_profil' => $request->photo_profil, 
             'password' => Hash::make($request->password),
-            'role_id' => $request->role_id, 
+            'role_id' => $roleclient->id, 
         ]); 
         if ($request->hasFile('photo_profil')) {
             $imageFile = $request->file('photo_profil');
@@ -45,7 +60,7 @@ class ClientController extends Controller
         $client = $user->client()->create();
         return response()->json([
             'message' => ' Bonjour client ',
-            'user' => $client
+            'user' => $user
         ]);
     } 
 
@@ -72,21 +87,6 @@ class ClientController extends Controller
              return response()->json($e);
          }
     }
-
-    public function index()
-    {
-         try {
-          $client=Utilisateur::where('role_id',2)->get();
-        //   dd($client);
-             return response()->json([
-                 'status_code' => 200,
-                 'status_message' => 'Voici la liste de tout les clients',
-                 'liste client' => $client
-             ]);
-         } catch (Exception $e) {
-             return response()->json($e);
-         }
-    } 
 
     public function Totalclient()
     {
@@ -119,5 +119,6 @@ class ClientController extends Controller
             return response()->json($e);
         }
     }
+    
 
 }

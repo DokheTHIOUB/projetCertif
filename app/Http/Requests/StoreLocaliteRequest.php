@@ -24,9 +24,9 @@ class StoreLocaliteRequest extends FormRequest
     public function rules()
     {
         return [
-            'nom_localite' => 'required|string|max:255',  // Exemple de règle : obligatoire, chaîne de caractères, maximum de 255 caractères
-            'code_postal' => 'required|string|max:10',    // Ajoutez des règles appropriées pour 'code_postal'
-            'region_id' => 'required|exists:regions,id',   // Exemple : obligatoire, doit exister dans la table 'regions' sous la colonne 'id'
+            'nom_localite' => 'required|string|max:255',  
+            'code_postal' => 'required|string|max:10',    
+            'region_id' => 'required|exists:regions,id', 
         ];
     }
 
