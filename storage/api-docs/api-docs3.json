@@ -1543,7 +1543,7 @@
                 }
             }
         },
-        "/api/localitehopital": {
+        "/api/localitehopital/2": {
             "get": {
                 "summary": "Filtrer hopital/localité",
                 "description": "",
@@ -1585,24 +1585,7 @@
                         "name": "User-Agent",
                         "type": "string"
                     }
-                ],
-                "requestBody": {
-                    "content": {
-                        "multipart/form-data": {
-                            "schema": {
-                                "type": "object",
-                                "properties": {
-                                    "localite_id": {
-                                        "type": "integer"
-                                    }
-                                }
-                            },
-                            "example": {
-                                "localite_id": 2
-                            }
-                        }
-                    }
-                }
+                ]
             }
         },
         "/api/Hopital": {
