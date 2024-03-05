@@ -21,7 +21,7 @@ class AvisController extends Controller
             return response()->json([
                 'status_code' => 200,
                 'status_message' => 'Voici la liste de tous les avis',
-                'Mentor' => Avis::all(),
+                'Avis' => Avis::all(),
             ]); 
         } catch (Exception $e) {
             return response()->json($e);
@@ -55,21 +55,20 @@ class AvisController extends Controller
         $avis = Avis::where('hopitals_id', $hopital->id)->where('client_id', $user->id)->first();
         try {
             if($avis->client_id==$user->id){
-                $avis->description = $request->description;
-                
-            $avis->update();
-            return response()->json([
-                'status_code' => 200,
-                'status_message' => 'L\'avis a été modifié',
-                'avis' => $avis
-            ]);
-          }
-          else{
-            return response()->json([
-                'status_code' => 200,
-                'status_message' => 'Voue n\'etes pas autorisé a modifié cette avis',
-            ]);
-          }
+             $avis->description = $request->description;
+             $avis->update();
+                return response()->json([
+                    'status_code' => 200,
+                    'status_message' => 'L\'avis a été modifié',
+                    'avis' => $avis
+                ]);
+             }
+            else {
+                return response()->json([
+                    'status_code' => 403,
+                    'status_message' => 'Vous ne pouvez pas supprimer cet avis',
+                ], 403);
+        }
         } catch (Exception $e) {
             return response()->json($e);
         }
@@ -87,17 +86,16 @@ class AvisController extends Controller
                     'status_message' => 'L\'avis a été supprimé',
                     'avis' => $avis
                 ]); 
-            }
-            else{
-                return response()->json([
-                    'status_code' => 200,
-                    'status_message' => 'Voue ne pouvez pas supprimé cette avis',
-                ]);
               }
-          
+              else {
+                return response()->json([
+                    'status_code' => 403,
+                    'status_message' => 'Vous ne pouvez pas supprimer cet avis',
+                ], 403);
+            }
         } catch (Exception $e) {
             return response()->json($e);
         }
     } 
-
 }
+

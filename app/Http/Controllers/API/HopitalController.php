@@ -7,7 +7,9 @@ use App\Models\hopital;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use App\Http\Requests\StoreHopitalRequest;
+use App\Http\Requests\UpdatehopitalRequest;
 use App\Http\Requests\FiltreHopitauxRequest;
+use App\Models\Localite;
 
 class HopitalController extends Controller
 {
@@ -25,12 +27,11 @@ class HopitalController extends Controller
         }
     }
 
-    public function filterhopital(FiltreHopitauxRequest $request, hopital $hopital)
+    public function filterhopital(Request $request, Localite $localite)
     {
         try {
-            $filtrehopital = $request->input('localite_id');
+            $filtrehopital = $request->input('id', $localite);
             $hopital = hopital::where('localite_id', $filtrehopital)->get();
-    
             return response()->json([
                 'status_code' => 200,
                 'status_message' => 'hopital filtrés par localité avec succès',
@@ -73,14 +74,11 @@ class HopitalController extends Controller
                 $hopitaux->image=$imageName;
             $hopitaux->nom_hopital = $request->nom_hopital;
             $hopitaux->description = $request->description;
-            $hopitaux->longitude = $request->longitude;
-            $hopitaux->lattitude = $request->lattitude;
             $hopitaux->horaire = $request->horaire; 
             $hopitaux->localite_id = $request->localite_id; 
-
             $hopitaux->save();
             return response()->json([
-                'status_code' => 200, //Pour montrer que la réquete a été effectuer
+                'status_code' => 200, 
                 'status_message' => 'L\'hopital a été ajoute',
                 'hopitaux' => $hopitaux
             ]);
@@ -90,14 +88,12 @@ class HopitalController extends Controller
         }
     }
 
-    public function update(StoreHopitalRequest $request, hopital $hopitaux)
+    public function update(UpdatehopitalRequest $request, hopital $hopitaux)
     {
         try {
         
             $hopitaux->nom_hopital = $request->nom_hopital;
             $hopitaux->description = $request->description;
-            $hopitaux->longitude = $request->longitude;
-            $hopitaux->lattitude = $request->lattitude;
             $hopitaux->horaire = $request->horaire; 
             $hopitaux->localite_id = $request->localite_id; 
 

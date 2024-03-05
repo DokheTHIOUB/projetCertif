@@ -7,6 +7,7 @@ use App\Models\Region;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use App\Http\Requests\StoreRegionRequest;
+use App\Http\Requests\UpdateRegionRequest;
 
 class RegionController extends Controller
 {
@@ -39,11 +40,11 @@ class RegionController extends Controller
 
     }
      
-    public function update(StoreRegionRequest $request, Region $Region)
+    public function update(UpdateRegionRequest $request, Region $Region)
     {
         try {
             $Region->nom_region = $request->nom_region;
-            $Region->save();
+            $Region->update();
             return response()->json([
                 'status_code' => 200,
                 'status_message' => 'La Region a été modifié',
@@ -69,5 +70,5 @@ class RegionController extends Controller
         }
     }
       
-    
+
 }

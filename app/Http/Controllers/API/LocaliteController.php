@@ -50,7 +50,7 @@ class LocaliteController extends Controller
             $localite->nom_localite = $request->nom_localite;
             $localite->code_postal = $request-> code_postal;
             $localite->region_id = $request-> region_id;
-            $localite->save();
+            $localite->update();
             return response()->json([
                 'status_code' => 200,
                 'status_message' => 'La localite a été modifié',

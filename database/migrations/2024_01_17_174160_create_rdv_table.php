@@ -18,7 +18,7 @@ return new class extends Migration
             $table->enum('statut',['en_attente','confirmer','annuler'])->default('en_attente');
             $table->string('descriptiondubesoin');
             $table->foreignId('client_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
-            $table->foreignId('docteur_hopitals_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('docteur_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

@@ -24,13 +24,11 @@ class StoreHopitalRequest extends FormRequest
     public function rules(): array
     {
             return [
-                    'nom_hopital' => 'required|string|max:255',
+                    'nom_hopital' => ['required','string','unique:hopitals,nom_hopital','min:4','max:255','regex:/^[a-zA-Z]+$/', ],
                     'description' => 'required|string',
-                    'longitude' => 'required|numeric',
-                    'lattitude' => 'required|numeric',
                     'horaire' => 'required|string',
                     'localite_id' => 'required|exists:localites,id',
-                    'image' => 'required|image',
+                    'image' => ['required','image', 'mimes:jpeg,png,jpg,gif']
                 ];
     }
 

@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class UpdatehopitalRequest extends FormRequest
 {
@@ -11,7 +13,7 @@ class UpdatehopitalRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,8 +23,22 @@ class UpdatehopitalRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            //
-        ];
+            return [
+                    'nom_hopital' => ['required','string','unique:hopitals,nom_hopital','min:4','max:255','regex:/^[a-zA-Z]+$/', ],
+                    'description' => 'required|string',
+                    'horaire' => 'required|string',
+                    'localite_id' => 'required|exists:localites,id',
+                    'image' => ['required','image', 'mimes:jpeg,png,jpg,gif']
+                ];
+    }
+
+    public function failedValidation(Validator $validator ){
+        throw new HttpResponseException(response()->json([
+            'success'=>false,
+            'status_code'=>422,
+            'error'=>true,
+            'message'=>'erreur de validation',
+            'errorList'=>$validator->errors(),
+        ]));
     }
 }

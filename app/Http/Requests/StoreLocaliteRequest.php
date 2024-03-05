@@ -24,7 +24,7 @@ class StoreLocaliteRequest extends FormRequest
     public function rules()
     {
         return [
-            'nom_localite' => 'required|string|max:255',  
+            'nom_localite' => ['required','string','unique:localites,nom_localite','min:4','max:255','regex:/^[a-zA-Z]+$/'],
             'code_postal' => 'required|string|max:10',    
             'region_id' => 'required|exists:regions,id', 
         ];

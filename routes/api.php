@@ -26,7 +26,8 @@ use App\Http\Requests\RdvRequest;
 |
 */
 
-Route::get('/listerDocteurHopital', [DocteurHopitalController::class, 'listeRdv']); 
+    Route::get('/listerDocteurHopital', [DocteurHopitalController::class, 'listeDocteurHopital']); 
+    Route::get('localitehopital/{localite}',[HopitalController::class, 'filterhopital']);
     Route::get('/avis', [AvisController::class, 'index']); 
     Route::get('docteur', [DocteurController::class, 'index']); 
     Route::get('Hopital', [HopitalController::class, 'index']); 
@@ -44,18 +45,13 @@ Route::middleware(['auth:api','client'])->group(function (){
     Route::post('avis/edit/{hopital}', [AvisController::class, 'update']); 
     Route::delete('client/{Client}', [clientController::class, 'destroy']); 
     Route::post('/logoutClient', [UtilisateurController::class, 'logout']); 
-    Route::post('client/edit/{Client}', [clientController::class, 'update']); 
-    Route::get('localitehopital',[HopitalController::class, 'filterhopital']);
-
+    Route::post('/edit/{Client}', [clientController::class, 'update']); 
     Route::post('/ajouter/rdv', [RdvControlleur::class, 'store']); 
     Route::post('/rdv/uptade/{rdv}', [RdvControlleur::class, 'update']);
     Route::delete('/rdv/delete/{rdv}', [RdvControlleur::class, 'destroy']); 
-
-    Route::get('Docteur/filtre/specialite',[DocteurController::class,'filterDocteurparspecialite']); 
+    Route::get('Docteur/filtre/{specialite}',[DocteurController::class,'filterDocteurparspecialite']); 
     Route::post('docteur/disponible', [DocteurController::class, 'Docteurdisponible']);
     Route::post('docteur/indisponible', [DocteurController::class, 'DocteurIndisponible']);
-
-
 });
 Route::middleware(['auth:api','admin'])->group(function (){
     Route::post('/logoutAdmin', [UtilisateurController::class, 'logout']); 
@@ -63,10 +59,7 @@ Route::middleware(['auth:api','admin'])->group(function (){
     Route::get('/liste/utilisateurs', [UtilisateurController::class, 'listeUtilisateurs']); 
     Route::get('/ajoutDocteurHopital', [DocteurHopitalController::class, 'store']); 
     Route::get('/update/{DocteurHopital}', [DocteurHopitalController::class, 'update']); 
-    
     Route::delete('docteur/archive/{docteur}', [DocteurController::class, 'destroy']);
-   
-     //LOCALITES 
     Route::post('/localite/create', [LocaliteController::class, 'store']);
     Route::delete('localite/{localite}', [LocaliteController::class, 'destroy']);
     Route::post('localite/edit/{localite}', [LocaliteController::class, 'update']);
@@ -85,15 +78,11 @@ Route::middleware(['auth:api','admin'])->group(function (){
     Route::get('client/Totalclient', [clientController::class, 'Totalclient']); 
     Route::post('hopital/create', [HopitalController::class, 'ajouterHopital']); 
     Route::post('Hopital/edit/{hopitaux}', [HopitalController::class, 'update']);  
-
     Route::post('ajouterDocteurHopital', [DocteurHopitalController::class, 'store']);  
-
-
 }); 
-Route::middleware(['auth:api','docteur'])->group(function(){ 
+Route::middleware(['auth:api','docteur'])->group(function(){
     // Route::get('docteur/show/{docteur}', [DocteurController::class, 'show']);  
     Route::post('/logoutDocteur', [UtilisateurController::class, 'logout']); 
-   
     Route::get('/rdv', [RdvControlleur::class, 'listeRdv']); 
     Route::get('/rdv/confirmer', [RdvControlleur::class, 'listeRdvConfirmer']); 
     Route::get('/rdv/annuler', [RdvControlleur::class, 'listeRdvAnnuler']); 
@@ -101,8 +90,6 @@ Route::middleware(['auth:api','docteur'])->group(function(){
     Route::put('rdv/etat/{rdv}', [RdvControlleur::class, 'Statut']); 
     Route::get('rdv/filtre/date',[DocteurController::class,'Rechercheenfonctiondesdates']); 
     Route::delete('rdv/delete/{rdv}', [RdvControlleur::class, 'destroy']); 
-
-    Route::post('Docteur/edit/{utilisateur}', [DocteurController::class, 'update']); 
-    Route::patch('docteur/disponibilite/{Docteur}', [DocteurController::class, 'Statut']); 
-   
+    Route::post('Docteur/edit', [DocteurController::class, 'update']); 
+    Route::patch('docteur/disponibilite', [DocteurController::class, 'Statut']);  
 });

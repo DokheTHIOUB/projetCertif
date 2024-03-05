@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('regions', function (Blueprint $table) {
             $table->id();
-            $table->string('nom_region');
+            $table->string('nom_region')->unique();
             $table->timestamps();
         });
     }

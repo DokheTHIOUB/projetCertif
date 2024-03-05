@@ -24,7 +24,7 @@ class StoreRegionRequest extends FormRequest
     public function rules()
     {
         return [
-            'nom_region' => 'required|string|max:255'
+            'nom_region' => ['required','string','unique:regions,nom_region','min:4','max:255','regex:/^[a-zA-Z]+$/', ]
         ];
     }
 

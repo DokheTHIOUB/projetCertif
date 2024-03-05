@@ -8,19 +8,23 @@ use App\Models\Docteur;
 use App\Models\Utilisateur;
 use Illuminate\Http\Request;
 use App\Http\Requests\RdvRequest;
+use App\Models\DocteurHopital;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 
 class RdvControlleur extends Controller
 {
 
-    public function listeRdv(rdv $rdv)
+    public function listeRdv() 
     {
+        $user=Auth::user()->docteur;
+        //dd($user);
+        $rdv = rdv::where('docteur_id', $user->id)->get();
         try {
             return response()->json([
                 'status_code' => 200,
                 'status_message' => 'Voici la liste de tout les rendez-vous',
-                'liste rdv' => rdv::all(),
+                'liste rdv' => $rdv ,
             ]);
         } catch (Exception $e) {
             return response()->json($e);
@@ -28,12 +32,13 @@ class RdvControlleur extends Controller
     }
 
     public function listeRdvEnAttente(){
-
+        $user=Auth::user()->docteur;
+        $rdv = rdv::where('docteur_id', $user->id)->where('statut','en_attente')->get();
         try {     
             return response()->json([
                 'status_code' => 200, 
                 'status_message' => 'Voici la liste des rendez-vous en attente',
-                'rendez-Vous' => rdv::where('statut','en_attente')->get(),
+                'rendez-Vous' =>  $rdv
             ]);
         
         } catch (Exception $e) {
@@ -41,12 +46,14 @@ class RdvControlleur extends Controller
         }
     }
     
-    public function listeRdvAnnuler(){
+    public function listeRdvAnnuler(){ 
+        $user=Auth::user()->docteur;
+        $rdv = rdv::where('docteur_id', $user->id)->where('statut','annuler')->get();
         try {   
             return response()->json([
                 'status_code' => 200,
                 'status_message' => 'Voici la liste des rendez-vous annulés',
-                'rendez-Vous' => rdv::where('statut','annuler')->get(),
+                'rendez-Vous' => $rdv
             ]);
         
         } catch (Exception $e) {
@@ -55,11 +62,13 @@ class RdvControlleur extends Controller
     }
     
     public function listeRdvConfirmer(){
-        try {    
+        try {  
+            $user=Auth::user()->docteur;
+            $rdv = rdv::where('docteur_id', $user->id)->where('statut','confirmer')->get();  
             return response()->json([
                 'status_code' => 200,
                 'status_message' => 'Voici la liste des rendez-vous confirmés',
-                'rendez-Vous' => rdv::where('statut','confirmer')->get(),
+                'rendez-Vous' => $rdv,
             ]);
         
         } catch (Exception $e) {
@@ -67,7 +76,7 @@ class RdvControlleur extends Controller
         }
     }
     
-    public function store(RdvRequest $request ,  Docteur $Docteur)
+    public function store(RdvRequest $request)
     {
       $user=Auth::user()->client;
         try { 
@@ -77,7 +86,7 @@ class RdvControlleur extends Controller
                 $rdv->heure = $request->heure;
                 $rdv->descriptiondubesoin = $request->descriptiondubesoin; 
                 $rdv->client_id = $user->id;
-                $rdv->docteur_hopitals_id = $request->docteur_hopitals_id; 
+                $rdv->docteur_id = $request->docteur_id; 
                 $rdv->save();
                     return response()->json([
                         'status_code' => 200,
@@ -107,8 +116,9 @@ class RdvControlleur extends Controller
         } 
     }
 
-    public function Statut(rdv $rdv)
-    {
+    public function Statut(rdv $rdv, DocteurHopital $docteurHopital)
+    { 
+        $utilisateur= Auth::user();
         if ($rdv->statut==='en_attente') {
             try {
                // $rdv->update([ 'statut' => 'confirmer',]);
@@ -124,7 +134,7 @@ class RdvControlleur extends Controller
                } 
         }
         
-        elseif($rdv->statut==='confirmer'){
+        elseif($rdv->statut==='confirmer'  && $docteurHopital->utilisateur_id==$utilisateur->id){
             try { 
                 // $rdv->update([
                 //     'statut' => 'annuler',
@@ -146,7 +156,7 @@ class RdvControlleur extends Controller
                 // $rdv->update([
                 //     'statut' => 'Annuler',
                 // ]);
-                $rdv->statut='en_attente';
+                $rdv->statut='annuler'  && $docteurHopital->utilisateur_id==$utilisateur->id;
                 $rdv->save();
                     return response()->json([
                         'status_code' => 200,
@@ -161,6 +171,8 @@ class RdvControlleur extends Controller
     
     public function update(RdvRequest $request, rdv $rdv)
     {
+        $user=Auth::user()->docteur;
+        $rdv = rdv::where('docteur_id', $user->id)->first();
         try {
             $rdv->date = $request->date;
             $rdv->heure = $request->heure;  
@@ -179,6 +191,7 @@ class RdvControlleur extends Controller
 
     public function destroy(rdv $rdv)
     {
+        
         try {
             $rdv->delete();
                 return response()->json([
@@ -191,4 +204,5 @@ class RdvControlleur extends Controller
         }
     }
 
+   
 }

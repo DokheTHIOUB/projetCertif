@@ -24,10 +24,10 @@ class RdvRequest extends FormRequest
     public function rules()
     {
         return [
-            'date' => 'required|date|after:1 week',
-            'heure' => 'required|date_format:H:i:s',
+            'date' => 'required|date|after:1 day ',
+            'heure' => ['required', 'date_format:H:i', 'after_or_equal:08:00', 'before_or_equal:23:00'],
             'descriptiondubesoin' => 'required|string',
-            'docteur_hopitals_id' => 'required|exists:docteur_hopitals,id',
+            'docteur_id' => 'required|exists:docteurs,id',
         ];
     } 
 

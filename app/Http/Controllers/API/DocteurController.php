@@ -11,19 +11,20 @@ use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\UpdateDocteurRequest;
 use App\Http\Requests\RegisterDocteurRequest;
 use App\Http\Requests\FiltreDocteurSpecialiteRequest;
+use App\Models\Specialite;
 
 class DocteurController extends Controller
 {   
 
-    public function filterDocteurparSpecialite(FiltreDocteurSpecialiteRequest $request, Docteur $docteur)
+    public function filterDocteurparSpecialite(Request $request, specialite $specialite)
     {
         try {
-            $filtreSpecialite = $request->input('specialite_id');
+            $filtreSpecialite = $request->input('id', $specialite);
             // $docteur = Docteur::where('specialite_id', 'like', '%' . $filtreSpecialite . '%')->get();
             $docteur = Docteur::where('specialite_id', $filtreSpecialite)->get();
             return response()->json([
                 'status_code' => 200,
-                'status_message' => 'docteur filtrés par localité avec succès',
+                'status_message' => 'docteur filtrés par specialite avec succès',
                 'docteur_filtres' => $docteur,
             ]);
         } catch (Exception $e) {
@@ -85,7 +86,7 @@ class DocteurController extends Controller
         // dd($docteur);
         $data=[];
         foreach($docteurs as $docteur){ 
-        $utilisateur= Utilisateur::where('id',$docteur->utilisateurs_id)->first();
+        $utilisateur= Utilisateur::where('id',$docteur->utilisateur_id)->first();
         $data[]=[
             'id'=>$docteur->id,
             'nom'=>$utilisateur->nom,
@@ -113,7 +114,7 @@ class DocteurController extends Controller
     }
 
 
-    public function registerDocteur(RegisterDocteurRequest$request)
+    public function registerDocteur(RegisterDocteurRequest $request)
     {
         // dd($request->validated());
         // $user = Utilisateur::create([
@@ -148,17 +149,19 @@ class DocteurController extends Controller
         $docteur = Docteur::create([
             'annee_experience' => $request->annee_experience,
             'specialite_id' => $request->specialite_id,
-            'utilisateurs_id' => $user->id,
+            'utilisateur_id' => $user->id,
         ]);
         return response()->json([
             'message' => 'Bonjour docteur',
             'user' => $docteur,
-        ]);
+        ],200);
     }
     
-    public function update(UpdateDocteurRequest $request, Utilisateur $utilisateur, Docteur $docteur)
+    public function update(UpdateDocteurRequest $request)
     {
-        if($docteur->utilisateur_id==$utilisateur->id) {
+        $utilisateur=Auth::user();
+        // dd($docteur);
+        if($utilisateur) {
 
             try {
                 $utilisateur->nom = $request->nom;
@@ -172,7 +175,7 @@ class DocteurController extends Controller
                 $utilisateur->password = Hash::make($request->password);
                 $utilisateur->update();
                 
-                $docteur = Docteur::where('utilisateurs_id', $utilisateur->id)->first();
+                $docteur = Docteur::where('utilisateur_id', $utilisateur->id)->first();
                 $docteur->annee_experience = $request->annee_experience; 
                 $docteur->update();
                 return response()->json([
@@ -190,15 +193,18 @@ class DocteurController extends Controller
     }
 
 
-    public function Statut( Docteur $docteur)
+    public function Statut()
     {  
-        $utilisateur= Auth::user();
-        if ($docteur->statut==='indisponible' && $docteur->utilisateur_id==$utilisateur->id) {
+        $utilisateur= Auth::user()->docteur;
+
+        //dd($docteur);
+        if ($utilisateur->statut==='indisponible' && $utilisateur) {
             try {
-                $docteur->update([
-                    'statut' => 'disponible',
-                ]);
-                $docteur->save();
+                // $docteur->update([
+                //     'statut' => 'disponible',
+                // ]);
+                $utilisateur->statut="disponible";
+                $utilisateur->save();
                 return response()->json([
                     'status_code' => 200,
                     'status_message' => "docteur disponible",
@@ -206,12 +212,13 @@ class DocteurController extends Controller
             } catch (Exception $e) {
                 return response()->json($e);
             } 
-        }elseif($docteur->statut==='disponible' && $docteur->utilisateur_id==$utilisateur->id){
+        }elseif($utilisateur->statut==='disponible' && $utilisateur){
             try {
-                $docteur->update([
-                    'statut' => 'disponible',
-                ]);
-                $docteur->save();
+                // $utilisateur->update([
+                //     'statut' => 'disponible',
+                // ]);
+                $utilisateur->statut="indisponible";
+                $utilisateur->save();
                 return response()->json([
                     'status_code' => 200,
                     'status_message' => "docteur indisponible",

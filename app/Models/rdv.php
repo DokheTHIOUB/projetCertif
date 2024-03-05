@@ -12,8 +12,8 @@ class rdv extends Model
     
     ]; 
 
-    public function docteurHopital(){
-        $this->belongsTo(docteurHopital::class);
+    public function docteur(){
+        $this->belongsTo(Docteur::class);
     } 
 
     public function client(){

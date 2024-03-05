@@ -15,8 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string('nom_hopital');
             $table->string('description');
-            $table->string('lattitude');
-            $table->string('longitude'); 
             $table->string('horaire'); 
             $table->string('image'); 
             $table->foreignId('localite_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
@@ -32,3 +30,4 @@ return new class extends Migration
         Schema::dropIfExists('hopitals');
     }
 };
+

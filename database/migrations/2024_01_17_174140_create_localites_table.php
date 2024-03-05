@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('localites', function (Blueprint $table) {
             $table->id(); 
-            $table->string('nom_localite');
+            $table->string('nom_localite')->unique();
             $table->string('code_postal');  
             $table->foreignId('region_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();

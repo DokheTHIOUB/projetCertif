@@ -60,7 +60,7 @@ class ClientController extends Controller
         $client = $user->client()->create();
         return response()->json([
             'message' => ' Bonjour client ',
-            'user' => $user
+            'user' => $client,
         ]);
     } 
 
@@ -107,13 +107,14 @@ class ClientController extends Controller
 
     public function destroy(Client $Client)
     {
-        try {
-            $Client->delete();
+        try { 
+            $user=Utilisateur::where('id',$Client->utilisateur_id)->first();
+            $user->delete();
 
             return response()->json([
                 'status_code' => 200,
                 'status_message' => 'Le Client a été supprimé',
-                'Client' => $Client
+                'Client' => $user
             ]);
         } catch (Exception $e) {
             return response()->json($e);

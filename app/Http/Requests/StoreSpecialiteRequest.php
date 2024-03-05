@@ -24,7 +24,7 @@ class StoreSpecialiteRequest extends FormRequest
     public function rules()
     {
         return [
-            'nom_specialite' => ['required','string','min:4','max:255','regex:/^[a-zA-Z]+$/' ]
+            'nom_specialite' => ['required','string','unique:specialites,nom_specialite','min:4','max:255','regex:/^[a-zA-Z]+$/', ]
         ];
     }
 

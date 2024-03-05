@@ -7,6 +7,7 @@ use App\Models\Specialite;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use App\Http\Requests\StoreSpecialiteRequest;
+use App\Http\Requests\UpdateSpecialiteRequest;
 
 
 class SpecialiteController extends Controller
@@ -27,7 +28,6 @@ class SpecialiteController extends Controller
 
     public function store(StoreSpecialiteRequest $request)
     {
-        
         $specialite = new Specialite();
         $specialite->nom_specialite = $request->nom_specialite;
         $specialite->save();
@@ -37,14 +37,13 @@ class SpecialiteController extends Controller
                 'status_message' => 'specialite enregistrer',
                 'liste_specialite' => $specialite
             ]);
-
     }
     
-    public function update(StoreSpecialiteRequest $request, specialite $specialite)
+    public function update(UpdateSpecialiteRequest $request, specialite $specialite)
     {
         try {
             $specialite->nom_specialite = $request->nom_specialite;
-            $specialite->save();
+            $specialite->update();
             return response()->json([
                 'status_code' => 200,
                 'status_message' => 'La specialite a été modifié',
