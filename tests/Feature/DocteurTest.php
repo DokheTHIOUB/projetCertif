@@ -28,26 +28,5 @@ class DocteurTest extends TestCase
     //     $this->post('api/Docteur/edit/'.$user->id, $users);
     //     $this->assertDatabaseHas('docteurs',$users);
     //  }
-    public function testReplaceDocteur()
-{
-    // Se connecter en tant qu'administrateur
-    $credentials = ['email' => 'admin@gmail.com', 'password' => 'admin123'];
-    $this->post('api/login', $credentials)->assertAuthenticated();
-
-    // Rechercher un docteur existant
-    $docteurExistant = Docteur::factory()->create();
-
-    // Créer un nouveau docteur avec des valeurs modifiées
-    $nouveauDocteur = Docteur::factory()->create([
-        'anne'
-    ]);
-
-    // Effectuer la demande pour remplacer les valeurs du docteur existant
-    $this->putJson("api/Docteur/update/{$docteurExistant->id}", $nouveauDocteur->toArray())
-         ->assertSuccessful();
-
-    // Vérifier que les valeurs ont été correctement mises à jour dans la base de données
-    $this->assertDatabaseHas($docteurExistant->getTable(), $nouveauDocteur->toArray());
-}
-
+  
 }

@@ -18,10 +18,8 @@ class DocteurFactory extends Factory
     public function definition(): array
     {
         return [
-            'utilisateurs_id'=>Utilisateur::factory()->create()->id,
-            'diplome' => $this->faker->word, 
+            'utilisateur_id'=>Utilisateur::factory()->create()->id,
             'specialite_id' => 2,
-            'numero_licence' => $this->faker->randomNumber(),
             'annee_experience' => $this->faker->numberBetween(1, 30),
             'statut' => $this->faker->randomElement(['disponible', 'indisponible']),
             ];

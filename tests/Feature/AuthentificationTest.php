@@ -55,7 +55,7 @@ public function testRegisterDocteur(){
     public function testLogindocteur(): void
     {
         $user = Docteur::factory()->create();
-        $usertr=Utilisateur::where('id',$user->utilisateurs_id)->first();
+        $usertr=Utilisateur::where('id',$user->utilisateur_id)->first();
         $credentials = ['email' => $usertr->email, 'password' => $usertr->password];
         $response = $this->post('api/login', $credentials);
         $response->assertStatus(200); 
